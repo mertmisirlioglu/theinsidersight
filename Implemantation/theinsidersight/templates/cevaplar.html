@@ -32,6 +32,17 @@
         overflow: hidden;
     }
 
+    .question-post {
+        margin: 15px auto 10px;
+        width: 30vw;
+
+        background: #fff;
+        border-radius: 4px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+        transition: all 0.2s ease-in-out;
+        overflow: hidden;
+    }
+
     .post:hover {
         box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
     }
@@ -236,7 +247,7 @@
 .categories li a {
   display: block;
   color: white;
-  margin-left: 19px;
+  margin-left: 10vw;
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
@@ -261,23 +272,23 @@
             <div id="logo">
                 <img src="logo.png" alt="logo" width="170vh" ; height="170vh">
             </div>
-            <nav class="side-navbar">
+           <nav class="side-navbar">
                 <ul class="mainmenu">
-                    <li><a href="/html/">
+                    <li><a href="anasayfa.html">
                             <i class="fas fa-home"></i>
                             <span>Anasayfa</span></a> </li>
-                    <li> <a href="/css/">
+                    <li> <a href="itiraflar.html">
                             <i class="fas fa-bomb"></i>
                             <span>İtiraflar</a> </li>
-                    <li><a href="/js/">
+                    <li><a href="cevaplar.html">
                             <i class="fas fa-question-circle"></i>
                             <span>Sorular</span>
                         </a> </li>
-                    <li><a href="/jquery/">
+                    <li><a href="siralama.html">
                             <i class="fab fa-avianex"></i>
                             <span>Sıralama</span>
                         </a></li>
-                    <li><a href="/jquery/">
+                    <li><a href="kesfet.html">
                             <i class="fas fa-hashtag"></i>
                             <span>Keşfet</span>
                         </a></li>
@@ -287,12 +298,11 @@
         <div class="content-side">
           <div class="categories">
             <ul>
-            <li><a class="active" href="#home">Aşk</a></li>
-            <li><a href="#news">Dost Kazığı</a></li>
-            <li><a href="#contact">Avcılar</a></li>
-            <li><a href="#about">Civcivler</a></li>
-            <li><a href="#about">Profesyonellik içeren</a></li>
-            <li><a href="#about">Diğer</a></li>
+            <li><a class="active" href="cevaplar.html">Cevaplar</a></li>
+            <li><a href="sorular.html">Sorular</a></li>
+            
+            
+           
             </ul>
           </div>
             <div id="main-window">
@@ -311,9 +321,8 @@
                     </div>
                     <div class="content">
                         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati beatae ipsum aperiam recusandae tempora eos architecto odio, voluptatibus, et fuga veritatis, ratione, magnam laudantium quas accusamus! Ea, maiores! Tenetur, nesciunt.
-                    </div>
-                </div>
-                <div class="post">
+
+                         <div class="post question-post">
                     <div class="user">
                         <div class="user-img"></div>
                         <div class="user-info">
@@ -330,7 +339,26 @@
                         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati beatae ipsum aperiam recusandae tempora eos architecto odio, voluptatibus, et fuga veritatis, ratione, magnam laudantium quas accusamus! Ea, maiores! Tenetur, nesciunt.
                     </div>
                 </div>
-                <div class="post">
+                    </div>
+                </div>
+
+                 <div class="post">
+                    <div class="user">
+                        <div class="user-img"></div>
+                        <div class="user-info">
+                            <div class="user-name">Louis Dickinson</div>
+                            <span class="post-date">Yesterday at 11:49</span>
+                        </div>
+                        <div class="actions">
+                            <span class="heart"></span>
+                            <span class="comment"></span>
+                            <span class="share"></span>
+                        </div>
+                    </div>
+                    <div class="content">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati beatae ipsum aperiam recusandae tempora eos architecto odio, voluptatibus, et fuga veritatis, ratione, magnam laudantium quas accusamus! Ea, maiores! Tenetur, nesciunt.
+
+                         <div class="post question-post">
                     <div class="user">
                         <div class="user-img"></div>
                         <div class="user-info">
@@ -347,7 +375,27 @@
                         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati beatae ipsum aperiam recusandae tempora eos architecto odio, voluptatibus, et fuga veritatis, ratione, magnam laudantium quas accusamus! Ea, maiores! Tenetur, nesciunt.
                     </div>
                 </div>
-                <div class="post">
+                    </div>
+                </div>
+
+
+                 <div class="post">
+                    <div class="user">
+                        <div class="user-img"></div>
+                        <div class="user-info">
+                            <div class="user-name">Louis Dickinson</div>
+                            <span class="post-date">Yesterday at 11:49</span>
+                        </div>
+                        <div class="actions">
+                            <span class="heart"></span>
+                            <span class="comment"></span>
+                            <span class="share"></span>
+                        </div>
+                    </div>
+                    <div class="content">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati beatae ipsum aperiam recusandae tempora eos architecto odio, voluptatibus, et fuga veritatis, ratione, magnam laudantium quas accusamus! Ea, maiores! Tenetur, nesciunt.
+
+                         <div class="post question-post">
                     <div class="user">
                         <div class="user-img"></div>
                         <div class="user-info">
@@ -364,57 +412,9 @@
                         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati beatae ipsum aperiam recusandae tempora eos architecto odio, voluptatibus, et fuga veritatis, ratione, magnam laudantium quas accusamus! Ea, maiores! Tenetur, nesciunt.
                     </div>
                 </div>
-                <div class="post">
-                    <div class="user">
-                        <div class="user-img"></div>
-                        <div class="user-info">
-                            <div class="user-name">Louis Dickinson</div>
-                            <span class="post-date">Yesterday at 11:49</span>
-                        </div>
-                        <div class="actions">
-                            <span class="heart"></span>
-                            <span class="comment"></span>
-                            <span class="share"></span>
-                        </div>
-                    </div>
-                    <div class="content">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati beatae ipsum aperiam recusandae tempora eos architecto odio, voluptatibus, et fuga veritatis, ratione, magnam laudantium quas accusamus! Ea, maiores! Tenetur, nesciunt.
                     </div>
                 </div>
-                <div class="post">
-                    <div class="user">
-                        <div class="user-img"></div>
-                        <div class="user-info">
-                            <div class="user-name">Louis Dickinson</div>
-                            <span class="post-date">Yesterday at 11:49</span>
-                        </div>
-                        <div class="actions">
-                            <span class="heart"></span>
-                            <span class="comment"></span>
-                            <span class="share"></span>
-                        </div>
-                    </div>
-                    <div class="content">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati beatae ipsum aperiam recusandae tempora eos architecto odio, voluptatibus, et fuga veritatis, ratione, magnam laudantium quas accusamus! Ea, maiores! Tenetur, nesciunt.
-                    </div>
-                </div>
-                <div class="post">
-                    <div class="user">
-                        <div class="user-img"></div>
-                        <div class="user-info">
-                            <div class="user-name">Louis Dickinson</div>
-                            <span class="post-date">Yesterday at 11:49</span>
-                        </div>
-                        <div class="actions">
-                            <span class="heart"></span>
-                            <span class="comment"></span>
-                            <span class="share"></span>
-                        </div>
-                    </div>
-                    <div class="content">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati beatae ipsum aperiam recusandae tempora eos architecto odio, voluptatibus, et fuga veritatis, ratione, magnam laudantium quas accusamus! Ea, maiores! Tenetur, nesciunt.
-                    </div>
-                </div>
+                
             </div>
         </div>
     </div>
