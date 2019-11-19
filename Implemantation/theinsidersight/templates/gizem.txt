@@ -1,0 +1,6 @@
+1- Adminde kullanıcılar sayfasının content kısmını dersteki yaptığınla güncelle.
+1.1- Görüntüle kısmından profile linkle.
+2- Kendi yaptığın sayfaları benim düzenlediğim gibi css'i link edip kodu temizle.
+3- Top Side'daki menüde her sayfadaki profili bağla. 
+4- Kendi linkleme işlemlerini bitir.
+5- templates klasörüne geçir htmllerini.
