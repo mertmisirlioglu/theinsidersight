@@ -11,13 +11,8 @@ body {
     
     font-size: 18px;
     display:block;
-<<<<<<< Updated upstream:Implemantation/theinsidersight/templates/admin/style.css
-    background-color:red;
-    height: 100vh;
-=======
     background-color:beige;
-    height: 100vh
->>>>>>> Stashed changes:Implemantation/Project Parts/Part3/registercss.css
+    height: 100vh;
 }
 
 #logo{
