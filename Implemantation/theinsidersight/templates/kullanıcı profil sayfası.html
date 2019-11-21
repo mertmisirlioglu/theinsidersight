@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    <link rel="stylesheet" type="text/css" href="profile2.css">
     <meta charset="UTF-8">
     <title>The Insider Sight</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -24,7 +25,8 @@
     .post {
         margin: 15px auto 10px;
         width: 40vw;
-
+        position: relative;
+        top: 90px;
         background: #fff;
         border-radius: 4px;
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
@@ -37,12 +39,10 @@
     }
 
     .post .user {
+
         padding: 10px;
-        background:#FAEBD7;
+        background: #f9f9f9;
         overflow: hidden;
-    }
-    .content{
-    background:#FAEBD7;	
     }
 
     .post .user .user-img {
@@ -86,7 +86,7 @@
         background-position: 50% 50%;
         background-repeat: no-repeat;
         opacity: 0.2;
-        transition: 0.25s opacity ease-in-out;
+       
     }
 
     .post .user .actions span:hover {
@@ -113,9 +113,11 @@
     .post .content {
         padding: 20px;
         font-size: 16px;
-        line-height: 23px;
+        line-height: 22px;
         font-family: 'Helvetica Neue';
         overflow: hidden;
+        position: relative;
+
     }
 
     .post .media {
@@ -124,7 +126,7 @@
 
     .post .media img {
         border-radius: 4px;
-        width: 103%;
+        width: 100%;
     }
 
     .post .media iframe {
@@ -140,6 +142,8 @@
         list-style: none;
         padding: 0;
         margin: 0;
+        position: relative;
+        top:5px;
     }
 
     .mainmenu a {
@@ -156,14 +160,9 @@
         padding: 10px;
         color: #D3D3D3;
     }
-
-    .top-side a:hover {
-        transition: color 0.5s ease;
-        color: black;
-        opacity: 0.6
-    }
-
-    .side-navbar {}
+ 
+    
+   
 
     .wide-container {
         margin: 30px;
@@ -188,7 +187,7 @@
     }
 
     .mainmenu span:hover {
-        transition: display 2s ease;
+        
         display: none;
     }
 
@@ -196,22 +195,13 @@
 
     .top-side {
         position: fixed;
-        display: block;
        
-        top:35px;
+        border: 2px solid red;
+        top:75px;
         right: 15vw;
         display: block;
+        padding: 1vh;
         
-        z-index: 1
-    }
-
-    .top-menu{
-         border: 2px solid red;
-         padding: 1vh;
-    }
-    
-    .admin-navbar{
-    margin-top: 150px;
     }
 
 
@@ -222,7 +212,7 @@
         top: 10px;
 
 
-        width: 42vw;
+        width: 40vw;
     }
 
   .categories{
@@ -231,7 +221,7 @@
       border-radius: 4px;
       top: 0;
       z-index: 1;
-
+      top:60px;
   }
 
   .categories  ul {
@@ -239,8 +229,7 @@
   margin: 0;
   padding: 0;
   overflow: hidden;
-
-  background-color: #000000;
+  background-color: #333;
 }
 
 .categories li {
@@ -256,104 +245,55 @@
   text-decoration: none;
 }
 
+
 .categories li a:hover {
   background-color: #111;
 }
-
-.place{
-    padding-right: 30px;
-    }
-    #logo{
-        position: relative;
-        top:-35px;
-    }
-    .top-side{
-
-        
-        
-        top: 50px;
-    }
-    #bid{
-position: relative;
-    left: 505px;
-     border-radius: 20px;
-     top:5px;
-
-    }
-    #bid:hover{
-    	background-color: #660000;
-    }
-    #main-window{
-top: 80px;
-
-    }
-
     </style>
-
 </head>
 
 <body>
-    <script>
-        
-        function go(){
-         window.open("../sorular.html")
-        }
-    </script>
     <div class="wide-container">
         <div class="top-side">
-            <nav class="admin-navbar">
-                <ul class="mainmenu">
-                    
-                    <li> <a href="itiraflar-admin.html">
-                            <i class="fas fa-bomb"></i>
-                            <span>İtiraflar</a> </li>
-                    <li><a href="sorular-admin.html">
-                            <i class="fas fa-question-circle"></i>
-                            <span>Sorular</span>
-                        </a> </li>
-                    <li><a href="takipçiler admin.html">
-                            <i class="fas fa-users"></i>
-                            <span>Kullanıcılar</span>
-                        </a></li>
-
-                        <li><a href="login-admin.html">
-                            <i class="fas fa-eye-slash"></i> 
-                            <span>Çıkış Yap</span>
-                        </a></li>
-                </ul>
+            <nav>
+                <a href="kullanıcı profil sayfası.html"><i class="far fa-user"></i> </a>
+                <a href="/css/"><i class="far fa-bell"></i></a>
+                <a href="login.html"><i class="fas fa-eye-slash"></i> </a>
             </nav>
         </div>
         <div class="left-side">
             <div id="logo">
-                <img src="../logo.png" alt="logo" width="170vh" ; height="170vh">
+                <img src="logo.png" alt="logo" width="170vh" ; height="170vh">
             </div>
-            <nav class="side-navbar">
+          <nav class="side-navbar">
                 <ul class="mainmenu">
-                    <li><a href="/html/">
+                    <li><a href="anasayfa.html">
                             <i class="fas fa-home"></i>
                             <span>Anasayfa</span></a> </li>
-                    <li> <a href="/css/">
+                    <li> <a href="itiraflar.html">
                             <i class="fas fa-bomb"></i>
                             <span>İtiraflar</a> </li>
-                    <li><a href="/js/">
+                    <li><a href="cevaplar.html">
                             <i class="fas fa-question-circle"></i>
                             <span>Sorular</span>
                         </a> </li>
-                    <li><a href="/jquery/">
+                    <li><a href="siralama.html">
                             <i class="fab fa-avianex"></i>
                             <span>Sıralama</span>
                         </a></li>
-                    <li><a href="/jquery/">
+                    <li><a href="kesfet.html">
                             <i class="fas fa-hashtag"></i>
                             <span>Keşfet</span>
                         </a></li>
                 </ul>
             </nav>
         </div>
+
+
         <div class="content-side">
-          <div class="categories" >
-            <ul >
-            <li><a class="active" href="#home">Aşk</a></li>
+          <div class="categories">
+            <ul>
+            <li><a class="active" href="itiraflar.html">Aşk</a></li>
             <li><a href="#news">Dost Kazığı</a></li>
             <li><a href="#contact">Avcılar</a></li>
             <li><a href="#about">Civcivler</a></li>
@@ -361,28 +301,142 @@ top: 80px;
             <li><a href="#about">Diğer</a></li>
             </ul>
           </div>
-            <div id="main-window">
-                <div class="post">
+           <div class="içindekiler">
+            <div class="pbar">
+                <img src="https://us.123rf.com/450wm/2nix/2nix1408/2nix140800099/30818272-anoniem-avatar-profiel-icoon-vector-.jpg?ver=6" alt="Profil Fotoğrafı" id="fotoğraf" >
+                
+               <div  class="bilgiler" >
+            <p>Louis , 25 <br> Bilgisayar Mühendisliği</p>
+            </div>
+            <div class="thebar">
+             <a style="color: white;" href="takip.html"><i style="color: white;">Takip Ettikleri:400</i></a>
+             <br>
+             <br>
+             <a style="color: white;"href="takip.html"><i style="color: white;">Takipçileri:200</i></a>	
+	
+
+            </div>
+            </div>
+<div class="post">
                     <div class="user">
                         <div class="user-img"></div>
                         <div class="user-info">
-                            <div  style="font-weight: bold; color:#660000;" class="user-name">Admin:Luois</div>
-                            
+                            <div class="user-name">Louis Dickinson</div>
+                            <span class="post-date">Yesterday at 11:49</span>
+
                         </div>
                        
                     </div>
                     <div class="content">
-                        <form>
-                        	<textarea style="background-color:	#FFFAF0; color:#660000;  font-weight:bold;" name="message" rows="5" cols="75" style="clor:red">Soruyu buraya yaz...  </textarea> 
-                            <br>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati beatae ipsum aperiam recusandae tempora eos architecto odio, voluptatibus, et fuga veritatis, ratione, magnam laudantium quas accusamus! Ea, maiores! Tenetur, nesciunt. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati beatae ipsum aperiam recusandae tempora eos architecto odio, voluptatibus, et fuga veritatis, ratione, magnam laudantium quas accusamus! Ea, maiores! Tenetur, nesciunt.
+                        <br>
+                        
+                    <div class="user" style="background-color: beige ">
+                        <div class="user-img"></div>
+                        <div class="user-info">
+                            <div class="user-name">Abraham</div>
+                            <span class="post-date">Yesterday at 11:49</span>
+                        </div>
+                        <div class="place">
+                        <div class="actions">
+                            <span class="heart"></span>
+                            <span class="comment"></span>
+                            
+                        </div>
+                        </div>
+                    </div>
 
-                        	<input type="submit" name="submit" value="Paylaş" id="bid" onclick="go();">
-                        </form>
+                    <div class="yorum" style="background-color: beige ">
+                        Lorem ipsum dolor sit amet,e, magnam laudantium quas accusamus! Ea, maiores! Tenetur, nesciunt.
+                        
+                        
+                    </div>
+                    <br>
 
-                    
+                     <div class="user" style="background-color: beige ">
+                        <div class="user-img"></div>
+                        <div class="user-info">
+                            <div class="user-name">Abraham</div>
+                            <span class="post-date">Yesterday at 11:49</span>
+                        </div>
+                        <div class="place">
+                        <div class="actions">
+                            <span class="heart"></span>
+                            <span class="comment"></span>
+                            
+                        </div>
+                        </div>
+                    </div>
+
+                    <div class="yorum" style="background-color: beige ">
+                        Lorem ipsum dolor sit amet,e, magnam laudantium quas accusamus! Ea, maiores! Tenetur, nesciunt.
+                        
+                        
+                    </div>
+                   
                     
                 </div>
-                
+
+        </div>
+        <div class="post">
+                    <div class="user">
+                        <div class="user-img"></div>
+                        <div class="user-info">
+                            <div class="user-name">Louis Dickinson</div>
+                            <span class="post-date">Yesterday at 11:49</span>
+                        </div>
+                       
+                    </div>
+                    <div class="content">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati beatae ipsum aperiam recusandae tempora eos architecto odio, voluptatibus, et fuga veritatis, ratione, magnam laudantium quas accusamus! Ea, maiores! Tenetur, nesciunt. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati beatae ipsum aperiam recusandae tempora eos architecto odio, voluptatibus, et fuga veritatis, ratione, magnam laudantium quas accusamus! Ea, maiores! Tenetur, nesciunt.
+                        <br>
+                        
+                    <div class="user" style="background-color: beige ">
+                        <div class="user-img"></div>
+                        <div class="user-info">
+                            <div class="user-name">Abraham</div>
+                            <span class="post-date">Yesterday at 11:49</span>
+                        </div>
+                        <div class="place">
+                        <div class="actions">
+                            <span class="heart"></span>
+                            <span class="comment"></span>
+                            
+                        </div>
+                        </div>
+                    </div>
+
+                    <div class="yorum" style="background-color: beige ">
+                        Lorem ipsum dolor sit amet,e, magnam laudantium quas accusamus! Ea, maiores! Tenetur, nesciunt.
+                        
+                        
+                    </div>
+                    <br>
+
+                     <div class="user" style="background-color: beige ">
+                        <div class="user-img"></div>
+                        <div class="user-info">
+                            <div class="user-name">Abraham</div>
+                            <span class="post-date">Yesterday at 11:49</span>
+                        </div>
+                        <div class="place">
+                        <div class="actions">
+                            <span class="heart"></span>
+                            <span class="comment"></span>
+                            
+                        </div>
+                        </div>
+                    </div>
+
+                    <div class="yorum" style="background-color: beige ">
+                        Lorem ipsum dolor sit amet,e, magnam laudantium quas accusamus! Ea, maiores! Tenetur, nesciunt.
+                        
+                        
+                    </div>
+                   
+                    
+                </div>
+
         </div>
     </div>
 </body>

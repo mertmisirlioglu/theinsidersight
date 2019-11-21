@@ -186,15 +186,24 @@
 
 
 
-    .top-side {
+     .top-side {
         position: fixed;
         display: block;
-        border: 2px solid red;
-        top:80px;
+       
+        top:35px;
         right: 15vw;
         display: block;
-        padding: 1vh;
+        
         z-index: 1
+    }
+
+    .top-menu{
+         border: 2px solid red;
+         padding: 1vh;
+    }
+    
+    .admin-navbar{
+    margin-top: 150px;
     }
 
 
@@ -248,30 +257,66 @@
         position: relative;
         top:-35px;
     }
-    i{
+    .post .user i{
         position: relative;
         top:-10px;
+        padding-left: 10px;
         color: black;
          left:395px;
          font-size: 15px;
          font-weight: bold;
     }
+    .user-menu{
+        margin-left: 60px;
+    }
+
+
     </style>
 
 </head>
 
 <body>
+    <script>
+        function alarm(){
+            
+            alert("Kullanıcı Engellendi");
+
+        }
+           function alarm2(){
+            
+            alert("Kullanıcı silindi");
+
+        }
+        
+
+    </script>
     <div class="wide-container">
         <div class="top-side">
-            <nav>
-                <a href="/html/"><i class="far fa-user"></i> </a>
-                <a href="/css/"><i class="far fa-bell"></i></a>
-                <a href="/js/"><i class="fas fa-eye-slash"></i> </a>
+            <nav class="admin-navbar">
+                <ul class="mainmenu">
+                    
+                    <li> <a href="itiraflar-admin.html">
+                            <i class="fas fa-bomb"></i>
+                            <span>İtiraflar</a> </li>
+                    <li><a href="sorular-admin.html">
+                            <i class="fas fa-question-circle"></i>
+                            <span>Sorular</span>
+                        </a> </li>
+                    <li><a href="kullanicilar-admin.html">
+                            <i class="fas fa-users"></i>
+                            <span>Kullanıcılar</span>
+                        </a></li>
+
+                        <li><a href="kullanicilar-admin.html">
+                            <i class="fas fa-eye-slash"></i> 
+                            <span>Çıkış Yap</span>
+                        </a></li>
+                </ul>
             </nav>
         </div>
         <div class="left-side">
             <div id="logo">
-                <img src="logo.png" alt="logo" width="170vh" ; height="170vh">
+                <img src="../logo.png" alt="logo" width="170vh" ; height="170vh">
             </div>
             <nav class="side-navbar">
                 <ul class="mainmenu">
@@ -313,10 +358,11 @@
                         <div class="user-img"></div>
                         <div class="user-info">
                             <div class="user-name">Louis </div>
-
-                           <a href="profile.html"><i>Görüntüle</i></a> 
-                           <a href="profile.html"><i>Sil</i></a> 
-                           <a id="engellebuton" href="profile.html"><i>Engelle</i></a> 
+                            <div class="user-menu">
+                           <a href="../profile.html"><i>Görüntüle</i></a> 
+                           <a href="#" onclick="alarm2();"><i>Sil</i></a> 
+                           <a id="engellebuton" href="#" onclick="alarm();"><i>Engelle</i></a>
+                           </div> 
                         </div>
                        
                     </div>
@@ -328,121 +374,11 @@
                         <div class="user-img"></div>
                         <div class="user-info">
                             <div class="user-name">Samager </div>
-                            <a href="profile.html"><i>Görüntüle</i></a> 
-                           <a href="profile.html"><i>Sil</i></a> 
-                           <a id="engellebuton" href="profile.html"><i>Engelle</i></a>
-                        </div>
-                       
-                    </div>
-                    
-                
-        </div>
-        <div class="post">
-                    <div class="user">
-                        <div class="user-img"></div>
-                        <div class="user-info">
-                            <div class="user-name">..... </div>
-                             <a href="profile.html"><i>Görüntüle</i></a> 
-                           <a href="profile.html"><i>Sil</i></a> 
-                           <a id="engellebuton" href="profile.html"><i>Engelle</i></a>
-                        </div>
-                       
-                    </div>
-                    
-                
-        </div>
-        <div class="post">
-                    <div class="user">
-                        <div class="user-img"></div>
-                        <div class="user-info">
-                            <div class="user-name">..... </div>
-                           <a href="profile.html"><i>Görüntüle</i></a> 
-                           <a href="profile.html"><i>Sil</i></a> 
-                           <a id="engellebuton" href="profile.html"><i>Engelle</i></a> 
-                        </div>
-                       
-                    </div>
-                    
-                
-        </div>
-        <div class="post">
-                    <div class="user">
-                        <div class="user-img"></div>
-                        <div class="user-info">
-                            <div class="user-name">.... </div>
-                            <a href="profile.html"><i>Görüntüle</i></a> 
-                           <a href="profile.html"><i>Sil</i></a> 
-                           <a id="engellebuton" href="profile.html"><i>Engelle</i></a> 
-                        </div>
-                       
-                    </div>
-                    
-                
-        </div>
-        <div class="post">
-                    <div class="user">
-                        <div class="user-img"></div>
-                        <div class="user-info">
-                            <div class="user-name">....</div>
-                            <a href="profile.html"><i>Görüntüle</i></a> 
-                           <a href="profile.html"><i>Sil</i></a> 
-                           <a id="engellebuton" href="profile.html"><i>Engelle</i></a> 
-                        </div>
-                       
-                    </div>
-                    
-                
-        </div>
-        <div class="post">
-                    <div class="user">
-                        <div class="user-img"></div>
-                        <div class="user-info">
-                            <div class="user-name">.... </div>
-                             <a href="profile.html"><i>Görüntüle</i></a> 
-                           <a href="profile.html"><i>Sil</i></a> 
-                           <a id="engellebuton" href="profile.html"><i>Engelle</i></a>
-                        </div>
-                       
-                    </div>
-                    
-                
-        </div>
-        <div class="post">
-                    <div class="user">
-                        <div class="user-img"></div>
-                        <div class="user-info">
-                            <div class="user-name">.... </div>
-                             <a href="profile.html"><i>Görüntüle</i></a> 
-                           <a href="profile.html"><i>Sil</i></a> 
-                           <a id="engellebuton" href="profile.html"><i>Engelle</i></a>
-                        </div>
-                       
-                    </div>
-                    
-                
-        </div>
-        <div class="post">
-                    <div class="user">
-                        <div class="user-img"></div>
-                        <div class="user-info">
-                            <div class="user-name">.... </div>
-                          <a href="profile.html"><i>Görüntüle</i></a> 
-                           <a href="profile.html"><i>Sil</i></a> 
-                           <a id="engellebuton" href="profile.html"><i>Engelle</i></a>
-                        </div>
-                      
-                    </div>
-                    
-                
-        </div>
-        <div class="post">
-                    <div class="user">
-                        <div class="user-img"></div>
-                        <div class="user-info">
-                            <div class="user-name">..... </div>
+                            <div class="user-menu">
                            <a href="profile.html"><i>Görüntüle</i></a> 
                            <a href="profile.html"><i>Sil</i></a> 
                            <a id="engellebuton" href="profile.html"><i>Engelle</i></a>
+                           </div> 
                         </div>
                        
                     </div>
@@ -454,9 +390,27 @@
                         <div class="user-img"></div>
                         <div class="user-info">
                             <div class="user-name">..... </div>
+                           <div class="user-menu">
                            <a href="profile.html"><i>Görüntüle</i></a> 
                            <a href="profile.html"><i>Sil</i></a> 
                            <a id="engellebuton" href="profile.html"><i>Engelle</i></a>
+                           </div> 
+                        </div>
+                       
+                    </div>
+                    
+                
+        </div>
+       <div class="post">
+                    <div class="user">
+                        <div class="user-img"></div>
+                        <div class="user-info">
+                            <div class="user-name">..... </div>
+                           <div class="user-menu">
+                           <a href="profile.html"><i>Görüntüle</i></a> 
+                           <a href="profile.html"><i>Sil</i></a> 
+                           <a id="engellebuton" href="profile.html"><i>Engelle</i></a>
+                           </div> 
                         </div>
                        
                     </div>
@@ -468,9 +422,123 @@
                         <div class="user-img"></div>
                         <div class="user-info">
                             <div class="user-name">..... </div>
-                        <a href="profile.html"><i>Görüntüle</i></a> 
+                           <div class="user-menu">
+                           <a href="profile.html"><i>Görüntüle</i></a> 
                            <a href="profile.html"><i>Sil</i></a> 
                            <a id="engellebuton" href="profile.html"><i>Engelle</i></a>
+                           </div> 
+                        </div>
+                       
+                    </div>
+                    
+                
+        </div>
+        <div class="post">
+                    <div class="user">
+                        <div class="user-img"></div>
+                        <div class="user-info">
+                            <div class="user-name">..... </div>
+                           <div class="user-menu">
+                           <a href="profile.html"><i>Görüntüle</i></a> 
+                           <a href="profile.html"><i>Sil</i></a> 
+                           <a id="engellebuton" href="profile.html"><i>Engelle</i></a>
+                           </div> 
+                        </div>
+                       
+                    </div>
+                    
+                
+        </div>
+       <div class="post">
+                    <div class="user">
+                        <div class="user-img"></div>
+                        <div class="user-info">
+                            <div class="user-name">..... </div>
+                           <div class="user-menu">
+                           <a href="profile.html"><i>Görüntüle</i></a> 
+                           <a href="profile.html"><i>Sil</i></a> 
+                           <a id="engellebuton" href="profile.html"><i>Engelle</i></a>
+                           </div> 
+                        </div>
+                       
+                    </div>
+                    
+                
+        </div>
+       <div class="post">
+                    <div class="user">
+                        <div class="user-img"></div>
+                        <div class="user-info">
+                            <div class="user-name">..... </div>
+                           <div class="user-menu">
+                           <a href="profile.html"><i>Görüntüle</i></a> 
+                           <a href="profile.html"><i>Sil</i></a> 
+                           <a id="engellebuton" href="profile.html"><i>Engelle</i></a>
+                           </div> 
+                        </div>
+                       
+                    </div>
+                    
+                
+        </div>
+        <div class="post">
+                    <div class="user">
+                        <div class="user-img"></div>
+                        <div class="user-info">
+                            <div class="user-name">..... </div>
+                           <div class="user-menu">
+                           <a href="profile.html"><i>Görüntüle</i></a> 
+                           <a href="profile.html"><i>Sil</i></a> 
+                           <a id="engellebuton" href="profile.html"><i>Engelle</i></a>
+                           </div> 
+                        </div>
+                       
+                    </div>
+                    
+                
+        </div>
+        <div class="post">
+                    <div class="user">
+                        <div class="user-img"></div>
+                        <div class="user-info">
+                            <div class="user-name">..... </div>
+                           <div class="user-menu">
+                           <a href="profile.html"><i>Görüntüle</i></a> 
+                           <a href="profile.html"><i>Sil</i></a> 
+                           <a id="engellebuton" href="profile.html"><i>Engelle</i></a>
+                           </div> 
+                        </div>
+                       
+                    </div>
+                    
+                
+        </div>
+        <div class="post">
+                    <div class="user">
+                        <div class="user-img"></div>
+                        <div class="user-info">
+                            <div class="user-name">..... </div>
+                           <div class="user-menu">
+                           <a href="profile.html"><i>Görüntüle</i></a> 
+                           <a href="profile.html"><i>Sil</i></a> 
+                           <a id="engellebuton" href="profile.html"><i>Engelle</i></a>
+                           </div> 
+                        </div>
+                       
+                    </div>
+                    
+                
+        </div>
+        <div class="post">
+                    <div class="user">
+                        <div class="user-img"></div>
+                        <div class="user-info">
+                            <div class="user-name">..... </div>
+                           <div class="user-menu">
+                           <a href="profile.html"><i>Görüntüle</i></a> 
+                           <a href="profile.html"><i>Sil</i></a> 
+                           <a id="engellebuton" href="profile.html"><i>Engelle</i></a>
+                           </div> 
                         </div>
                        
                     </div>
@@ -478,42 +546,48 @@
                 
         </div>
 
+       <div class="post">
+                    <div class="user">
+                        <div class="user-img"></div>
+                        <div class="user-info">
+                            <div class="user-name">..... </div>
+                           <div class="user-menu">
+                           <a href="profile.html"><i>Görüntüle</i></a> 
+                           <a href="profile.html"><i>Sil</i></a> 
+                           <a id="engellebuton" href="profile.html"><i>Engelle</i></a>
+                           </div> 
+                        </div>
+                       
+                    </div>
+                    
+                
+        </div>
         <div class="post">
                     <div class="user">
                         <div class="user-img"></div>
                         <div class="user-info">
                             <div class="user-name">..... </div>
-                            <a href="profile.html"><i>Görüntüle</i></a> 
+                           <div class="user-menu">
+                           <a href="profile.html"><i>Görüntüle</i></a> 
                            <a href="profile.html"><i>Sil</i></a> 
                            <a id="engellebuton" href="profile.html"><i>Engelle</i></a>
+                           </div> 
                         </div>
                        
                     </div>
                     
                 
         </div>
-        <div class="post">
+       <div class="post">
                     <div class="user">
                         <div class="user-img"></div>
                         <div class="user-info">
-                            <div class="user-name">Louis </div>
-                         <a href="profile.html"><i>Görüntüle</i></a> 
+                            <div class="user-name">..... </div>
+                           <div class="user-menu">
+                           <a href="profile.html"><i>Görüntüle</i></a> 
                            <a href="profile.html"><i>Sil</i></a> 
                            <a id="engellebuton" href="profile.html"><i>Engelle</i></a>
-                        </div>
-                       
-                    </div>
-                    
-                
-        </div>
-        <div class="post">
-                    <div class="user">
-                        <div class="user-img"></div>
-                        <div class="user-info">
-                            <div class="user-name">Louis </div>
-                          <a href="profile.html"><i>Görüntüle</i></a> 
-                           <a href="profile.html"><i>Sil</i></a> 
-                           <a id="engellebuton" href="profile.html"><i>Engelle</i></a>
+                           </div> 
                         </div>
                        
                     </div>

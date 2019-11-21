@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    <link rel="stylesheet" type="text/css" href="profile.css">
     <meta charset="UTF-8">
     <title>The Insider Sight</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -38,11 +39,8 @@
 
     .post .user {
         padding: 10px;
-        background:#FAEBD7;
+        background: #f9f9f9;
         overflow: hidden;
-    }
-    .content{
-    background:#FAEBD7;	
     }
 
     .post .user .user-img {
@@ -113,7 +111,7 @@
     .post .content {
         padding: 20px;
         font-size: 16px;
-        line-height: 23px;
+        line-height: 22px;
         font-family: 'Helvetica Neue';
         overflow: hidden;
     }
@@ -124,7 +122,7 @@
 
     .post .media img {
         border-radius: 4px;
-        width: 103%;
+        width: 100%;
     }
 
     .post .media iframe {
@@ -197,21 +195,12 @@
     .top-side {
         position: fixed;
         display: block;
-       
+        border: 2px solid red;
         top:35px;
         right: 15vw;
         display: block;
-        
+        padding: 1vh;
         z-index: 1
-    }
-
-    .top-menu{
-         border: 2px solid red;
-         padding: 1vh;
-    }
-    
-    .admin-navbar{
-    margin-top: 150px;
     }
 
 
@@ -222,7 +211,7 @@
         top: 10px;
 
 
-        width: 42vw;
+        width: 40vw;
     }
 
   .categories{
@@ -231,7 +220,6 @@
       border-radius: 4px;
       top: 0;
       z-index: 1;
-
   }
 
   .categories  ul {
@@ -239,8 +227,7 @@
   margin: 0;
   padding: 0;
   overflow: hidden;
-
-  background-color: #000000;
+  background-color: #333;
 }
 
 .categories li {
@@ -259,130 +246,75 @@
 .categories li a:hover {
   background-color: #111;
 }
-
-.place{
-    padding-right: 30px;
-    }
-    #logo{
-        position: relative;
-        top:-35px;
-    }
-    .top-side{
-
-        
-        
-        top: 50px;
-    }
-    #bid{
-position: relative;
-    left: 505px;
-     border-radius: 20px;
-     top:5px;
-
-    }
-    #bid:hover{
-    	background-color: #660000;
-    }
-    #main-window{
-top: 80px;
-
-    }
-
     </style>
-
 </head>
 
 <body>
-    <script>
-        
-        function go(){
-         window.open("../sorular.html")
-        }
-    </script>
     <div class="wide-container">
         <div class="top-side">
-            <nav class="admin-navbar">
-                <ul class="mainmenu">
-                    
-                    <li> <a href="itiraflar-admin.html">
-                            <i class="fas fa-bomb"></i>
-                            <span>İtiraflar</a> </li>
-                    <li><a href="sorular-admin.html">
-                            <i class="fas fa-question-circle"></i>
-                            <span>Sorular</span>
-                        </a> </li>
-                    <li><a href="takipçiler admin.html">
-                            <i class="fas fa-users"></i>
-                            <span>Kullanıcılar</span>
-                        </a></li>
-
-                        <li><a href="login-admin.html">
-                            <i class="fas fa-eye-slash"></i> 
-                            <span>Çıkış Yap</span>
-                        </a></li>
-                </ul>
+            <nav>
+               <a href="kullanıcı profil sayfası.html"><i class="far fa-user"></i> </a>
+                <a href="/css/"><i class="far fa-bell"></i></a>
+                <a href="login.html"><i class="fas fa-eye-slash"></i> </a>
             </nav>
         </div>
         <div class="left-side">
             <div id="logo">
-                <img src="../logo.png" alt="logo" width="170vh" ; height="170vh">
+                <img src="logo.png" alt="logo" width="170vh" ; height="170vh">
             </div>
-            <nav class="side-navbar">
+              <nav class="side-navbar">
                 <ul class="mainmenu">
-                    <li><a href="/html/">
+                    <li><a href="anasayfa.html">
                             <i class="fas fa-home"></i>
                             <span>Anasayfa</span></a> </li>
-                    <li> <a href="/css/">
+                    <li> <a href="itiraflar.html">
                             <i class="fas fa-bomb"></i>
                             <span>İtiraflar</a> </li>
-                    <li><a href="/js/">
+                    <li><a href="cevaplar.html">
                             <i class="fas fa-question-circle"></i>
                             <span>Sorular</span>
                         </a> </li>
-                    <li><a href="/jquery/">
+                    <li><a href="siralama.html">
                             <i class="fab fa-avianex"></i>
                             <span>Sıralama</span>
                         </a></li>
-                    <li><a href="/jquery/">
+                    <li><a href="kesfet.html">
                             <i class="fas fa-hashtag"></i>
                             <span>Keşfet</span>
                         </a></li>
                 </ul>
             </nav>
         </div>
+
+
         <div class="content-side">
-          <div class="categories" >
-            <ul >
-            <li><a class="active" href="#home">Aşk</a></li>
-            <li><a href="#news">Dost Kazığı</a></li>
-            <li><a href="#contact">Avcılar</a></li>
-            <li><a href="#about">Civcivler</a></li>
-            <li><a href="#about">Profesyonellik içeren</a></li>
-            <li><a href="#about">Diğer</a></li>
+          <div class="categories">
+            <ul>
+                <li><a href="#about">Postlarım</a></li>
+            <li><a class="active" href="#home">Takip Ettiklerim</a></li>
+            <li><a href="#news">Takipçiler</a></li>
+            <li><a href="#about">Bilgilerim</a></li>
+            
             </ul>
+            
           </div>
-            <div id="main-window">
-                <div class="post">
-                    <div class="user">
-                        <div class="user-img"></div>
-                        <div class="user-info">
-                            <div  style="font-weight: bold; color:#660000;" class="user-name">Admin:Luois</div>
-                            
-                        </div>
-                       
-                    </div>
-                    <div class="content">
-                        <form>
-                        	<textarea style="background-color:	#FFFAF0; color:#660000;  font-weight:bold;" name="message" rows="5" cols="75" style="clor:red">Soruyu buraya yaz...  </textarea> 
-                            <br>
-
-                        	<input type="submit" name="submit" value="Paylaş" id="bid" onclick="go();">
-                        </form>
-
-                    
-                    
-                </div>
+           <div class="içindekiler">
+            
+                <img src="https://us.123rf.com/450wm/2nix/2nix1408/2nix140800099/30818272-anoniem-avatar-profiel-icoon-vector-.jpg?ver=6" alt="Profil Fotoğrafı" id="fotoğraf" >
                 
+               <div class="bilgiler">
+            <p>Kullanıcı Adı:</p>
+            <hr>
+      <p>Email:</p>
+      <hr>
+      <p>Yaş:</p> 
+      <hr>
+       <p>Üniversite:</p> 
+       <hr>
+        <p>Bölüm:</p> 
+
+</div>
+
         </div>
     </div>
 </body>

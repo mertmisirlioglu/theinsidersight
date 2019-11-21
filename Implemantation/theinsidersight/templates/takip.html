@@ -6,9 +6,6 @@
     <title>The Insider Sight</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <script src="https://kit.fontawesome.com/12f32d9bf5.js" crossorigin="anonymous"></script>
-<<<<<<< Updated upstream
-    <link rel="stylesheet" type="text/css" href="main.css">
-=======
     <style>
     #main-window {
         position: relative;
@@ -34,16 +31,7 @@
         transition: all 0.2s ease-in-out;
         overflow: hidden;
     }
-    .question-post {
-        margin: 15px auto 10px;
-        width: 30vw;
 
-        background: #fff;
-        border-radius: 4px;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-        transition: all 0.2s ease-in-out;
-        overflow: hidden;
-    }
     .post:hover {
         box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
     }
@@ -122,7 +110,7 @@
     .post .content {
         padding: 20px;
         font-size: 16px;
-        line-height: 22px;
+        line-height: 23px;
         font-family: 'Helvetica Neue';
         overflow: hidden;
     }
@@ -133,7 +121,7 @@
 
     .post .media img {
         border-radius: 4px;
-        width: 100%;
+        width: 103%;
     }
 
     .post .media iframe {
@@ -164,7 +152,6 @@
         text-decoration: none;
         padding: 10px;
         color: #D3D3D3;
-
     }
 
     .top-side a:hover {
@@ -205,15 +192,14 @@
 
 
     .top-side {
-        position: relative;
+        position: fixed;
         display: block;
         border: 2px solid red;
-        top:15px;
+        top:80px;
         right: 15vw;
         display: block;
         padding: 1vh;
         z-index: 1
-
     }
 
 
@@ -224,7 +210,7 @@
         top: 10px;
 
 
-        width: 40vw;
+        width: 42vw;
     }
 
   .categories{
@@ -258,18 +244,40 @@
 
 .categories li a:hover {
   background-color: #111;
-}z
+}
+
+.place{
+    padding-right: 30px;
+    }
+    #logo{
+        position: relative;
+        top:-35px;
+    }
+    .post .user i{
+        position: relative;
+        top:-10px;
+        color: black;
+         left:470px;
+         font-size: 15px;
+         font-weight: bold;
+    }
     </style>
->>>>>>> Stashed changes
+
 </head>
 
 <body>
+    <script type="text/javascript">
+        function görüntüle(){
+            window.open("kullanıcı profil sayfası.html");
+        }
+
+    </script>
     <div class="wide-container">
         <div class="top-side">
             <nav>
-                <a href="/html/"><i class="far fa-user"></i> </a>
+             <a href="kullanıcı profil sayfası.html"><i class="far fa-user"></i> </a>
                 <a href="/css/"><i class="far fa-bell"></i></a>
-                <a href="/js/"><i class="fas fa-eye-slash"></i> </a>
+                <a href="login.html"><i class="fas fa-eye-slash"></i> </a>
             </nav>
         </div>
         <div class="left-side">
@@ -281,14 +289,14 @@
                     <li><a href="anasayfa.html">
                             <i class="fas fa-home"></i>
                             <span>Anasayfa</span></a> </li>
-                    <li> <a href="itiraflar.html">
+                    <li> <a href="/css/">
                             <i class="fas fa-bomb"></i>
                             <span>İtiraflar</a> </li>
-                    <li><a href="cevaplar.html">
+                    <li><a href="itiraflar.html">
                             <i class="fas fa-question-circle"></i>
                             <span>Sorular</span>
                         </a> </li>
-                    <li><a href="siralama.html">
+                    <li><a href="sıralama.html">
                             <i class="fab fa-avianex"></i>
                             <span>Sıralama</span>
                         </a></li>
@@ -300,161 +308,198 @@
             </nav>
         </div>
         <div class="content-side">
+          <div class="categories">
+            <ul>
+            <li><a class="active" href="#home">Aşk</a></li>
+            <li><a href="#news">Dost Kazığı</a></li>
+            <li><a href="#contact">Avcılar</a></li>
+            <li><a href="#about">Civcivler</a></li>
+            <li><a href="#about">Profesyonellik içeren</a></li>
+            <li><a href="#about">Diğer</a></li>
+            </ul>
+          </div>
             <div id="main-window">
                 <div class="post">
                     <div class="user">
                         <div class="user-img"></div>
                         <div class="user-info">
-                            <div class="user-name">Louis Dickinson</div>
-                            <span class="post-date">Yesterday at 11:49</span>
+                            <div class="user-name">Louis </div>
+
+                            <i onclick="görüntüle();">Görüntüle</i>
                         </div>
-                        <div class="actions">
-                            <span class="heart"></span>
-                            <span class="comment"></span>
-                            <span class="share"></span>
-                        </div>
+                       
                     </div>
-                    <div class="content">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati beatae ipsum aperiam recusandae tempora eos architecto odio, voluptatibus, et fuga veritatis, ratione, magnam laudantium quas accusamus! Ea, maiores! Tenetur, nesciunt.
-                        <div class="post question-post">
-                            <div class="user">
-                                <div class="user-img"></div>
-                                <div class="user-info">
-                                    <div class="user-name">Louis Dickinson</div>
-                                    <span class="post-date">Yesterday at 11:49</span>
-                                </div>
-                                <div class="actions">
-                                    <span class="heart"></span>
-                                    <span class="comment"></span>
-                                    <span class="share"></span>
-                                </div>
-                            </div>
-                            <div class="content">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati beatae ipsum aperiam recusandae tempora eos architecto odio, voluptatibus, et fuga veritatis, ratione, magnam laudantium quas accusamus! Ea, maiores! Tenetur, nesciunt.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="post">
+                    
+                
+        </div>
+        <div class="post">
                     <div class="user">
                         <div class="user-img"></div>
                         <div class="user-info">
-                            <div class="user-name">Louis Dickinson</div>
-                            <span class="post-date">Yesterday at 11:49</span>
+                            <div class="user-name">Samager </div>
+                           <i onclick="görüntüle();">Görüntüle</i>
                         </div>
-                        <div class="actions">
-                            <span class="heart"></span>
-                            <span class="comment"></span>
-                            <span class="share"></span>
-                        </div>
+                       
                     </div>
-                    <div class="content">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati beatae ipsum aperiam recusandae tempora eos architecto odio, voluptatibus, et fuga veritatis, ratione, magnam laudantium quas accusamus! Ea, maiores! Tenetur, nesciunt.
-                    </div>
-                </div>
-                <div class="post">
+                    
+                
+        </div>
+        <div class="post">
                     <div class="user">
                         <div class="user-img"></div>
                         <div class="user-info">
-                            <div class="user-name">Louis Dickinson</div>
-                            <span class="post-date">Yesterday at 11:49</span>
+                            <div class="user-name">..... </div>
+                            <i onclick="görüntüle();">Görüntüle</i>
                         </div>
-                        <div class="actions">
-                            <span class="heart"></span>
-                            <span class="comment"></span>
-                            <span class="share"></span>
-                        </div>
+                       
                     </div>
-                    <div class="content">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati beatae ipsum aperiam recusandae tempora eos architecto odio, voluptatibus, et fuga veritatis, ratione, magnam laudantium quas accusamus! Ea, maiores! Tenetur, nesciunt.
-                    </div>
-                </div>
-                <div class="post">
+                    
+                
+        </div>
+        <div class="post">
                     <div class="user">
                         <div class="user-img"></div>
                         <div class="user-info">
-                            <div class="user-name">Louis Dickinson</div>
-                            <span class="post-date">Yesterday at 11:49</span>
+                            <div class="user-name">..... </div>
+                            <i onclick="görüntüle();">Görüntüle</i>
                         </div>
-                        <div class="actions">
-                            <span class="heart"></span>
-                            <span class="comment"></span>
-                            <span class="share"></span>
-                        </div>
+                       
                     </div>
-                    <div class="content">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati beatae ipsum aperiam recusandae tempora eos architecto odio, voluptatibus, et fuga veritatis, ratione, magnam laudantium quas accusamus! Ea, maiores! Tenetur, nesciunt.
-                        <div class="post question-post">
-                            <div class="user">
-                                <div class="user-img"></div>
-                                <div class="user-info">
-                                    <div class="user-name">Louis Dickinson</div>
-                                    <span class="post-date">Yesterday at 11:49</span>
-                                </div>
-                                <div class="actions">
-                                    <span class="heart"></span>
-                                    <span class="comment"></span>
-                                    <span class="share"></span>
-                                </div>
-                            </div>
-                            <div class="content">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati beatae ipsum aperiam recusandae tempora eos architecto odio, voluptatibus, et fuga veritatis, ratione, magnam laudantium quas accusamus! Ea, maiores! Tenetur, nesciunt.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="post">
+                    
+                
+        </div>
+        <div class="post">
                     <div class="user">
                         <div class="user-img"></div>
                         <div class="user-info">
-                            <div class="user-name">Louis Dickinson</div>
-                            <span class="post-date">Yesterday at 11:49</span>
+                            <div class="user-name">.... </div>
+                            <i onclick="görüntüle();">Görüntüle</i>
                         </div>
-                        <div class="actions">
-                            <span class="heart"></span>
-                            <span class="comment"></span>
-                            <span class="share"></span>
-                        </div>
+                       
                     </div>
-                    <div class="content">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati beatae ipsum aperiam recusandae tempora eos architecto odio, voluptatibus, et fuga veritatis, ratione, magnam laudantium quas accusamus! Ea, maiores! Tenetur, nesciunt.
-                    </div>
-                </div>
-                <div class="post">
+                    
+                
+        </div>
+        <div class="post">
                     <div class="user">
                         <div class="user-img"></div>
                         <div class="user-info">
-                            <div class="user-name">Louis Dickinson</div>
-                            <span class="post-date">Yesterday at 11:49</span>
+                            <div class="user-name">....</div>
+                          <i onclick="görüntüle();">Görüntüle</i>
                         </div>
-                        <div class="actions">
-                            <span class="heart"></span>
-                            <span class="comment"></span>
-                            <span class="share"></span>
-                        </div>
+                       
                     </div>
-                    <div class="content">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati beatae ipsum aperiam recusandae tempora eos architecto odio, voluptatibus, et fuga veritatis, ratione, magnam laudantium quas accusamus! Ea, maiores! Tenetur, nesciunt.
-                    </div>
-                </div>
-                <div class="post">
+                    
+                
+        </div>
+        <div class="post">
                     <div class="user">
                         <div class="user-img"></div>
                         <div class="user-info">
-                            <div class="user-name">Louis Dickinson</div>
-                            <span class="post-date">Yesterday at 11:49</span>
+                            <div class="user-name">.... </div>
+                            <i onclick="görüntüle();">Görüntüle</i>
                         </div>
-                        <div class="actions">
-                            <span class="heart"></span>
-                            <span class="comment"></span>
-                            <span class="share"></span>
+                       
+                    </div>
+                    
+                
+        </div>
+        <div class="post">
+                    <div class="user">
+                        <div class="user-img"></div>
+                        <div class="user-info">
+                            <div class="user-name">.... </div>
+                            <i onclick="görüntüle();">Görüntüle</i>
                         </div>
+                       
                     </div>
-                    <div class="content">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati beatae ipsum aperiam recusandae tempora eos architecto odio, voluptatibus, et fuga veritatis, ratione, magnam laudantium quas accusamus! Ea, maiores! Tenetur, nesciunt.
+                    
+                
+        </div>
+        <div class="post">
+                    <div class="user">
+                        <div class="user-img"></div>
+                        <div class="user-info">
+                            <div class="user-name">.... </div>
+                            <i onclick="görüntüle();">Görüntüle</i>
+                        </div>
+                      
                     </div>
-                </div>
-            </div>
+                    
+                
+        </div>
+        <div class="post">
+                    <div class="user">
+                        <div class="user-img"></div>
+                        <div class="user-info">
+                            <div class="user-name">..... </div>
+                           <i onclick="görüntüle();">Görüntüle</i>
+                        </div>
+                       
+                    </div>
+                    
+                
+        </div>
+        <div class="post">
+                    <div class="user">
+                        <div class="user-img"></div>
+                        <div class="user-info">
+                            <div class="user-name">..... </div>
+                           <i onclick="görüntüle();">Görüntüle</i>
+                        </div>
+                       
+                    </div>
+                    
+                
+        </div>
+        <div class="post">
+                    <div class="user">
+                        <div class="user-img"></div>
+                        <div class="user-info">
+                            <div class="user-name">..... </div>
+                          <i onclick="görüntüle();">Görüntüle</i>
+                        </div>
+                       
+                    </div>
+                    
+                
+        </div>
+
+        <div class="post">
+                    <div class="user">
+                        <div class="user-img"></div>
+                        <div class="user-info">
+                            <div class="user-name">..... </div>
+                            <i onclick="görüntüle();">Görüntüle</i>
+                        </div>
+                       
+                    </div>
+                    
+                
+        </div>
+        <div class="post">
+                    <div class="user">
+                        <div class="user-img"></div>
+                        <div class="user-info">
+                            <div class="user-name">Louis </div>
+                           <i onclick="görüntüle();">Görüntüle</i>
+                        </div>
+                       
+                    </div>
+                    
+                
+        </div>
+        <div class="post">
+                    <div class="user">
+                        <div class="user-img"></div>
+                        <div class="user-info">
+                            <div class="user-name">Louis </div>
+                            <i onclick="görüntüle();">Görüntüle</i>
+                        </div>
+                       
+                    </div>
+                    
+                
         </div>
     </div>
 </body>
