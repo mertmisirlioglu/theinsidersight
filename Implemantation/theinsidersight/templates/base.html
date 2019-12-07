@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    {% block head %}
+    <title>The Insider Sight</title>
+    {% endblock %}
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://kit.fontawesome.com/12f32d9bf5.js" crossorigin="anonymous"></script>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href='{% static 'css/main.css' %}'>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.0/css/bootstrap.min.css" integrity="sha384-SI27wrMjH3ZZ89r4o+fGIJtnzkAnFs3E4qz9DIYioCQ5l9Rd/7UAa8DHcaL8jkWt" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.0/js/bootstrap.min.js" integrity="sha384-3qaqj0lc6sV/qpzrc1N5DC6i1VRn/HyX4qdPaiEFbn54VjQBEU341pvjz7Dv3n6P" crossorigin="anonymous"></script>
+    <script src="{% static 'js/respond.js' %}"></script>
+    <script src="{% static 'js/html5shiv.js' %}"></script>
+</head>
+
+<body>
+    <script>
+        function goto() {
+            alert("bildirimler");
+        }
+
+        function goo() {
+            window.open("user cevap verme.html");
+        }
+    </script>
+    <div class="container-fluid container-background ">
+
+        <div class="row row-wider ">
+            <nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark" id="top-navbar">
+                <div class="container">
+
+                    <a href="{%  url 'home' %}">
+                        <i class="fas fa-home fa-2x"></i>
+
+
+                        <a href="{%  url 'confessions' %}">
+                            <i class="fas fa-bomb fa-2x"></i>
+
+                            <a href="{%  url 'answers' %}">
+                                <i class="fas fa-question-circle fa-2x"></i>
+
+                            </a>
+
+                            <a href={%  url 'leader_board' %}>
+                                <i class="fab fa-avianex fa-2x"></i>
+
+                            </a>
+
+                            <a href="{%  url 'discover' %}">
+                                <i class="fas fa-hashtag fa-2x"></i>
+
+                            </a>
+
+                </div>
+            </nav>
+
+
+
+            <div class="col-sm hidden">
+                <div class="left-side fixed">
+                    <div id="logo">
+                        <img src="{% static 'media/logo.png' %}" alt="logo" width="170vh" ; height="170vh">
+                    </div>
+                    <nav class="side-navbar">
+                        <ul class="mainmenu">
+                            <li>
+                                <a href="{%  url 'home' %}">
+                                    <i class="fas fa-home"></i>
+                                    <span>Anasayfa</span></a>
+                            </li>
+                            <li>
+                                <a href="{%  url 'confessions' %}">
+                                    <i class="fas fa-bomb"></i>
+                                    <span>İtiraflar</a> </li>
+                    <li><a href="{%  url 'answers' %}">
+                            <i class="fas fa-question-circle"></i>
+                            <span>Sorular</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{%  url 'leader_board' %}">
+                                    <i class="fab fa-avianex"></i>
+                                    <span>Sıralama</span>
+                                </a>
+                            </li>
+                            <li>
+                                 <a href="{%  url 'discover' %}">
+                                    <i class="fas fa-hashtag"></i>
+                                    <span>Keşfet</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <div class="col-lg-6 wider">
+            {% block content %}
+               {% endblock %}
+            </div>
+            <div class="col-sm hidden">
+                <div class="top-side fixed">
+                    <nav>
+
+                        <a href="kullanıcı profil sayfası.html"><i class="far fa-user"></i> </a>
+                        <a href="#" onclick="goto();"><i class="far fa-bell"></i></a>
+                        <a href="login.html"><i class="fas fa-eye-slash"></i> </a>
+                    </nav>
+                </div>
+            </div>
+
+
+        </div>
+</body>
+
+</html>
