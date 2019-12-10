@@ -1,3 +1,8 @@
 from django.contrib import admin
+from website import models
 
-# Register your models here.
+admin.register(models.UserProfile)
+admin.register(models.Post)
+admin.register(models.reply_Post)
+admin.register(models.Follower_List)
+admin.register(models.Notification)

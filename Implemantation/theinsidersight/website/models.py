@@ -1,66 +1,65 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 # Create your models here.
-class User(models.Model):
-	GENDER = (
-		('E', 'Erkek'),
-		('K', 'Kadın'),
-		)
-	FACULTY = (
-		('Mühendislik','Mühendislik'),
-		('Mimarlık','Mimarlık'),
-		('Fen-Edebiyat','Fen-Edebiyat'),
-		('İktisadi-İdari','İktisadi-İdari'),
-		('Güzel Sanatlar','Güzel Sanatlar')
-		)
-	username = models.CharField(max_length=50)
-	password = models.CharField(max_length=50)
-	email = models.EmailField()
-	gender = models.CharField(max_length=1, choices=GENDER)
-	faculty = models.CharField(max_length=20, choices=FACULTY)
-	birthdate = models.DateField()
-	createdat = models.DateField()
-	postCount = models.IntegerField()
-	
+class UserProfile(models.Model):
+    GENDER = (
+        ('E', 'Erkek'),
+        ('K', 'Kadın'),
+    )
+    FACULTY = (
+        ('Mühendislik', 'Mühendislik'),
+        ('Mimarlık', 'Mimarlık'),
+        ('Fen-Edebiyat', 'Fen-Edebiyat'),
+        ('İktisadi-İdari', 'İktisadi-İdari'),
+        ('Güzel Sanatlar', 'Güzel Sanatlar')
+    )
 
-class Admin(User):
-	isAdmin = models.BooleanField(default=True)
+    gender = models.CharField(max_length=1, choices=GENDER)
+    faculty = models.CharField(max_length=20, choices=FACULTY)
+    birthdate = models.DateField()
+    createdat = models.DateField()
+    postCount = models.IntegerField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+
+
 
 class Post(models.Model):
-	Post_Type =(
-		('Post','Post'),
-		('Soru','Soru'),
-		)
+    Post_Type = (
+        ('Post', 'Post'),
+        ('Soru', 'Soru'),
+    )
 
-	Category = (
-		('Aşk','Aşk'),
-		('Dost Kazığı','Dost Kazığı'),
-		('Avcılar','Avcılar'),
-		('Civcivler','Civcivler'),
-		('Profesyonellik içerenler','Profesyonellik içerenler'),
-		('Diğer','Diğer')
-		)
-	publish_by = models.ForeignKey(User, on_delete=models.CASCADE) 
-	post_type = models.CharField(max_length=20, choices=Post_Type)
-	category = models.CharField(max_length=20, choices=Category)
-	publish_date = models.DateField()
-	content = models.CharField(max_length=2000)
-	likecount = models.IntegerField()
-	replycount = models.IntegerField()
+    Category = (
+        ('Aşk', 'Aşk'),
+        ('Dost Kazığı', 'Dost Kazığı'),
+        ('Avcılar', 'Avcılar'),
+        ('Civcivler', 'Civcivler'),
+        ('Profesyonellik içerenler', 'Profesyonellik içerenler'),
+        ('Diğer', 'Diğer')
+    )
+    publish_by = models.ForeignKey(User, on_delete=models.CASCADE)
+    post_type = models.CharField(max_length=20, choices=Post_Type)
+    category = models.CharField(max_length=20, choices=Category)
+    publish_date = models.DateField()
+    content = models.CharField(max_length=2000)
+    likecount = models.IntegerField()
+    replycount = models.IntegerField()
+
 
 class reply_Post(Post):
-	main_post = models.ForeignKey(Post, on_delete=models.CASCADE,related_name='%(class)s_main_post')
-	replied_post = models.ForeignKey(Post, on_delete=models.CASCADE,related_name='%(class)s_replied_post')
-
+    main_post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='%(class)s_main_post')
+    replied_post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='%(class)s_replied_post')
 
 
 class Follower_List(models.Model):
-	followedby =  models.ForeignKey(User, on_delete=models.CASCADE,related_name='%(class)s_followed_by')
-	followingto = models.ForeignKey(User, on_delete=models.CASCADE,related_name='%(class)s_following_to')
+    followedby = models.ForeignKey(User, on_delete=models.CASCADE, related_name='%(class)s_followed_by')
+    followingto = models.ForeignKey(User, on_delete=models.CASCADE, related_name='%(class)s_following_to')
 
 
 class Notification:
-	user = models.ForeignKey(User, on_delete=models.CASCADE)
-	content = models.CharField(max_length=250)
-	isReaded = models.BooleanField(default=False)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    content = models.CharField(max_length=250)
+    isReaded = models.BooleanField(default=False)
