@@ -68,3 +68,4 @@ def signup(request):
                       {'form': ExtendedUserCreationForm, 'profile_form': ProfileForm})
 
 
+

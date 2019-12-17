@@ -9,7 +9,7 @@ class ExtendedUserCreationForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ('username', 'email',  'password1', 'password2')
+        fields = ('username', 'email', 'password1', 'password2')
 
     def save(self, commit=True):
         user = super().save(commit=False)
@@ -37,10 +37,9 @@ class ProfileForm(forms.ModelForm):
     )
 
     faculty = forms.ChoiceField(choices=FACULTY, label='', initial='',
-                               widget=forms.Select(), required=True)
+                                widget=forms.Select(), required=True)
 
     birthday = forms.DateTimeField()
-
 
     class Meta:
         model = UserProfile
@@ -50,7 +49,3 @@ class ProfileForm(forms.ModelForm):
             'birthday',
             'faculty',
         )
-
-
-
-

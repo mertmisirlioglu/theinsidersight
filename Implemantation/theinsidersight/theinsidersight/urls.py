@@ -27,5 +27,5 @@ urlpatterns = [
     path('kesfet/', views.discover_view, name='discover'),
     path('giris/', views.login_view, name='login'),
     path('cikis/', views.logout_view, name='logout'),
-    path('kayit', views.register_view, name='register')
+    path('kayit', views.signup, name='register')
 ]
