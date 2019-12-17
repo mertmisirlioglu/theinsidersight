@@ -59,7 +59,7 @@ class Follower_List(models.Model):
     followingto = models.ForeignKey(User, on_delete=models.CASCADE, related_name='%(class)s_following_to')
 
 
-class Notification:
+class Notification(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     content = models.CharField(max_length=250)
     isReaded = models.BooleanField(default=False)

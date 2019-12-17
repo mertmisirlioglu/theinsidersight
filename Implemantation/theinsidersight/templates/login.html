@@ -1,34 +1,35 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="../website/static/css/registercss.css">
+    {% load static %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/registercss.css' %}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-    <script type="text/javascript">
-        function login(){
-   window.open("anasayfa.html");
-        }
-    </script>
+
     <div class="user">
     <header class="user__header">
-        <img src="../website/static/media/logo.png" alt="" id="logo"/>
+        <img src="{% static 'media/logo.png' %}" alt="" id="logo"/>
         <h1 class="user__title">THE INSIDER SIGHT</h1>
     </header>
-    
-    <form class="form">
-        
-    
-        <div class="formgroup">
-            <input type="email" placeholder="E-mail" class="form__input" />
-        </div>
-        
-        
+
+
+
+
+     <form method="POST" class="form">
+{% csrf_token %}
 
         <div class="formgroup">
-            <input type="password" placeholder="Şifre" class="form__input" />
-        </div>    
-        <button onclick="login();" class="btn" type="button">Login</button>
+            <input type="text" placeholder="Kullanıcı Adı" class="form__input" name="username"/>
+        </div>
+
+
+
+        <div class="formgroup">
+            <input type="password" placeholder="Şifre" class="form__input" name="password"/>
+        </div>
+         <button type="submit" class="btn">Giriş Yap</button>
 
     </form>
     <a style="color:black" href="register.html">Kayıtlı değil misin?</a>

@@ -1,8 +1,8 @@
 from django.contrib import admin
-from website import models
+from .models import *
 
-admin.register(models.UserProfile)
-admin.register(models.Post)
-admin.register(models.reply_Post)
-admin.register(models.Follower_List)
-admin.register(models.Notification)
+admin.site.register(UserProfile)
+admin.site.register(Post)
+admin.site.register(reply_Post)
+admin.site.register(Follower_List)
+admin.site.register(Notification)

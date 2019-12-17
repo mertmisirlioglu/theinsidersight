@@ -1,58 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="../website/static/css/registercss.css">
+    {% load static %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/registercss.css' %}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-    <script type="text/javascript">
-        
-        function gotologin(){
-            window.open("login.html")
-        }
-    </script>
+
     <div class="user">
     <header class="user__header">
-        <img src="../website/static/media/logo.png" alt="" id="logo"/>
+        <img src="{% static 'media/logo.png' %}" alt="" id="logo"/>
         <h1 class="user__title">THE INSIDER SIGHT</h1>
     </header>
     
-    <form class="form">
-        <div class="formgroup">
-            <input type="text" placeholder="Kullanıcı adı" class="form__input" />
-        </div>
-        
-        <div class="formgroup">
-            <input type="email" placeholder="E-mail" class="form__input" />
-        </div>
-
-           <div class="formgroup">
-            <input type="date" placeholder="Doğum Tarihi" name="01/1999"class="form__input" />
-        </div>
-        <div class="formgroup">
-            <input type="text" placeholder="Okul" class="form__input" />
-        </div>
-
-         <div class="formgroup">
-           
-              <select name="Bölüm">
-    <option value="Mühendislik">Mühendislik</option>
-    <option value="Mimarlık">Mimarlık</option>
-    <option value="Fen-Edebiyat">Fen Edebiyat</option>
-    <option value="İktisadi-İdari">İktisadi-İdari</option>
-    <option value="Güzel Sanatlar">Güzel Sanatlar</option>
-  </select>
-  
-        </div>
-
-        <div class="formgroup">
-            <input type="password" placeholder="Şifre" class="form__input" />
-        </div>
-        <div class="formgroup">
-            <input type="password" placeholder="Şifre Yeniden" class="form__input" />
-        </div>
-        
-        <button onclick="gotologin();" class="btn" type="button">Register</button>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_table }}
+        {{ profile_form.as_p }}
+        <button type="submit" class="btn">Kayıt Ol</button>
 
     </form>
     <a style="color:black" href="login.html">Zaten kullanıcı mısın?</a>
