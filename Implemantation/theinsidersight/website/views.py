@@ -1,17 +1,25 @@
+
+
 from django.contrib import messages
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect
 
-from website.forms import ExtendedUserCreationForm, ProfileForm
+from website.forms import ExtendedUserCreationForm, ProfileForm, PostForm
+from website.models import UserProfile, Post
+import datetime
 
 
 def home_view(request):
-    return render(request, 'anasayfa.html')
+    post_list = Post.objects.all()
+    content = {'post_list':post_list}
+    return render(request, 'anasayfa.html',content)
 
 
 def confessions_view(request):
-    return render(request, 'itiraflar.html')
+    confession_list = Post.objects.all().filter(post_type='Post')
+    content = {'confession_list':confession_list}
+    return render(request, 'itiraflar.html',content)
 
 
 def answers_view(request):
@@ -57,6 +65,7 @@ def signup(request):
         user = form.save()
         profile = profile.save(commit=False)
         profile.user = user
+        profile.createdat = datetime.datetime.now()
         profile.save()
         username = form.cleaned_data.get('username')
         password = form.cleaned_data.get('password1')
@@ -68,4 +77,24 @@ def signup(request):
                       {'form': ExtendedUserCreationForm, 'profile_form': ProfileForm})
 
 
+def my_profile(request):
+    user = request.user
+    user_profile = UserProfile.objects.get(user=user)
+    age = datetime.datetime.now().year - user_profile.birthdate.year
+    context = {'user': user, 'profile': user_profile, 'age': age}
+    return render(request, 'profile.html', context)
 
+
+def send_post(request):
+    form = PostForm(request.POST or None)
+    if form.is_valid():
+        post = form.save(commit=False)
+        post.post_type = 'Post'
+        post.publish_date = datetime.datetime.now()
+        post.publish_by = request.user
+        post.likecount = 0
+        post.replycount = 0
+        post.save()
+        return redirect('home')
+    else:
+        return render(request,'post.html',{'form':form})

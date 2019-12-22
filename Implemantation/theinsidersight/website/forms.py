@@ -1,5 +1,5 @@
 from django import forms
-from .models import UserProfile
+from .models import UserProfile, Post
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
@@ -39,13 +39,23 @@ class ProfileForm(forms.ModelForm):
     faculty = forms.ChoiceField(choices=FACULTY, label='', initial='',
                                 widget=forms.Select(), required=True)
 
-    birthday = forms.DateTimeField()
+    birthdate = forms.DateTimeField()
 
     class Meta:
         model = UserProfile
         fields = (
-            'user',
             'gender',
-            'birthday',
             'faculty',
+            'birthdate',
+
         )
+
+
+class PostForm(forms.ModelForm):
+
+    class Meta:
+        model = Post
+        fields = {
+            'content',
+            'category'
+        }

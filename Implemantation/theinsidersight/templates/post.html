@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block head %}
+<title>İtiraf Et - The Insider Sight</title>
+{% endblock %}
+{% block content %}
+            <div id="main-window">
+                <div class="post">
+                
+                 <div class="content">
+                      
+                        <div class="post" >
+                    <div class="user" >
+                        <div class="user-img"></div>
+                        <div class="user-info">
+                            <div class="user-name">{{ request.user }}</div>
+                        
+                        </div>
+                        <div class="place">
+                        
+                        </div>
+                    </div>
+
+                    <div class="yorum" >
+                          <form method="POST">
+                              {% csrf_token %}
+                            {{ form.as_p }}
+
+                            <input type="submit" name="submit" value="Paylaş" id="bid">
+                        </form>
+
+                    
+                        
+                    </div>
+                    </div>
+                   
+                    
+                </div>
+                
+        </div>
+    </div>
+{% endblock %}

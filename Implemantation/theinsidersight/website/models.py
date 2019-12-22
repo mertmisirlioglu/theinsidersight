@@ -20,7 +20,7 @@ class UserProfile(models.Model):
     faculty = models.CharField(max_length=20, choices=FACULTY)
     birthdate = models.DateField()
     createdat = models.DateField()
-    postCount = models.IntegerField()
+    postCount = models.IntegerField(blank=True, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
@@ -44,9 +44,9 @@ class Post(models.Model):
     post_type = models.CharField(max_length=20, choices=Post_Type)
     category = models.CharField(max_length=20, choices=Category)
     publish_date = models.DateField()
-    content = models.CharField(max_length=2000)
-    likecount = models.IntegerField()
-    replycount = models.IntegerField()
+    content = models.TextField(max_length=2000)
+    likecount = models.IntegerField(default=0)
+    replycount = models.IntegerField(default=0)
 
 
 class reply_Post(Post):

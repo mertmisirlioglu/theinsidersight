@@ -15,42 +15,8 @@
     
     <form method="POST" class="form">
 {% csrf_token %}
-        <div class="formgroup">
-            <input type="text" placeholder="Kullanıcı adı" class="form__input" name="username" />
-        </div>
-
-        <div class="formgroup">
-            <input type="email" placeholder="E-mail" class="form__input" name="email" />
-        </div>
-
-           <div class="formgroup">
-            <input type="date" placeholder="Doğum Tarihi" name="birth_date"class="form__input" />
-        </div>
-
-
-         <div class="formgroup">
-
-              <select name="faculty">
-    <option value="Mühendislik">Mühendislik</option>
-    <option value="Mimarlık">Mimarlık</option>
-    <option value="Fen-Edebiyat">Fen Edebiyat</option>
-    <option value="İktisadi-İdari">İktisadi-İdari</option>
-    <option value="Güzel Sanatlar">Güzel Sanatlar</option>
-  </select>
-
-             <select name="gender">
-    <option value="E">Erkek</option>
-    <option value="K">Kadın</option>
-  </select>
-
-        </div>
-
-        <div class="formgroup">
-            <input type="password" placeholder="Şifre" class="form__input" name="password1"/>
-        </div>
-        <div class="formgroup">
-            <input type="password" placeholder="Şifre Yeniden" class="form__input" name="password2" />
-        </div>
+        {{ form.as_table }}
+        {{ profile_form.as_table }}
 
         <button type="submit" class="btn">Kayıt Ol</button>
 
