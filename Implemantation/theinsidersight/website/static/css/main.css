@@ -6,6 +6,20 @@
     /* background:#fff; */
 }
 
+#make-confession{
+    width: 180px;
+    text-align: center;
+    font-size: 25px;
+    background-color: #cce3ff;
+    color: black;
+     border-top: 1px black solid;
+    border-left: 2px black solid;
+    border-bottom: 1px black solid;
+    border-right: 2px black solid;
+    border-radius: 20px;
+    border-inline-color: red;
+    border-inline: 1px;
+}
 .post {
     margin: 15px auto 10px;
     width: 100%;

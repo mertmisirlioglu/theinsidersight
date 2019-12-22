@@ -9,7 +9,7 @@
 
     <div class="user">
     <header class="user__header">
-        <img src="../website/static/media/logo.png" alt="" id="logo"/>
+        <img src="{% static 'media/logo.png' %}" alt="" id="logo"/>
         <h1 class="user__title">THE INSIDER SIGHT</h1>
     </header>
     
@@ -21,7 +21,7 @@
         <button type="submit" class="btn">Kayıt Ol</button>
 
     </form>
-    <a style="color:black" href="login.html">Zaten kullanıcı mısın?</a>
+    <a style="color:black" href="{% url 'login' %}">Zaten kullanıcı mısın?</a>
 </div>
 </body>
 

@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% block head %}
+    <title>Cevapla - The Insider Sight</title>
+{% endblock %}
+{% block content %}
+
+
+
+    <div id="main-window">
+
+        <div class="post">
+            <div class="user">
+                <div class="user-img"></div>
+                <div class="user-info">
+                    <div class="user-name">{{ main_post.publish_by.username }}</div>
+                    <span class="post-date">{{ main_post.publish_date }}</span>
+                </div>
+                <div class="actions">
+                    <span class="heart"></span>
+                    <span class="comment"></span>
+                    <span class="share"></span>
+                </div>
+            </div>
+            <div class="content">
+                {{ main_post.content }}
+            </div>
+        </div>
+
+        {% for reply in reply_list %}
+            <div class="post">
+                <div class="user">
+                    <div class="user-img"></div>
+                    <div class="user-info">
+                        <div class="user-name">{{ reply.replied_post.publish_by.username }}</div>
+                        <span class="post-date">{{ reply.replied_post.publish_date }}</span>
+                    </div>
+                    <div class="actions">
+                        <span class="heart"></span>
+                        <span class="comment"></span>
+                        <span class="share"></span>
+                    </div>
+                </div>
+                <div class="content">
+                    {{ reply.replied_post.content }}
+                </div>
+            </div>
+        {% endfor %}
+
+
+        <div class="post">
+
+            <div class="content">
+
+                <div class="post">
+                    <div class="user">
+                        <div class="user-img"></div>
+                        <div class="user-info">
+                            <div class="user-name">{{ request.user }}</div>
+
+                        </div>
+                        <div class="place">
+
+                        </div>
+                    </div>
+
+                    <div class="yorum">
+                        <form method="POST">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+
+                            <input type="submit" name="submit" value="Paylaş" id="bid">
+                        </form>
+
+
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

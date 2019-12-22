@@ -48,8 +48,11 @@ class Post(models.Model):
     likecount = models.IntegerField(default=0)
     replycount = models.IntegerField(default=0)
 
+    def get_reply_url(self):
+        return f"/cevapla/{self.pk}/"
 
-class reply_Post(Post):
+
+class reply_Post(models.Model):
     main_post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='%(class)s_main_post')
     replied_post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='%(class)s_replied_post')
 
