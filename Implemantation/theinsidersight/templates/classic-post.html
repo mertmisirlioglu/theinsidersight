@@ -1,0 +1,20 @@
+ <div class="post">
+                    <div class="user">
+                        <div class="user-img"></div>
+                        <div class="user-info">
+                            <a href="{{ post.publish_by.get_profile_url }}"><div class="user-name">{{ post.publish_by.user.username }}</div></a>
+                            <span class="post-date">{{post.publish_date}}</span>
+                        </div>
+                        <div class="actions">
+                            {% if request.user in post.likes.all %}
+                                <a  data-href="{{ post.get_like_api_url }}"  data-likes={{ post.likes.count }} class="like_button"><span class="like-red like-ch" ></span></a>
+                            {% else %}
+                                <a  data-href="{{ post.get_like_api_url }}"  data-likes={{ post.likes.count }} class="like_button"><span class="no-like like-ch" id="like"></span></a>
+                            {% endif %}
+                            <a href="{{ post.get_reply_url }}"><span class="comment"></span></a>
+                        </div>
+                    </div>
+                    <div class="content">
+                       {{ post.content }}
+                    </div>
+                </div>

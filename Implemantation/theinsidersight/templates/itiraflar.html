@@ -5,23 +5,7 @@
 {% block content %}
             <div id="main-window">
                 {% for confession in confession_list reversed %}
-                <div class="post">
-                    <div class="user">
-                        <div class="user-img"></div>
-                        <div class="user-info">
-                            <div class="user-name">{{ confession.publish_by.username }}</div>
-                            <span class="post-date">{{confession.publish_date}}</span>
-                        </div>
-                        <div class="actions">
-                            <span class="heart"></span>
-                            <a href="{{ confession.get_reply_url }}"><span class="comment"></span></a>
-                            <span class="share"></span>
-                        </div>
-                    </div>
-                    <div class="content">
-                       {{ confession.content }}
-                    </div>
-                </div>
+               {% include "classic-post.html" with post=confession%}
 
 
                 {% endfor %}

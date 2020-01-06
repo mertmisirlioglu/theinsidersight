@@ -20,17 +20,26 @@ class UserProfile(models.Model):
     faculty = models.CharField(max_length=20, choices=FACULTY)
     birthdate = models.DateField()
     createdat = models.DateField()
+    following = models.ManyToManyField('self', symmetrical=False, through='Follower_List')
     postCount = models.IntegerField(blank=True, null=True)
+    point = models.IntegerField(default=0)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
+    def get_profile_url(self):
+        return f"/profil/{self.pk}/"
 
+    def get_follow_api_url(self):
+        return f"/takip/api/{self.pk}/"
+
+    def __str__(self):
+        return self.user.username
 
 
 class Post(models.Model):
     Post_Type = (
         ('Post', 'Post'),
         ('Soru', 'Soru'),
-        ('Yorum','Yorum')
+        ('Yorum', 'Yorum')
     )
 
     Category = (
@@ -41,16 +50,19 @@ class Post(models.Model):
         ('Profesyonellik içerenler', 'Profesyonellik içerenler'),
         ('Diğer', 'Diğer')
     )
-    publish_by = models.ForeignKey(User, on_delete=models.CASCADE)
+    publish_by = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
     post_type = models.CharField(max_length=20, choices=Post_Type)
     category = models.CharField(max_length=20, choices=Category)
     publish_date = models.DateField()
     content = models.TextField(max_length=2000)
-    likecount = models.IntegerField(default=0)
+    likes = models.ManyToManyField(User, blank=True, related_name='post_likes')
     replycount = models.IntegerField(default=0)
 
     def get_reply_url(self):
         return f"/cevapla/{self.pk}/"
+
+    def get_like_api_url(self):
+        return f"/begen/api/{self.pk}/"
 
 
 class reply_Post(models.Model):
@@ -63,13 +75,12 @@ class reply_Post(models.Model):
     replied_post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='%(class)s_replied_post')
 
 
-
 class Follower_List(models.Model):
-    followedby = models.ForeignKey(User, on_delete=models.CASCADE, related_name='%(class)s_followed_by')
-    followingto = models.ForeignKey(User, on_delete=models.CASCADE, related_name='%(class)s_following_to')
+    followedby = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='%(class)s_followed_by')
+    followingto = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='%(class)s_following_to')
 
 
 class Notification(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
     content = models.CharField(max_length=250)
     isReaded = models.BooleanField(default=False)

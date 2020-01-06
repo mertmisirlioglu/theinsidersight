@@ -31,6 +31,9 @@ urlpatterns = [
     path('profilim/', views.my_profile, name='my_profile'),
     path('itiraf-et/', views.send_post, name='make_confession'),
     path('cevapla/<int:post_id>/', views.reply_post, name='reply_post'),
+    path('begen/api/<int:post_id>/', views.post_like_api_toggle.as_view(), name='like_api_post'),
+    path('takip/api/<int:user_id>/', views.follow_api_toggle.as_view(), name='follow_api'),
+    path('profil/<int:user_id>/', views.profile_view, name='profile'),
     path('soru-sor/', views.send_question, name='send_question'),
     path('sorular/', views.question_page, name='questions'),
 ]

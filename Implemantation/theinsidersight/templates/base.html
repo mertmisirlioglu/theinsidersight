@@ -14,8 +14,11 @@
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.0/js/bootstrap.min.js" integrity="sha384-3qaqj0lc6sV/qpzrc1N5DC6i1VRn/HyX4qdPaiEFbn54VjQBEU341pvjz7Dv3n6P" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="{% static 'js/respond.js' %}"></script>
     <script src="{% static 'js/html5shiv.js' %}"></script>
+    <script src="{% static 'js/infinite.min.js' %}"></script>
+   <script src="{% static 'js/jquery.waypoints.min.js' %}"></script>
 </head>
 
 <body>
@@ -36,11 +39,11 @@
 
                     <a href="{%  url 'home' %}">
                         <i class="fas fa-home fa-2x"></i>
-
+                        </a>
 
                         <a href="{%  url 'confessions' %}">
                             <i class="fas fa-bomb fa-2x"></i>
-
+                            </a>
                             <a href="{%  url 'answers' %}">
                                 <i class="fas fa-question-circle fa-2x"></i>
 
@@ -122,8 +125,46 @@
                 </div>
             </div>
 
-
+</div>
         </div>
+    <script>
+        $(document).ready(function () {
+
+          {% block jquery %}
+
+    $(".like_button").click(function (e) {
+       e.preventDefault()
+        var this_ = $(this)
+        var likeUrl = this_.attr("data-href")
+
+
+        $.ajax({
+            url: likeUrl,
+            method: "GET",
+            data:{},
+            success: function(data) {
+                console.log(data)
+                if(data.liked){
+                this_.find('span').removeClass("no-like")
+                    this_.find('span').addClass("like-red")
+                }else{
+                    this_.find('span').addClass("no-like")
+                    this_.find('span').removeClass("like-red")
+                }
+
+            },error: function(error) {
+                console.log(error)
+                console.log("error")
+            }
+        })
+    })
+              {% endblock %}
+
+        })
+    </script>
+
+
+
 </body>
 
 </html>

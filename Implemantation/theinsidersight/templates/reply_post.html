@@ -8,41 +8,10 @@
 
     <div id="main-window">
 
-        <div class="post">
-            <div class="user">
-                <div class="user-img"></div>
-                <div class="user-info">
-                    <div class="user-name">{{ main_post.publish_by.username }}</div>
-                    <span class="post-date">{{ main_post.publish_date }}</span>
-                </div>
-                <div class="actions">
-                    <span class="heart"></span>
-                    <span class="comment"></span>
-                    <span class="share"></span>
-                </div>
-            </div>
-            <div class="content">
-                {{ main_post.content }}
-            </div>
-        </div>
+{% include "classic-post.html" with post=main_post%}
 
         {% for reply in reply_list %}
-            <div class="post">
-                <div class="user">
-                    <div class="user-img"></div>
-                    <div class="user-info">
-                        <div class="user-name">{{ reply.replied_post.publish_by.username }}</div>
-                        <span class="post-date">{{ reply.replied_post.publish_date }}</span>
-                    </div>
-                    <div class="actions">
-                        <span class="heart"></span>
-                        <span class="share"></span>
-                    </div>
-                </div>
-                <div class="content">
-                    {{ reply.replied_post.content }}
-                </div>
-            </div>
+          {% include "classic-post.html" with post=reply%}
         {% endfor %}
 
 
