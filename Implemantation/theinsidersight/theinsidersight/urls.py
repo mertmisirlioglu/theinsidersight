@@ -22,7 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home_view, name='home'),
     path('itiraflar/', views.confessions_view, name='confessions'),
-    path('cevaplar/', views.answers_view, name='answers'),
+    path('cevaplar/', views.answer_page, name='answers'),
     path('sıralama/', views.leader_board_view, name='leader_board'),
     path('kesfet/', views.discover_view, name='discover'),
     path('giris/', views.login_view, name='login'),
@@ -31,4 +31,6 @@ urlpatterns = [
     path('profilim/', views.my_profile, name='my_profile'),
     path('itiraf-et/', views.send_post, name='make_confession'),
     path('cevapla/<int:post_id>/', views.reply_post, name='reply_post'),
+    path('soru-sor/', views.send_question, name='send_question'),
+    path('sorular/', views.question_page, name='questions'),
 ]

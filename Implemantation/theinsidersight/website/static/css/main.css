@@ -6,11 +6,41 @@
     /* background:#fff; */
 }
 
-#make-confession{
+#make-confession {
     width: 180px;
     text-align: center;
     font-size: 25px;
     background-color: #cce3ff;
+    color: black;
+    border-top: 1px black solid;
+    border-left: 2px black solid;
+    border-bottom: 1px black solid;
+    border-right: 2px black solid;
+    border-radius: 20px;
+    border-inline-color: red;
+    border-inline: 1px;
+}
+#answer-question{
+    width: 180px;
+    font-size: 25px;
+    text-align: center;
+    margin-top: 5px;
+    background-color: #ffc84d;
+    color: black;
+     border-top: 1px black solid;
+    border-left: 2px black solid;
+    border-bottom: 1px black solid;
+    border-right: 2px black solid;
+    border-radius: 20px;
+    border-inline-color: red;
+    border-inline: 1px;
+}
+#ask-question{
+    width: 180px;
+    font-size: 25px;
+    text-align: center;
+    margin-top: 5px;
+    background-color: #37c7ff;
     color: black;
      border-top: 1px black solid;
     border-left: 2px black solid;

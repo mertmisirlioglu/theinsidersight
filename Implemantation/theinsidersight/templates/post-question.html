@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block head %}
-<title>Sorular - The Insider Sight</title>
+<title>Soru sor - The Insider Sight</title>
 {% endblock %}
 {% block question %}
                              <li>
@@ -19,27 +19,38 @@
 {% endblock %}
 {% block content %}
             <div id="main-window">
-                {% for post in post_list reversed %}
                 <div class="post">
-                    <div class="user">
+                
+                 <div class="content">
+                      
+                        <div class="post" >
+                    <div class="user" >
                         <div class="user-img"></div>
                         <div class="user-info">
-                            <div class="user-name">{{ post.publish_by.username }}</div>
-                            <span class="post-date">{{post.publish_date}}</span>
+                            <div class="user-name">{{ request.user }}</div>
+                        
                         </div>
-                        <div class="actions">
-                            <span class="heart"></span>
-                            <a href="{{ post.get_reply_url }}"><span class="comment"></span></a>
-                            <span class="share"></span>
+                        <div class="place">
+                        
                         </div>
                     </div>
-                    <div class="content">
-                       {{ post.content }}
+
+                    <div class="yorum" >
+                          <form method="POST">
+                              {% csrf_token %}
+                            {{ form.as_p }}
+
+                            <input type="submit" name="submit" value="Paylaş" id="bid">
+                        </form>
+
+                    
+                        
                     </div>
+                    </div>
+                   
+                    
                 </div>
-
-
-                {% endfor %}
+                
         </div>
-
+    </div>
 {% endblock %}

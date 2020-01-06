@@ -2,109 +2,61 @@
 {% block head %}
 <title>Cevaplar - The Insider Sight</title>
 {% endblock %}
+{% block question %}
+                             <li>
+                                 <a href="{%  url 'questions' %}"  id="answer-question">
+                                    <i class="fas fa-reply"></i>
+                                    <span>Cevapla</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                 <a href="{%  url 'send_question' %}"  id="ask-question">
+                                    <i class="fas fa-question"></i>
+                                    <span>Sor</span>
+                                </a>
+                            </li>
+{% endblock %}
 {% block content %}
-            <div id="main-window">
-                <div class="post">
+
+    <div id="main-window">
+
+    {% for answer in answer_list reversed %}
+    <div class="post">
                     <div class="user">
                         <div class="user-img"></div>
                         <div class="user-info">
-                            <div class="user-name">Louis Dickinson</div>
-                            <span class="post-date">Yesterday at 11:49</span>
+                            <div class="user-name">{{ answer.replied_post.publish_by.username }}</div>
+                            <span class="post-date">{{answer.replied_post.publish_date}}</span>
                         </div>
                         <div class="actions">
                             <span class="heart"></span>
-                            <span class="comment" onclick="go();"></span>
+
                             <span class="share"></span>
                         </div>
                     </div>
                     <div class="content">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati beatae ipsum aperiam recusandae tempora eos architecto odio, voluptatibus, et fuga veritatis, ratione, magnam laudantium quas accusamus! Ea, maiores! Tenetur, nesciunt.
+                       {{answer.replied_post.content}}
                         <div class="post question-post">
                             <div class="user">
                                 <div class="user-img"></div>
                                 <div class="user-info">
-                                    <div class="user-name">Louis Dickinson</div>
-                                    <span class="post-date">Yesterday at 11:49</span>
+                                    <div class="user-name">{{ answer.main_post.publish_by.username }}</div>
+                                    <span class="post-date">{{answer.main_post.publish_date}}</span>
                                 </div>
                                 <div class="actions">
                                     <span class="heart"></span>
-                                    <span class="comment" onclick="go();" ></span>
+                                     <a href="{{ answer.main_post.get_reply_url }}"><span class="comment"></span></a>
                                     <span class="share"></span>
                                 </div>
                             </div>
                             <div class="content">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati beatae ipsum aperiam recusandae tempora eos architecto odio, voluptatibus, et fuga veritatis, ratione, magnam laudantium quas accusamus! Ea, maiores! Tenetur, nesciunt.
+                               {{ answer.main_post.content }}
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="post">
-                    <div class="user">
-                        <div class="user-img"></div>
-                        <div class="user-info">
-                            <div class="user-name">Louis Dickinson</div>
-                            <span class="post-date">Yesterday at 11:49</span>
-                        </div>
-                        <div class="actions">
-                            <span class="heart"></span>
-                            <span class="comment"></span>
-                            <span class="share"></span>
-                        </div>
-                    </div>
-                    <div class="content">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati beatae ipsum aperiam recusandae tempora eos architecto odio, voluptatibus, et fuga veritatis, ratione, magnam laudantium quas accusamus! Ea, maiores! Tenetur, nesciunt.
-                        <div class="post question-post">
-                            <div class="user">
-                                <div class="user-img"></div>
-                                <div class="user-info">
-                                    <div class="user-name">Louis Dickinson</div>
-                                    <span class="post-date">Yesterday at 11:49</span>
-                                </div>
-                                <div class="actions">
-                                    <span class="heart"></span>
-                                    <span class="comment"></span>
-                                    <span class="share"></span>
-                                </div>
-                            </div>
-                            <div class="content">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati beatae ipsum aperiam recusandae tempora eos architecto odio, voluptatibus, et fuga veritatis, ratione, magnam laudantium quas accusamus! Ea, maiores! Tenetur, nesciunt.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="post">
-                    <div class="user">
-                        <div class="user-img"></div>
-                        <div class="user-info">
-                            <div class="user-name">Louis Dickinson</div>
-                            <span class="post-date">Yesterday at 11:49</span>
-                        </div>
-                        <div class="actions">
-                            <span class="heart"></span>
-                            <span class="comment"></span>
-                            <span class="share"></span>
-                        </div>
-                    </div>
-                    <div class="content">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati beatae ipsum aperiam recusandae tempora eos architecto odio, voluptatibus, et fuga veritatis, ratione, magnam laudantium quas accusamus! Ea, maiores! Tenetur, nesciunt.
-                        <div class="post question-post">
-                            <div class="user">
-                                <div class="user-img"></div>
-                                <div class="user-info">
-                                    <div class="user-name">Louis Dickinson</div>
-                                    <span class="post-date">Yesterday at 11:49</span>
-                                </div>
-                                <div class="actions">
-                                    <span class="heart"></span>
-                                    <span class="comment"></span>
-                                    <span class="share"></span>
-                                </div>
-                            </div>
-                            <div class="content">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati beatae ipsum aperiam recusandae tempora eos architecto odio, voluptatibus, et fuga veritatis, ratione, magnam laudantium quas accusamus! Ea, maiores! Tenetur, nesciunt.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    {% endfor %}
+</div>
+
 {% endblock %}

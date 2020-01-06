@@ -30,6 +30,7 @@ class Post(models.Model):
     Post_Type = (
         ('Post', 'Post'),
         ('Soru', 'Soru'),
+        ('Yorum','Yorum')
     )
 
     Category = (
@@ -53,8 +54,14 @@ class Post(models.Model):
 
 
 class reply_Post(models.Model):
+    Reply_Post_Type = (
+        ('Soru', 'Soru'),
+        ('Yorum', 'Yorum')
+    )
+    reply_post_type = models.CharField(max_length=20, choices=Reply_Post_Type)
     main_post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='%(class)s_main_post')
     replied_post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='%(class)s_replied_post')
+
 
 
 class Follower_List(models.Model):
