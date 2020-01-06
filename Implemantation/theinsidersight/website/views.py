@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.admin.views.decorators import staff_member_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import Http404, HttpResponse
 from django.shortcuts import render, get_object_or_404, render_to_response
@@ -258,3 +259,16 @@ class follow_api_toggle(APIView):
             'followed': followed
         }
         return Response(data)
+
+
+@staff_member_required
+def cevaplaradmin_view(request):
+    return render(request, 'admin/cevaplar-admin.html')
+
+@staff_member_required
+def itiraflaradmin_view(request):
+    return render(request, 'admin/itiraflar-admin.html')
+
+@staff_member_required
+def kullanicilaradmin_view(request):
+    return render(request, 'admin/kullanicilar-admin.html')

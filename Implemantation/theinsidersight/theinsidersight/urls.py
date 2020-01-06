@@ -36,4 +36,7 @@ urlpatterns = [
     path('profil/<int:user_id>/', views.profile_view, name='profile'),
     path('soru-sor/', views.send_question, name='send_question'),
     path('sorular/', views.question_page, name='questions'),
+    path('cevaplar-admin/', views.cevaplaradmin_view, name='admincevaplar'),
+    path('itiraflar-admin/', views.itiraflaradmin_view, name='adminitiraflar'),
+    path('kullanicilar-admin/', views.kullanicilaradmin_view, name='adminkullanicilar'),
 ]
