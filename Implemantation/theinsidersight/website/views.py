@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect
+from django.contrib.admin.views.decorators import staff_member_required
 
 from website.forms import ExtendedUserCreationForm, ProfileForm, PostForm, ReplyPostForm
 # , ReplyPostForm
@@ -43,6 +44,20 @@ def leader_board_view(request):
 def discover_view(request):
     return render(request, 'kesfet.html')
 
+def p_view(request):
+    return render(request, 'kullanıcı profil sayfası.html')
+
+@staff_member_required
+def cevaplaradmin_view(request):
+    return render(request, 'admin/cevaplar-admin.html')
+
+@staff_member_required
+def itiraflaradmin_view(request):
+    return render(request, 'admin/itiraflar-admin.html')
+
+@staff_member_required
+def kullanicilaradmin_view(request):
+    return render(request, 'admin/kullanicilar-admin.html')
 
 def login_view(request):
     if request.method == "POST":

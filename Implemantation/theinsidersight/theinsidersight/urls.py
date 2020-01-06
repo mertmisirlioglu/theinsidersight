@@ -33,4 +33,8 @@ urlpatterns = [
     path('cevapla/<int:post_id>/', views.reply_post, name='reply_post'),
     path('soru-sor/', views.send_question, name='send_question'),
     path('sorular/', views.question_page, name='questions'),
+    path('p/', views.p_view, name='profile'),
+    path('cevaplar-admin/', views.cevaplaradmin_view, name='admincevaplar'),
+    path('itiraflar-admin/', views.itiraflaradmin_view, name='adminitiraflar'),
+    path('kullanicilar-admin/', views.kullanicilaradmin_view, name='adminkullanicilar'),
 ]
