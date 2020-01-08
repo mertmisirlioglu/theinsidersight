@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.db import transaction
 from django.http import Http404, HttpResponse
 from django.shortcuts import render, get_object_or_404, render_to_response
 from django.contrib.auth import authenticate, login, logout
@@ -32,7 +33,11 @@ def my_login_required(function):
 
 @my_login_required
 def home_view(request):
-    post_list = Post.objects.all().filter(post_type='Post')
+    user_profile = UserProfile.objects.get(user=request.user)
+    post_list = Post.objects.none()
+    for user in user_profile.following.all():
+        post_list = post_list | Post.objects.all().filter(post_type='Post', publish_by=user).all()
+
     page = request.GET.get('page', 1)
     paginator = Paginator(post_list, 20)
     try:
@@ -338,6 +343,9 @@ def confessionsadmin_view(request):
 
 
 @staff_member_required
+def kullanicilaradmin_view(request):
+    return render(request, 'admin/kullanicilar-admin.html')
+
 def createquestionadmin_view(request):
     return render(request, 'admin/soru sayfa admin.html')
 
