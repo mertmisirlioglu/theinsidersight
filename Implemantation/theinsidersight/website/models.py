@@ -33,7 +33,8 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return self.user.username
-
+    def get_delete_user_url(self):
+        return f"/sil/{self.pk}/"
 
 class Post(models.Model):
     Post_Type = (

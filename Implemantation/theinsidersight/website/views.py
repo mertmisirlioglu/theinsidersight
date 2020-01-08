@@ -6,7 +6,7 @@ from django.shortcuts import render, get_object_or_404, render_to_response
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect
 from django.template import RequestContext
-from infinite_scroll_pagination import serializers, paginator
+
 from rest_framework.utils import json
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -30,9 +30,6 @@ def my_login_required(function):
     return wrapper
 
 
-
-
-
 @my_login_required
 def home_view(request):
     post_list = Post.objects.all().filter(post_type='Post')
@@ -47,14 +44,19 @@ def home_view(request):
     return render(request, 'anasayfa.html', {'post_list': posts})
 
 
-
-
-
 @my_login_required
 def confessions_view(request):
     confession_list = Post.objects.all().filter(post_type='Post')
     content = {'confession_list': confession_list}
-    return render(request, 'itiraflar.html', content)
+    page = request.GET.get('page', 1)
+    paginator = Paginator(confession_list, 20)
+    try:
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+        posts = paginator.page(1)
+    except EmptyPage:
+        posts = paginator.page(paginator.num_pages)
+    return render(request, 'itiraflar.html', {'confession_list': posts})
 
 
 @my_login_required
@@ -64,7 +66,14 @@ def answers_view(request):
 
 @my_login_required
 def leader_board_view(request):
-    return render(request, 'siralama.html')
+    point_list = UserProfile.objects.all().order_by("point")
+    count = 0
+
+    context = {"point_list": point_list,
+               "count": count
+               }
+
+    return render(request, 'siralama.html', context)
 
 
 @my_login_required
@@ -87,13 +96,41 @@ def login_view(request):
         return render(request, 'login.html')
 
 
+def register_view(request):
+    if request.method == "POST":
+
+        username = request.POST['username']
+        email = request.POST['email']
+        password1 = request.POST['password1']
+        password2 = request.POST['password2']
+        birthdate = request.POST['date']
+        createdat = datetime.datetime.now()
+        faculty = request.POST['Bölüm']
+        gender = request.POST['gender']
+
+
+        user = User.objects.create_user(username=username,
+                                 email=email,
+                                 password=password1)
+        profile = UserProfile(gender=gender,faculty=faculty,user=user,birthdate=birthdate,createdat=createdat)
+        profile.save()
+        user = authenticate(request, username=username, password=password1)
+        if user is not None:
+            login(request, user)
+            return redirect('home')
+        else:
+            messages.error(request, 'username or password not correct')
+            return redirect('register')
+    else:
+        return render(request, 'register.html')
+
+
 def logout_view(request):
     logout(request)
     return redirect('login')
 
 
-def register_view(request):
-    return render(request, 'register.html')
+
 
 
 def signup(request):
@@ -261,14 +298,36 @@ class follow_api_toggle(APIView):
         return Response(data)
 
 
+def admin_user(request):
+    user_list = UserProfile.objects.all()
+    context = {'user_list': user_list
+               }
+
+    return render(request, 'admin/takipçiler admin.html', context)
+
+
+def delete_user(request, user_id):
+    user = UserProfile.objects.all().get(pk=user_id)
+    user.user.delete()
+    user.delete()
+    return redirect('adminkullanicilar')
+
+
 @staff_member_required
-def cevaplaradmin_view(request):
+def answeradmin_view(request):
     return render(request, 'admin/cevaplar-admin.html')
 
-@staff_member_required
-def itiraflaradmin_view(request):
-    return render(request, 'admin/itiraflar-admin.html')
 
 @staff_member_required
-def kullanicilaradmin_view(request):
-    return render(request, 'admin/kullanicilar-admin.html')
+def confessionsadmin_view(request):
+    return render(request, 'admin/itiraflar-admin.html')
+
+
+@staff_member_required
+def createquestionadmin_view(request):
+    return render(request, 'admin/soru sayfa admin.html')
+
+
+@staff_member_required
+def questionadmin_view(request):
+    return render(request, 'admin/sorular-admin.html')

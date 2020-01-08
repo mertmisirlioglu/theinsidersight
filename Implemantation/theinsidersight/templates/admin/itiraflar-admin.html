@@ -135,19 +135,19 @@
    <nav class="admin-navbar">
                 <ul class="mainmenu">
 
-                    <li> <a href="itiraflar-admin.html">
+                    <li> <a href="{% url 'adminitiraflar' %}">
                             <i class="fas fa-bomb"></i>
                             <span>İtiraflar</a> </li>
-                    <li><a href="sorular-admin.html">
+                    <li><a href="{% url 'admincevaplar' %}">
                             <i class="fas fa-question-circle"></i>
                             <span>Sorular</span>
                         </a> </li>
-                    <li><a href="kullanicilar-admin.html">
+                    <li><a href="{% url 'adminkullanicilar' %}">
                             <i class="fas fa-users"></i>
                             <span>Kullanıcılar</span>
                         </a></li>
 
-                        <li><a href="kullanicilar-admin.html">
+                        <li><a href="{% url 'logout' %}">
                             <i class="fas fa-eye-slash"></i>
                             <span>Çıkış Yap</span>
                         </a></li>

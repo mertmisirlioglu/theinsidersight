@@ -47,7 +47,7 @@ class ProfileForm(forms.ModelForm):
             'gender',
             'faculty',
             'birthdate',
-
+            'user'
         )
 
 

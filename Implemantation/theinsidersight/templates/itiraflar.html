@@ -9,6 +9,10 @@
 
 
                 {% endfor %}
+
+            {% if confession_list.has_next %}
+    <a class="infinite-more-link" href="?page={{ confession_list.next_page_number }}">Daha fazla..</a>
+  {% endif %}
         </div>
 
 {% endblock %}

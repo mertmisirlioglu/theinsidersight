@@ -15,12 +15,51 @@
     
     <form method="POST" class="form">
 {% csrf_token %}
-        {{ form.as_table }}
-        {{ profile_form.as_table }}
 
-        <button type="submit" class="btn">Kayıt Ol</button>
+
+        <div class="formgroup">
+            <input required type="text" placeholder="Kullanıcı adı" class="form__input" name="username" />
+        </div>
+
+        <div class="formgroup">
+            <input required type="email" placeholder="E-mail" class="form__input" name="email"/>
+        </div>
+
+    <div class="formgroup">
+            <input required type="password" placeholder="Şifre" class="form__input" name="password1" />
+        </div>
+        <div class="formgroup">
+            <input required type="password" placeholder="Şifre Yeniden" class="form__input" name="password2"/>
+        </div>
+
+           <div class="formgroup">
+            <input required type="date" placeholder="Doğum Tarihi" name="date"class="form__input" />
+        </div>
+
+
+         <div class="formgroup">
+
+              <select required name="Bölüm">
+    <option value="Mühendislik">Mühendislik</option>
+    <option value="Mimarlık">Mimarlık</option>
+    <option value="Fen-Edebiyat">Fen Edebiyat</option>
+    <option value="İktisadi-İdari">İktisadi-İdari</option>
+    <option value="Güzel Sanatlar">Güzel Sanatlar</option>
+  </select>
+
+        </div>
+    <div class="formgroup">
+        <select required name="gender" >
+        <option value="Kadın"  name="K">Kadın</option>
+        <option value="Erkek " name="E">Erkek</option>
+            </select>
+        </div>
+
+
+<button type="submit" class="btn">Kayıt ol</button>
 
     </form>
+
     <a style="color:black" href="{% url 'login' %}">Zaten kullanıcı mısın?</a>
 </div>
 </body>

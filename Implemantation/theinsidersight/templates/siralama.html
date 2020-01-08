@@ -3,6 +3,12 @@
     <title>Sıralama - The Insider Sight</title>
     {% load static %}
     <script src="{% static 'js/sıralama.js' %}"></script>
+    <script>
+    function increment(count) {
+        count++;
+        return count;
+    }
+    </script>
     <link rel="stylesheet" type="text/css" href="{% static 'css/sıralama.css' %}">
 
 
@@ -12,32 +18,19 @@
         <div class="table">
             <div class="table-cell">
                 <ul class="leader">
+        {% for user in point_list reversed %}
+
 
                     <li>
-                        <span class="list_num">1</span>
+                        <span class="list_num">{{ forloop.counter}}</span>
                         <img src="https://lh6.googleusercontent.com/-566ZpvrYxRo/AAAAAAAAAAI/AAAAAAAAAAA/kZk-O1q__A0/s128-c-k/photo.jpg"/>
-                        <h2>Drew Vosburg<span class="number">9,735</span></h2>
+                        <h2>{{user.user.username}}<span class="number">{{ user.point }}</span></h2>
                     </li>
-                    <li>
-                        <span class="list_num">2</span>
-                        <img src="https://lh6.googleusercontent.com/-566ZpvrYxRo/AAAAAAAAAAI/AAAAAAAAAAA/kZk-O1q__A0/s128-c-k/photo.jpg"/>
-                        <h2>Jesse Nelson<span class="number">8,364</span></h2>
-                    </li>
-                    <li>
-                        <span class="list_num">3</span>
-                        <img src="https://s3.amazonaws.com/uifaces/faces/twitter/jsa/128.jpg"/>
-                        <h2>Joel Bullis<span class="number">7,621</span></h2>
-                    </li>
-                    <li>
-                        <span class="list_num">4</span>
-                        <img src="https://s3.amazonaws.com/uifaces/faces/twitter/uxceo/128.jpg"/>
-                        <h2>Carmen SanDiego<span class="number">4,582</span></h2>
-                    </li>
-                    <li>
-                        <span class="list_num">5</span>
-                        <img src="https://lh6.googleusercontent.com/-566ZpvrYxRo/AAAAAAAAAAI/AAAAAAAAAAA/kZk-O1q__A0/s128-c-k/photo.jpg"/>
-                        <h2>Charles Barkley<span class="number">2,651</span></h2>
-                    </li>
+
+
+                {% endfor %}
+
+
                 </ul>
             </div>
         </div>
