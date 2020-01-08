@@ -47,7 +47,6 @@ def home_view(request):
 @my_login_required
 def confessions_view(request):
     confession_list = Post.objects.all().filter(post_type='Post')
-    content = {'confession_list': confession_list}
     page = request.GET.get('page', 1)
     paginator = Paginator(confession_list, 20)
     try:
@@ -78,6 +77,33 @@ def leader_board_view(request):
 
 @my_login_required
 def discover_view(request):
+    user_profile = UserProfile.objects.all().get(user=request.user)
+    user_likes = Post.objects.all().filter(likes=request.user)
+    ask = 0
+    dost = 0
+    avcılar = 0
+    civciv = 0
+    prof = 0
+    diger = 0
+    category = { "Aşk":ask, "Dost Kazığı":dost, "Avcılar":avcılar,"Civcivler":civciv,"Profesyonellik içerenler":prof,"Diğer":diger}
+    for post in user_likes:
+        if post.category == 'Aşk':
+            ask+=1
+        elif post.category == 'Dost Kazığı':
+            dost+=1
+        elif post.category == 'Avcılar':
+            avcılar+=1
+        elif post.category == 'Civcivler':
+            civciv+=1
+        elif post.category == 'Profesyonellik içerenler':
+            prof+=1
+        elif post.category == 'Diğer':
+            diger+=1
+    max = category.get(max(category))
+
+    #devam edicek
+
+
     return render(request, 'kesfet.html')
 
 
@@ -133,23 +159,6 @@ def logout_view(request):
 
 
 
-def signup(request):
-    form = ExtendedUserCreationForm(request.POST or None)
-    profile = ProfileForm(request.POST or None)
-    if form.is_valid() and profile.is_valid():
-        user = form.save()
-        profile = profile.save(commit=False)
-        profile.user = user
-        profile.createdat = datetime.datetime.now()
-        profile.save()
-        username = form.cleaned_data.get('username')
-        password = form.cleaned_data.get('password1')
-        user = authenticate(username=username, password=password)
-        login(request, user)
-        return redirect('home')
-    else:
-        return render(request, 'register.html',
-                      {'form': ExtendedUserCreationForm, 'profile_form': ProfileForm})
 
 
 @my_login_required
@@ -251,11 +260,13 @@ class post_like_api_toggle(APIView):
             if user in obj.likes.all():
                 liked = False
                 obj.likes.remove(user)
+                obj.publish_by.point -= 10
             else:
                 liked = True
                 obj.likes.add(user)
+                obj.publish_by.point += 1
             updated = True
-
+        obj.publish_by.save()
         data = {
             'updated': updated,
             'liked': liked
@@ -266,10 +277,13 @@ class post_like_api_toggle(APIView):
 def profile_view(request, user_id):
     user = get_object_or_404(UserProfile, pk=user_id)
     own_user = get_object_or_404(UserProfile, user=request.user)
+    followers_count = Follower_List.objects.all().filter(followingto=user).count()
+    post_list = Post.objects.all().filter(publish_by=user)
     context = {'user_profile': user,
-               'own_user': own_user}
+               'own_user': own_user,
+               'post_list': post_list,
+               'followers_count':followers_count}
     return render(request, "kullanıcı profil sayfası.html", context)
-
 
 class follow_api_toggle(APIView):
     authentication_classes = [authentication.SessionAuthentication]

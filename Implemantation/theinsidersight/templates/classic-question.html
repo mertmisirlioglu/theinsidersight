@@ -1,0 +1,39 @@
+ <div class="post">
+                    <div class="user">
+                        <div class="user-img"></div>
+                        <div class="user-info">
+                            <div class="user-name" href="{{ answer.replied_post.publish_by.get_profile_url }}">{{ answer.replied_post.publish_by.user.username }}</div>
+                            <span class="post-date">{{answer.replied_post.publish_date}}</span>
+                        </div>
+                        <div class="actions">
+                            {% if request.user in answer.replied_post.likes.all %}
+                                <a  data-href="{{ answer.replied_post.get_like_api_url }}"  data-likes={{ answer.replied_post.likes.count }} class="like_button"><span class="like-red like-ch" ></span></a>
+                            {% else %}
+                                <a  data-href="{{ answer.replied_post.get_like_api_url }}"  data-likes={{ answer.replied_post.likes.count }} class="like_button"><span class="no-like like-ch" id="like"></span></a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="content">
+                       {{answer.replied_post.content}}
+                        <div class="post question-post">
+                            <div class="user">
+                                <div class="user-img"></div>
+                                <div class="user-info">
+                                    <div class="user-name" href="{{ answer.main_post.publish_by.get_profile_url }}">{{ answer.main_post.publish_by.user.username }}</div>
+                                    <span class="post-date">{{answer.main_post.publish_date}}</span>
+                                </div>
+                                <div class="actions">
+                            {% if request.user in answer.main_post.likes.all %}
+                                <a  data-href="{{ answer.main_post.get_like_api_url }}"  data-likes={{ answer.main_post.likes.count }} class="like_button"><span class="like-red like-ch" ></span></a>
+                            {% else %}
+                                <a  data-href="{{ answer.main_post.get_like_api_url }}"  data-likes={{ answer.main_post.likes.count }} class="like_button"><span class="no-like like-ch" id="like"></span></a>
+                            {% endif %}
+                            <a href="{{ answer.main_post.get_reply_url }}"><span class="comment"></span></a>
+                        </div>
+                            </div>
+                            <div class="content">
+                               {{ answer.main_post.content }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
