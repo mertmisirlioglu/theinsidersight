@@ -134,12 +134,16 @@
 
           {% block jquery %}
 
+              function updateText(btn,newCount){
+                btn.text(newCount)
+              }
     $(".like_button").click(function (e) {
        e.preventDefault()
         var this_ = $(this)
         var likeUrl = this_.attr("data-href")
-
-
+        var likeCount = parseInt(this_.attr("data-likes"))
+        var addLike = likeCount + 1
+        var dislike = addLike - 1
         $.ajax({
             url: likeUrl,
             method: "GET",
@@ -149,9 +153,11 @@
                 if(data.liked){
                 this_.find('span').removeClass("no-like")
                     this_.find('span').addClass("like-red")
+                    updateText(this_.find('div'),addLike)
                 }else{
                     this_.find('span').addClass("no-like")
                     this_.find('span').removeClass("like-red")
+                    updateText(this_.find('div'),dislike)
                 }
 
             },error: function(error) {

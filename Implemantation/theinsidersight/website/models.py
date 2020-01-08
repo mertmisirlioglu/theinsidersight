@@ -34,7 +34,6 @@ class UserProfile(models.Model):
     def __str__(self):
         return self.user.username
 
-
 class Post(models.Model):
     Post_Type = (
         ('Post', 'Post'),
@@ -52,7 +51,7 @@ class Post(models.Model):
     )
     publish_by = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
     post_type = models.CharField(max_length=20, choices=Post_Type)
-    category = models.CharField(max_length=20, choices=Category)
+    category = models.CharField(max_length=50, choices=Category)
     publish_date = models.DateField()
     content = models.TextField(max_length=2000)
     likes = models.ManyToManyField(User, blank=True, related_name='post_likes')

@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.db import transaction
 from django.http import Http404, HttpResponse
 from django.shortcuts import render, get_object_or_404, render_to_response
 from django.contrib.auth import authenticate, login, logout
@@ -30,12 +31,13 @@ def my_login_required(function):
     return wrapper
 
 
-
-
-
 @my_login_required
 def home_view(request):
-    post_list = Post.objects.all().filter(post_type='Post')
+    user_profile = UserProfile.objects.get(user=request.user)
+    post_list = Post.objects.none()
+    for user in user_profile.following.all():
+        post_list = post_list | Post.objects.all().filter(post_type='Post', publish_by=user).all()
+
     page = request.GET.get('page', 1)
     paginator = Paginator(post_list, 20)
     try:
@@ -47,13 +49,11 @@ def home_view(request):
     return render(request, 'anasayfa.html', {'post_list': posts})
 
 
-
-
-
 @my_login_required
 def confessions_view(request):
     confession_list = Post.objects.all().filter(post_type='Post')
     content = {'confession_list': confession_list}
+
     return render(request, 'itiraflar.html', content)
 
 
@@ -69,6 +69,33 @@ def leader_board_view(request):
 
 @my_login_required
 def discover_view(request):
+    user_profile = UserProfile.objects.all().get(user=request.user)
+    user_likes = Post.objects.all().filter(likes=request.user)
+    ask = 0
+    dost = 0
+    avcılar = 0
+    civciv = 0
+    prof = 0
+    diger = 0
+    category = { "Aşk":ask, "Dost Kazığı":dost, "Avcılar":avcılar,"Civcivler":civciv,"Profesyonellik içerenler":prof,"Diğer":diger}
+    for post in user_likes:
+        if post.category == 'Aşk':
+            ask+=1
+        elif post.category == 'Dost Kazığı':
+            dost+=1
+        elif post.category == 'Avcılar':
+            avcılar+=1
+        elif post.category == 'Civcivler':
+            civciv+=1
+        elif post.category == 'Profesyonellik içerenler':
+            prof+=1
+        elif post.category == 'Diğer':
+            diger+=1
+    max = category.get(max(category))
+
+    #devam edicek
+
+
     return render(request, 'kesfet.html')
 
 
@@ -214,11 +241,13 @@ class post_like_api_toggle(APIView):
             if user in obj.likes.all():
                 liked = False
                 obj.likes.remove(user)
+                obj.publish_by.point -= 10
             else:
                 liked = True
                 obj.likes.add(user)
+                obj.publish_by.point += 1
             updated = True
-
+        obj.publish_by.save()
         data = {
             'updated': updated,
             'liked': liked
@@ -229,8 +258,12 @@ class post_like_api_toggle(APIView):
 def profile_view(request, user_id):
     user = get_object_or_404(UserProfile, pk=user_id)
     own_user = get_object_or_404(UserProfile, user=request.user)
+    followers_count = Follower_List.objects.all().filter(followingto=user).count()
+    post_list = Post.objects.all().filter(publish_by=user)
     context = {'user_profile': user,
-               'own_user': own_user}
+               'own_user': own_user,
+               'post_list': post_list,
+               'followers_count':followers_count}
     return render(request, "kullanıcı profil sayfası.html", context)
 
 
@@ -265,9 +298,11 @@ class follow_api_toggle(APIView):
 def cevaplaradmin_view(request):
     return render(request, 'admin/cevaplar-admin.html')
 
+
 @staff_member_required
 def itiraflaradmin_view(request):
     return render(request, 'admin/itiraflar-admin.html')
+
 
 @staff_member_required
 def kullanicilaradmin_view(request):

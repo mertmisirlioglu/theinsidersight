@@ -13,13 +13,13 @@
                 <img src="https://us.123rf.com/450wm/2nix/2nix1408/2nix140800099/30818272-anoniem-avatar-profiel-icoon-vector-.jpg?ver=6" alt="Profil Fotoğrafı" id="fotoğraf" >
                 
                <div  class="bilgiler" >
-            <p>Louis , 25 <br> Bilgisayar Mühendisliği</p>
+            <p>{{user_profile.user.username}} <br> {{ user_profile.faculty }}</p>
             </div>
             <div class="thebar">
-             <a style="color: white;" href="takip.html"><i style="color: white;">Takip Ettikleri:400</i></a>
+             <a style="color: white;" href="takip.html"><i style="color: white;">Takip Ettikleri: {{ user_profile.following.count }}</i></a>
              <br>
              <br>
-             <a style="color: white;"href="takip.html"><i style="color: white;">Takipçileri:200</i></a>	
+             <a style="color: white;"href="takip.html"><i style="color: white;">Takipçileri:{{followers_count}}</i></a>
 			{% if user_profile in own_user.following.all %}
                     <a  id="follow-btn" data-href="{{ user_profile.get_follow_api_url }}"  data-likes={{ user_profile.followers.count }}><button type="button" class="btn btn-info" >Takibi Bırak</button></a>
 
@@ -29,127 +29,18 @@
 
             </div>
             </div>
-<div class="post">
-                    <div class="user">
-                        <div class="user-img"></div>
-                        <div class="user-info">
-                            <div class="user-name">Louis Dickinson</div>
-                            <span class="post-date">Yesterday at 11:49</span>
 
-                        </div>
-                       
-                    </div>
-                    <div class="content">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati beatae ipsum aperiam recusandae tempora eos architecto odio, voluptatibus, et fuga veritatis, ratione, magnam laudantium quas accusamus! Ea, maiores! Tenetur, nesciunt. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati beatae ipsum aperiam recusandae tempora eos architecto odio, voluptatibus, et fuga veritatis, ratione, magnam laudantium quas accusamus! Ea, maiores! Tenetur, nesciunt.
-                        <br>
-                        
-                    <div class="user" style="background-color: beige ">
-                        <div class="user-img"></div>
-                        <div class="user-info">
-                            <div class="user-name">Abraham</div>
-                            <span class="post-date">Yesterday at 11:49</span>
-                        </div>
-                        <div class="place">
-                        <div class="actions">
-                            <span class="heart"></span>
-                            <span class="comment"></span>
-                            
-                        </div>
-                        </div>
-                    </div>
 
-                    <div class="yorum" style="background-color: beige ">
-                        Lorem ipsum dolor sit amet,e, magnam laudantium quas accusamus! Ea, maiores! Tenetur, nesciunt.
-                        
-                        
-                    </div>
-                    <br>
 
-                     <div class="user" style="background-color: beige ">
-                        <div class="user-img"></div>
-                        <div class="user-info">
-                            <div class="user-name">Abraham</div>
-                            <span class="post-date">Yesterday at 11:49</span>
-                        </div>
-                        <div class="place">
-                        <div class="actions">
-                            <span class="heart"></span>
-                            <span class="comment"></span>
-                            
-                        </div>
-                        </div>
-                    </div>
-
-                    <div class="yorum" style="background-color: beige ">
-                        Lorem ipsum dolor sit amet,e, magnam laudantium quas accusamus! Ea, maiores! Tenetur, nesciunt.
-                        
-                        
-                    </div>
-                   
-                    
                 </div>
+<div id="post-content">
+        {% for post in post_list reversed %}
 
-        </div>
-        <div class="post">
-                    <div class="user">
-                        <div class="user-img"></div>
-                        <div class="user-info">
-                            <div class="user-name">Louis Dickinson</div>
-                            <span class="post-date">Yesterday at 11:49</span>
-                        </div>
-                       
-                    </div>
-                    <div class="content">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati beatae ipsum aperiam recusandae tempora eos architecto odio, voluptatibus, et fuga veritatis, ratione, magnam laudantium quas accusamus! Ea, maiores! Tenetur, nesciunt. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati beatae ipsum aperiam recusandae tempora eos architecto odio, voluptatibus, et fuga veritatis, ratione, magnam laudantium quas accusamus! Ea, maiores! Tenetur, nesciunt.
-                        <br>
-                        
-                    <div class="user" style="background-color: beige ">
-                        <div class="user-img"></div>
-                        <div class="user-info">
-                            <div class="user-name">Abraham</div>
-                            <span class="post-date">Yesterday at 11:49</span>
-                        </div>
-                        <div class="place">
-                        <div class="actions">
-                            <span class="heart"></span>
-                            <span class="comment"></span>
-                            
-                        </div>
-                        </div>
-                    </div>
 
-                    <div class="yorum" style="background-color: beige ">
-                        Lorem ipsum dolor sit amet,e, magnam laudantium quas accusamus! Ea, maiores! Tenetur, nesciunt.
-                        
-                        
-                    </div>
-                    <br>
-
-                     <div class="user" style="background-color: beige ">
-                        <div class="user-img"></div>
-                        <div class="user-info">
-                            <div class="user-name">Abraham</div>
-                            <span class="post-date">Yesterday at 11:49</span>
-                        </div>
-                        <div class="place">
-                        <div class="actions">
-                            <span class="heart"></span>
-                            <span class="comment"></span>
-                            
-                        </div>
-                        </div>
-                    </div>
-
-                    <div class="yorum" style="background-color: beige ">
-                        Lorem ipsum dolor sit amet,e, magnam laudantium quas accusamus! Ea, maiores! Tenetur, nesciunt.
-                        
-                        
-                    </div>
-                   
-                    
-                </div>
-
-        </div>
+    {% if post.post_type == 'Post' %}
+        {% include "classic-post.html" with post=post%}
+    {% endif %}
+           {% endfor %}
     </div>
 {% endblock %}
 
