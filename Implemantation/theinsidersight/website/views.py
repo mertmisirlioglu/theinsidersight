@@ -138,8 +138,16 @@ def register_view(request):
         createdat = datetime.datetime.now()
         faculty = request.POST['Bölüm']
         gender = request.POST['gender']
-
-
+        converted=datetime.datetime.strptime(birthdate, '%Y-%m-%d')
+        if password1!=password2:
+            messages.error(request,'İki şifre eşleşmiyor.')
+            return redirect('register')
+        if len(password1)<8:
+            messages.error(request,'Şifre 8 karakterden küçük olamaz.')
+            return redirect('register')
+        if converted.year>createdat.year:
+            messages.error(request,'Geçersiz doğum tarihi.Geçerli bir tarih giriniz.')
+            return redirect('register')
         user = User.objects.create_user(username=username,
                                  email=email,
                                  password=password1)
