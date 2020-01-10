@@ -15,24 +15,30 @@
 {% endblock %}
 {% block content %}
 
-        <div class="table">
-            <div class="table-cell">
+     <div id="table">
+
                 <ul class="leader">
-        {% for user in point_list reversed %}
-
-
+                 <p class="tex">Genel Sıralama</p>
+        {% for user in point_list  %}
                     <li>
                         <span class="list_num">{{ forloop.counter}}</span>
                         <img src="https://lh6.googleusercontent.com/-566ZpvrYxRo/AAAAAAAAAAI/AAAAAAAAAAA/kZk-O1q__A0/s128-c-k/photo.jpg"/>
                         <h2>{{user.user.username}}<span class="number">{{ user.point }}</span></h2>
                     </li>
-
-
                 {% endfor %}
+                <div class="your_index">
+                    <p class="tex">Senin Sıralaman</p>
+                 <li>
+                        <span class="list_num">{{ index}}</span>
+                        <img src="https://lh6.googleusercontent.com/-566ZpvrYxRo/AAAAAAAAAAI/AAAAAAAAAAA/kZk-O1q__A0/s128-c-k/photo.jpg"/>
+                        <h2>{{user_info.user.username}}<span class="number">{{ user_info.point }}</span></h2>
+                    </li>
+                </div>
 
 
                 </ul>
-            </div>
-        </div>
+
+</div>
+
 
 {% endblock %}

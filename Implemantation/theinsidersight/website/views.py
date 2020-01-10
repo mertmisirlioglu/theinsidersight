@@ -67,12 +67,26 @@ def answers_view(request):
 def leader_board_view(request):
     point_list = UserProfile.objects.all().order_by("point")
     count = 0
+    page = request.GET.get('page', 1)
+    paginator = Paginator(point_list, 5)
+    try:
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+        posts = paginator.page(1)
+    except EmptyPage:
+        posts = paginator.page(paginator.num_pages)
 
-    context = {"point_list": point_list,
-               "count": count
-               }
+    user_profile = UserProfile.objects.get(user=request.user)
 
-    return render(request, 'siralama.html', context)
+    index_list=(*point_list,)
+    index=index_list.index(user_profile)+1
+
+    context={    'index':index,
+                 'user_info':user_profile,
+                 'point_list': posts
+        }
+    return render(request, 'siralama.html',context)
+
 
 
 @my_login_required
@@ -272,7 +286,7 @@ class post_like_api_toggle(APIView):
             else:
                 liked = True
                 obj.likes.add(user)
-                obj.publish_by.point += 1
+                obj.publish_by.point += 10
             updated = True
         obj.publish_by.save()
         data = {
