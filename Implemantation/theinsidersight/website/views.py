@@ -51,7 +51,7 @@ def home_view(request):
 
 @my_login_required
 def confessions_view(request):
-    confession_list = Post.objects.all().filter(post_type='Post')
+    confession_list = Post.objects.all().filter(post_type='Post').order_by('-pk')
     page = request.GET.get('page', 1)
     paginator = Paginator(confession_list, 20)
     try:
@@ -84,32 +84,49 @@ def leader_board_view(request):
 def discover_view(request):
     user_profile = UserProfile.objects.all().get(user=request.user)
     user_likes = Post.objects.all().filter(likes=request.user)
-    ask = 0
-    dost = 0
-    avcılar = 0
-    civciv = 0
-    prof = 0
-    diger = 0
-    category = { "Aşk":ask, "Dost Kazığı":dost, "Avcılar":avcılar,"Civcivler":civciv,"Profesyonellik içerenler":prof,"Diğer":diger}
-    for post in user_likes:
-        if post.category == 'Aşk':
-            ask+=1
-        elif post.category == 'Dost Kazığı':
-            dost+=1
-        elif post.category == 'Avcılar':
-            avcılar+=1
-        elif post.category == 'Civcivler':
-            civciv+=1
-        elif post.category == 'Profesyonellik içerenler':
-            prof+=1
-        elif post.category == 'Diğer':
-            diger+=1
-    max = category.get(max(category))
+    if user_likes.count()>0:
+        ask = 0
+        dost = 0
+        avcılar = 0
+        civciv = 0
+        prof = 0
+        diger = 0
 
-    #devam edicek
+        for post in user_likes:
+            print(post.category)
+            if post.category == 'Aşk':
+                ask+=1
+            elif post.category == 'Dost Kazığı':
+                dost+=1
+            elif post.category == 'Avcılar':
+                avcılar+=1
+            elif post.category == 'Civcivler':
+                civciv+=1
+            elif post.category == 'Profesyonellik içerenler':
+                prof+=1
+            elif post.category == 'Diğer':
+                diger+=1
+        category = {"Aşk": ask, "Dost Kazığı": dost, "Avcılar": avcılar, "Civcivler": civciv,
+                    "Profesyonellik içerenler": prof, "Diğer": diger}
+        print(category)
+        category = sorted(category, key=category.get)
 
+        print(category)
+        post_list = Post.objects.all().filter(category=category[len(category)-1]).exclude(publish_by=user_profile).order_by('-pk')
+        post_list = post_list | Post.objects.all().filter(category=category[len(category) - 2]).exclude(publish_by=user_profile).order_by('-pk')
+        post_list = post_list | Post.objects.all().filter(category=category[len(category) - 3]).exclude(publish_by=user_profile).order_by('-pk')
+    else:
+        post_list = Post.objects.all()
 
-    return render(request, 'kesfet.html')
+    page = request.GET.get('page', 1)
+    paginator = Paginator(post_list, 20)
+    try:
+        post_list = paginator.page(page)
+    except PageNotAnInteger:
+        post_list = paginator.page(1)
+    except EmptyPage:
+        post_list = paginator.page(paginator.num_pages)
+    return render(request, 'kesfet.html',{'post_list':post_list})
 
 
 def login_view(request):
@@ -231,14 +248,14 @@ def reply_post(request, post_id):
 
 @my_login_required
 def question_page(request):
-    post_list = Post.objects.all().filter(post_type='Soru')
+    post_list = Post.objects.all().filter(post_type='Soru').order_by('-pk')
     content = {'post_list': post_list}
     return render(request, 'sorular.html', content)
 
 
 @my_login_required
 def answer_page(request):
-    answer_list = reply_Post.objects.all().filter(reply_post_type='Soru')
+    answer_list = reply_Post.objects.all().filter(reply_post_type='Soru').order_by('-pk')
     content = {'answer_list': answer_list}
     return render(request, 'cevaplar.html', content)
 
@@ -277,7 +294,7 @@ class post_like_api_toggle(APIView):
             else:
                 liked = True
                 obj.likes.add(user)
-                obj.publish_by.point += 1
+                obj.publish_by.point += 10
             updated = True
         obj.publish_by.save()
         data = {

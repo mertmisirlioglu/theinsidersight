@@ -7,11 +7,11 @@
                         </div>
                         <div class="actions">
                             {% if request.user in post.likes.all %}
-                                <a  data-href="{{ post.get_like_api_url }}"  data-likes={{ post.likes.count }} class="like_button"><span class="like-red like-ch" ></span> <div id="like-count">{{ post.likes.count }}</div></a>
+                                <a  data-href="{{ post.get_like_api_url }}"  data-likes={{ post.likes.count }} class="like_button"><span class="like-red like-ch" ></span> </a><div id="like-count">{{ post.likes.count }}</div>
                             {% else %}
-                                <a  data-href="{{ post.get_like_api_url }}"  data-likes={{ post.likes.count }} class="like_button"><span class="no-like like-ch" id="like"></span><div id="like-count">{{ post.likes.count }}</div></a>
+                                <a  data-href="{{ post.get_like_api_url }}"  data-likes={{ post.likes.count }} class="like_button"><span class="no-like like-ch" id="like"></span></a><div id="like-count">{{ post.likes.count }}</div>
                             {% endif %}
-                            <a href="{{ post.get_reply_url }}"><span class="comment"></span></a>
+                            <a href="{{ post.get_reply_url }}"><span class="comment"></span></a><div id="comment-count"> {{ post.replycount }}</div>
                         </div>
                     </div>
                     <div class="content">
