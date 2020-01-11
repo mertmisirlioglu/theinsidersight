@@ -1,23 +1,19 @@
+import datetime
+
 from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
-from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from django.db import transaction
-from django.http import Http404, HttpResponse
-from django.shortcuts import render, get_object_or_404, render_to_response
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import redirect
-from django.template import RequestContext
-
-from rest_framework.utils import json
-from rest_framework.views import APIView
-from rest_framework.response import Response
+from django.shortcuts import render, get_object_or_404
 from rest_framework import authentication, permissions
-from website.forms import ExtendedUserCreationForm, ProfileForm, PostForm, ReplyPostForm
+from rest_framework.response import Response
+from rest_framework.views import APIView
+
+from website.forms import PostForm, ReplyPostForm
 # , ReplyPostForm
 from website.models import UserProfile, Post, reply_Post, Follower_List
-from django.views.generic import RedirectView
-import datetime
-from django.contrib.auth.models import User
 
 
 def my_login_required(function):
@@ -64,19 +60,74 @@ def confessions_view(request):
 
 
 @my_login_required
+def ask_confessions_view(request):
+    return render(request, 'prof.html', {'confession_list': category_post_getter(request, 'Aşk')})
+
+
+@my_login_required
+def dost_confessions_view(request):
+    return render(request, 'prof.html', {'confession_list': category_post_getter(request, 'Dost Kazığı')})
+
+
+@my_login_required
+def civciv_confessions_view(request):
+    return render(request, 'prof.html', {'confession_list': category_post_getter(request, 'Civcivler')})
+
+
+@my_login_required
+def avci_confessions_view(request):
+    return render(request, 'prof.html', {'confession_list': category_post_getter(request, 'Avcılar')})
+
+
+@my_login_required
+def prof_confessions_view(request):
+    return render(request, 'prof.html', {'confession_list': category_post_getter(request, 'Profesyonellik içerenler')})
+
+@my_login_required
+def diger_confessions_view(request):
+    return render(request, 'prof.html', {'confession_list': category_post_getter(request, 'Diğer')})
+
+
+def category_post_getter(request, category):
+    confession_list = Post.objects.all().filter(category=category)
+    page = request.GET.get('page', 1)
+    paginator = Paginator(confession_list, 20)
+    try:
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+        posts = paginator.page(1)
+    except EmptyPage:
+        posts = paginator.page(paginator.num_pages)
+    return posts
+
+
+@my_login_required
 def answers_view(request):
     return render(request, 'cevaplar.html')
 
 
 @my_login_required
 def leader_board_view(request):
-    point_list = UserProfile.objects.all().order_by("point")
+    point_list = UserProfile.objects.all().order_by("-point")
     count = 0
+    page = request.GET.get('page', 1)
+    paginator = Paginator(point_list, 5)
+    try:
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+        posts = paginator.page(1)
+    except EmptyPage:
+        posts = paginator.page(paginator.num_pages)
 
-    context = {"point_list": point_list,
-               "count": count
+    user_profile = UserProfile.objects.get(user=request.user)
+
+    index_list = (*point_list,)
+    index = index_list.index(user_profile) + 1
+
+    context = {'index': index,
+               'user_info': user_profile,
+               'point_list': posts
                }
-
     return render(request, 'siralama.html', context)
 
 
@@ -84,7 +135,7 @@ def leader_board_view(request):
 def discover_view(request):
     user_profile = UserProfile.objects.all().get(user=request.user)
     user_likes = Post.objects.all().filter(likes=request.user)
-    if user_likes.count()>0:
+    if user_likes.count() > 0:
         ask = 0
         dost = 0
         avcılar = 0
@@ -95,26 +146,29 @@ def discover_view(request):
         for post in user_likes:
             print(post.category)
             if post.category == 'Aşk':
-                ask+=1
+                ask += 1
             elif post.category == 'Dost Kazığı':
-                dost+=1
+                dost += 1
             elif post.category == 'Avcılar':
-                avcılar+=1
+                avcılar += 1
             elif post.category == 'Civcivler':
-                civciv+=1
+                civciv += 1
             elif post.category == 'Profesyonellik içerenler':
-                prof+=1
+                prof += 1
             elif post.category == 'Diğer':
-                diger+=1
+                diger += 1
         category = {"Aşk": ask, "Dost Kazığı": dost, "Avcılar": avcılar, "Civcivler": civciv,
                     "Profesyonellik içerenler": prof, "Diğer": diger}
         print(category)
         category = sorted(category, key=category.get)
 
         print(category)
-        post_list = Post.objects.all().filter(category=category[len(category)-1]).exclude(publish_by=user_profile).order_by('-pk')
-        post_list = post_list | Post.objects.all().filter(category=category[len(category) - 2]).exclude(publish_by=user_profile).order_by('-pk')
-        post_list = post_list | Post.objects.all().filter(category=category[len(category) - 3]).exclude(publish_by=user_profile).order_by('-pk')
+        post_list = Post.objects.all().filter(category=category[len(category) - 1]).exclude(
+            publish_by=user_profile).order_by('-pk')
+        post_list = post_list | Post.objects.all().filter(category=category[len(category) - 2]).exclude(
+            publish_by=user_profile).order_by('-pk')
+        post_list = post_list | Post.objects.all().filter(category=category[len(category) - 3]).exclude(
+            publish_by=user_profile).order_by('-pk')
     else:
         post_list = Post.objects.all()
 
@@ -126,7 +180,7 @@ def discover_view(request):
         post_list = paginator.page(1)
     except EmptyPage:
         post_list = paginator.page(paginator.num_pages)
-    return render(request, 'kesfet.html',{'post_list':post_list})
+    return render(request, 'kesfet.html', {'post_list': post_list})
 
 
 def login_view(request):
@@ -155,20 +209,20 @@ def register_view(request):
         createdat = datetime.datetime.now()
         faculty = request.POST['Bölüm']
         gender = request.POST['gender']
-        converted=datetime.datetime.strptime(birthdate, '%Y-%m-%d')
-        if password1!=password2:
-            messages.error(request,'İki şifre eşleşmiyor.')
+        converted = datetime.datetime.strptime(birthdate, '%Y-%m-%d')
+        if password1 != password2:
+            messages.error(request, 'İki şifre eşleşmiyor.')
             return redirect('register')
-        if len(password1)<8:
-            messages.error(request,'Şifre 8 karakterden küçük olamaz.')
+        if len(password1) < 8:
+            messages.error(request, 'Şifre 8 karakterden küçük olamaz.')
             return redirect('register')
-        if converted.year>createdat.year:
-            messages.error(request,'Geçersiz doğum tarihi.Geçerli bir tarih giriniz.')
+        if converted.year > createdat.year:
+            messages.error(request, 'Geçersiz doğum tarihi.Geçerli bir tarih giriniz.')
             return redirect('register')
         user = User.objects.create_user(username=username,
-                                 email=email,
-                                 password=password1)
-        profile = UserProfile(gender=gender,faculty=faculty,user=user,birthdate=birthdate,createdat=createdat)
+                                        email=email,
+                                        password=password1)
+        profile = UserProfile(gender=gender, faculty=faculty, user=user, birthdate=birthdate, createdat=createdat)
         profile.save()
         user = authenticate(request, username=username, password=password1)
         if user is not None:
@@ -184,11 +238,6 @@ def register_view(request):
 def logout_view(request):
     logout(request)
     return redirect('login')
-
-
-
-
-
 
 
 @my_login_required
@@ -312,8 +361,9 @@ def profile_view(request, user_id):
     context = {'user_profile': user,
                'own_user': own_user,
                'post_list': post_list,
-               'followers_count':followers_count}
+               'followers_count': followers_count}
     return render(request, "kullanıcı profil sayfası.html", context)
+
 
 class follow_api_toggle(APIView):
     authentication_classes = [authentication.SessionAuthentication]
@@ -370,6 +420,7 @@ def confessionsadmin_view(request):
 @staff_member_required
 def kullanicilaradmin_view(request):
     return render(request, 'admin/kullanicilar-admin.html')
+
 
 def createquestionadmin_view(request):
     return render(request, 'admin/soru sayfa admin.html')

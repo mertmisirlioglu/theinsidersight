@@ -41,4 +41,10 @@ urlpatterns = [
     path('itiraflar-admin/', views.confessionsadmin_view, name='adminitiraflar'),
     path('kullanicilar-admin/', views.admin_user, name='adminkullanicilar'),
     path('soru-admin/', views.questionadmin_view, name='adminsoru'),
+    path('ask-itiraf/', views.ask_confessions_view, name='ask_itiraf'),
+    path('dost-itiraf/', views.dost_confessions_view, name='dost_itiraf'),
+    path('civciv-itiraf/', views.civciv_confessions_view, name='civciv_itiraf'),
+    path('avci-itiraf/', views.avci_confessions_view, name='avci_itiraf'),
+    path('diger-itiraf/', views.diger_confessions_view, name='diger_itiraf'),
+    path('prof-itiraf/', views.prof_confessions_view, name='prof_itiraf'),
 ]
