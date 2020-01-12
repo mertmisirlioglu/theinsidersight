@@ -1,39 +1,29 @@
- <div class="post">
+{% load static %}
+<div class="post">
                     <div class="user">
-                        <div class="user-img"></div>
+                        <div class="user-img"> {% ifequal answer.replied_post.publish_by.gender 'E' %}
+              <img src="{% static 'media/erkek.png' %}" alt="profil resmi">
+          {% endifequal %}
+      {% ifequal answer.replied_post.publish_by.gender 'K' %}</div>
+                    <img src="{% static 'media/kadın.jpg' %}" alt="profil resmi">
+          {% endifequal %}</div>
                         <div class="user-info">
-                            <div class="user-name" href="{{ answer.replied_post.publish_by.get_profile_url }}">{{ answer.replied_post.publish_by.user.username }}</div>
+                            <a href="{{ answer.replied_post.publish_by.get_profile_url }}"><div class="user-name">{{ answer.replied_post.publish_by.user.username }}</div></a>
                             <span class="post-date">{{answer.replied_post.publish_date}}</span>
                         </div>
                         <div class="actions">
-                            {% if request.user in answer.replied_post.likes.all %}
-                                <a  data-href="{{ answer.replied_post.get_like_api_url }}"  data-likes={{ answer.replied_post.likes.count }} class="like_button"><span class="like-red like-ch" ></span></a>
+                            {% if request.user in post.likes.all %}
+                               <span> <a  data-href="{{ answer.replied_post.get_like_api_url }}"  data-likes={{ answer.replied_post.likes.count }} class="like_button">  <span class="like-red like-ch" > <div class="like-count">{{ answer.replied_post.likes.count }}</div></span> </a></span>
                             {% else %}
-                                <a  data-href="{{ answer.replied_post.get_like_api_url }}"  data-likes={{ answer.replied_post.likes.count }} class="like_button"><span class="no-like like-ch" id="like"></span></a>
+                              <span><a  data-href="{{ answer.replied_post.get_like_api_url }}"  data-likes={{ answer.replied_post.likes.count }} class="like_button"> <span class="no-like like-ch" id="like"><div class="like-count">{{ answer.replied_post.likes.count }}</div></span></a></span>
                             {% endif %}
+
                         </div>
                     </div>
                     <div class="content">
                        {{answer.replied_post.content}}
-                        <div class="post question-post">
-                            <div class="user">
-                                <div class="user-img"></div>
-                                <div class="user-info">
-                                    <div class="user-name" href="{{ answer.main_post.publish_by.get_profile_url }}">{{ answer.main_post.publish_by.user.username }}</div>
-                                    <span class="post-date">{{answer.main_post.publish_date}}</span>
-                                </div>
-                                <div class="actions">
-                            {% if request.user in answer.main_post.likes.all %}
-                                <a  data-href="{{ answer.main_post.get_like_api_url }}"  data-likes={{ answer.main_post.likes.count }} class="like_button"><span class="like-red like-ch" ></span></a>
-                            {% else %}
-                                <a  data-href="{{ answer.main_post.get_like_api_url }}"  data-likes={{ answer.main_post.likes.count }} class="like_button"><span class="no-like like-ch" id="like"></span></a>
-                            {% endif %}
-                            <a href="{{ answer.main_post.get_reply_url }}"><span class="comment"></span></a>
-                        </div>
-                            </div>
-                            <div class="content">
-                               {{ answer.main_post.content }}
-                            </div>
+                        <div class="question-post">
+                             {% include "classic-post.html" with post=answer.main_post%}
                         </div>
                     </div>
                 </div>

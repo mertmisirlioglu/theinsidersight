@@ -13,6 +13,12 @@
                             <span class="post-date">{{post.publish_date}}</span>
                         </div>
                         <div class="actions">
+                          {% if request.user.is_superuser %}
+                                 <div class="actions">
+                                     <a href="{{ post.get_delete_post_url }}"><i class="fas fa-trash-alt fa-lg" style="position: relative; top:15px; left:8px;"></i></a>
+                        </div>
+                            {% endif %}
+
                             {% if request.user in post.likes.all %}
                                <span> <a  data-href="{{ post.get_like_api_url }}"  data-likes={{ post.likes.count }} class="like_button">  <span class="like-red like-ch" > <div class="like-count">{{ post.likes.count }}</div></span> </a></span>
                             {% else %}

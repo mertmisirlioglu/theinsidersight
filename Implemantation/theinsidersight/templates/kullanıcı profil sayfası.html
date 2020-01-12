@@ -35,7 +35,7 @@
     </tr>
 
     <tr>
-      <td colspan="2" class="social"><b>{{ post_list.count}}</b><br/>Posts</td>
+      <td colspan="2" class="social"><b>{{ post_count}}</b><br/>Posts</td>
       <td colspan="2"  class="social"><b>{{followers_count}}</b><br/>FOLLOWING</td>
       <td colspan="2"  class="social"><b>{{ user_profile.following.count }}</b><br/>FOLLOWERS</td>
     </tr>
@@ -49,7 +49,7 @@
 
 
 <div id="post-content">
-        {% for post in post_list reversed %}
+        {% for post in post_list  %}
 
 
     {% if post.post_type == 'Post' %}
@@ -58,7 +58,10 @@
            {% endfor %}
     </div>
 
-
+ {% if post_list.has_next %}
+               <div id="more-div">
+   <button id="more-button" class="btn btn-warning"><a class="infinite-more-link " href="?page={{ post_list.next_page_number }}" style="color: #660000">Daha fazla..</a></button> </div>
+  {% endif %}
 {% endblock %}
 
 

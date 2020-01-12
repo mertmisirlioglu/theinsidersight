@@ -10,8 +10,8 @@
 
 {% include "classic-post.html" with post=main_post%}
 
-        {% for reply in reply_list %}
-          {% include "classic-post.html" with post=reply%}
+        {% for post in reply_list %}
+          {% include "classic-post.html" with post=post.replied_post %}
         {% endfor %}
 
 

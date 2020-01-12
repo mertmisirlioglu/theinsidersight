@@ -12,9 +12,11 @@
 		{% include "classic-post.html" with post=post%}
                 {% endfor %}
 
-            {% if post_list.has_next %}
-    <a class="infinite-more-link" href="?page={{ post_list.next_page_number }}">Daha fazla..</a>
+              {% if post_list.has_next %}
+               <div id="more-div">
+   <button id="more-button" class="btn btn-warning"><a class="infinite-more-link " href="?page={{ post_list.next_page_number }}" style="color: #660000">Daha fazla..</a></button>
   {% endif %}
+        </div>
 
 
 

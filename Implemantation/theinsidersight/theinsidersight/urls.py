@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from website import views
 
 
@@ -23,6 +23,7 @@ urlpatterns = [
     path('', views.home_view, name='home'),
     path('itiraflar/', views.confessions_view, name='confessions'),
     path('cevaplar/', views.answer_page, name='answers'),
+    path('notifications/', include('notify.urls', 'notifications')),
     path('sıralama/', views.leader_board_view, name='leader_board'),
     path('kesfet/', views.discover_view, name='discover'),
     path('giris/', views.login_view, name='login'),
@@ -33,14 +34,12 @@ urlpatterns = [
     path('cevapla/<int:post_id>/', views.reply_post, name='reply_post'),
     path('begen/api/<int:post_id>/', views.post_like_api_toggle.as_view(), name='like_api_post'),
     path('takip/api/<int:user_id>/', views.follow_api_toggle.as_view(), name='follow_api'),
+    path('post/sil/<int:post_id>/', views.delete_post, name='post_delete'),
     path('sil/<int:user_id>/', views.delete_user, name='delete_user'),
     path('profil/<int:user_id>/', views.profile_view, name='profile'),
     path('soru-sor/', views.send_question, name='send_question'),
     path('sorular/', views.question_page, name='questions'),
-    path('cevaplar-admin/', views.answeradmin_view, name='admincevaplar'),
-    path('itiraflar-admin/', views.confessionsadmin_view, name='adminitiraflar'),
     path('kullanicilar-admin/', views.admin_user, name='adminkullanicilar'),
-    path('soru-admin/', views.questionadmin_view, name='adminsoru'),
     path('ask-itiraf/', views.ask_confessions_view, name='ask_itiraf'),
     path('dost-itiraf/', views.dost_confessions_view, name='dost_itiraf'),
     path('civciv-itiraf/', views.civciv_confessions_view, name='civciv_itiraf'),

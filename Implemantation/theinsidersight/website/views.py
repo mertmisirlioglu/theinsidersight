@@ -1,5 +1,6 @@
 import datetime
 
+import notify
 from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth import authenticate, login, logout
@@ -12,7 +13,6 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from website.forms import PostForm, ReplyPostForm
-# , ReplyPostForm
 from website.models import UserProfile, Post, reply_Post, Follower_List
 
 
@@ -34,29 +34,15 @@ def home_view(request):
     for user in user_profile.following.all():
         post_list = post_list | Post.objects.all().filter(post_type='Post', publish_by=user).all()
 
-    page = request.GET.get('page', 1)
-    paginator = Paginator(post_list, 20)
-    try:
-        posts = paginator.page(page)
-    except PageNotAnInteger:
-        posts = paginator.page(1)
-    except EmptyPage:
-        posts = paginator.page(paginator.num_pages)
-    return render(request, 'anasayfa.html', {'post_list': posts})
+    post_list = create_paginator(request, post_list)
+    return render(request, 'anasayfa.html', {'post_list': post_list})
 
 
 @my_login_required
 def confessions_view(request):
     confession_list = Post.objects.all().filter(post_type='Post').order_by('-pk')
-    page = request.GET.get('page', 1)
-    paginator = Paginator(confession_list, 20)
-    try:
-        posts = paginator.page(page)
-    except PageNotAnInteger:
-        posts = paginator.page(1)
-    except EmptyPage:
-        posts = paginator.page(paginator.num_pages)
-    return render(request, 'itiraflar.html', {'confession_list': posts})
+    confession_list = create_paginator(request, confession_list)
+    return render(request, 'itiraflar.html', {'confession_list': confession_list})
 
 
 @my_login_required
@@ -83,6 +69,7 @@ def avci_confessions_view(request):
 def prof_confessions_view(request):
     return render(request, 'prof.html', {'confession_list': category_post_getter(request, 'Profesyonellik içerenler')})
 
+
 @my_login_required
 def diger_confessions_view(request):
     return render(request, 'prof.html', {'confession_list': category_post_getter(request, 'Diğer')})
@@ -90,34 +77,21 @@ def diger_confessions_view(request):
 
 def category_post_getter(request, category):
     confession_list = Post.objects.all().filter(category=category)
-    page = request.GET.get('page', 1)
-    paginator = Paginator(confession_list, 20)
-    try:
-        posts = paginator.page(page)
-    except PageNotAnInteger:
-        posts = paginator.page(1)
-    except EmptyPage:
-        posts = paginator.page(paginator.num_pages)
-    return posts
-
-
-@my_login_required
-def answers_view(request):
-    return render(request, 'cevaplar.html')
+    confession_list = create_paginator(request, confession_list)
+    return confession_list
 
 
 @my_login_required
 def leader_board_view(request):
     point_list = UserProfile.objects.all().order_by("-point")
-    count = 0
     page = request.GET.get('page', 1)
     paginator = Paginator(point_list, 5)
     try:
-        posts = paginator.page(page)
+        point_list = paginator.page(page)
     except PageNotAnInteger:
-        posts = paginator.page(1)
+        point_list = paginator.page(1)
     except EmptyPage:
-        posts = paginator.page(paginator.num_pages)
+        point_list = paginator.page(paginator.num_pages)
 
     user_profile = UserProfile.objects.get(user=request.user)
 
@@ -126,7 +100,7 @@ def leader_board_view(request):
 
     context = {'index': index,
                'user_info': user_profile,
-               'point_list': posts
+               'point_list': point_list
                }
     return render(request, 'siralama.html', context)
 
@@ -170,16 +144,9 @@ def discover_view(request):
         post_list = post_list | Post.objects.all().filter(category=category[len(category) - 3]).exclude(
             publish_by=user_profile).order_by('-pk')
     else:
-        post_list = Post.objects.all()
+        post_list = Post.objects.all().order_by('-pk')
 
-    page = request.GET.get('page', 1)
-    paginator = Paginator(post_list, 20)
-    try:
-        post_list = paginator.page(page)
-    except PageNotAnInteger:
-        post_list = paginator.page(1)
-    except EmptyPage:
-        post_list = paginator.page(paginator.num_pages)
+    post_list = create_paginator(request, post_list)
     return render(request, 'kesfet.html', {'post_list': post_list})
 
 
@@ -219,6 +186,9 @@ def register_view(request):
         if converted.year > createdat.year:
             messages.error(request, 'Geçersiz doğum tarihi.Geçerli bir tarih giriniz.')
             return redirect('register')
+        if email and User.objects.filter(email=email).exclude(username=username).exists():
+            messages.error(request, 'Email sistemde kayıtlı.Lütfen başka bir email giriniz.')
+            return redirect('register')
         user = User.objects.create_user(username=username,
                                         email=email,
                                         password=password1)
@@ -244,8 +214,14 @@ def logout_view(request):
 def my_profile(request):
     user = request.user
     user_profile = UserProfile.objects.get(user=user)
-    age = datetime.datetime.now().year - user_profile.birthdate.year
-    context = {'user': user, 'profile': user_profile, 'age': age}
+    followers_count = Follower_List.objects.all().filter(followingto=user_profile).count()
+    post_list = Post.objects.all().filter(publish_by=user_profile)
+    post_count = post_list.count()
+    post_list = create_paginator(request,post_list)
+    context = {'user_profile': user_profile,
+               'post_list': post_list,
+               'post_count':post_count,
+               'followers_count': followers_count}
     return render(request, 'profile.html', context)
 
 
@@ -298,15 +274,27 @@ def reply_post(request, post_id):
 @my_login_required
 def question_page(request):
     post_list = Post.objects.all().filter(post_type='Soru').order_by('-pk')
-    content = {'post_list': post_list}
-    return render(request, 'sorular.html', content)
+    post_list = create_paginator(request, post_list)
+    return render(request, 'sorular.html', {'post_list': post_list})
 
 
 @my_login_required
 def answer_page(request):
     answer_list = reply_Post.objects.all().filter(reply_post_type='Soru').order_by('-pk')
-    content = {'answer_list': answer_list}
-    return render(request, 'cevaplar.html', content)
+    answer_list = create_paginator(request, answer_list)
+    return render(request, 'cevaplar.html', {'answer_list': answer_list})
+
+
+def create_paginator(request, list):
+    page = request.GET.get('page', 1)
+    paginator = Paginator(list, 20)
+    try:
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+        posts = paginator.page(1)
+    except EmptyPage:
+        posts = paginator.page(paginator.num_pages)
+    return posts
 
 
 @my_login_required
@@ -358,11 +346,19 @@ def profile_view(request, user_id):
     own_user = get_object_or_404(UserProfile, user=request.user)
     followers_count = Follower_List.objects.all().filter(followingto=user).count()
     post_list = Post.objects.all().filter(publish_by=user)
+    post_count = post_list.count()
+    post_list = create_paginator(request,post_list)
     context = {'user_profile': user,
                'own_user': own_user,
                'post_list': post_list,
+               'post_count':post_count,
                'followers_count': followers_count}
     return render(request, "kullanıcı profil sayfası.html", context)
+
+def delete_post(request,post_id):
+    deleted_post=Post.objects.get(pk=post_id)
+    deleted_post.delete()
+    return redirect('confessions')
 
 
 class follow_api_toggle(APIView):
@@ -407,25 +403,6 @@ def delete_user(request, user_id):
     return redirect('adminkullanicilar')
 
 
-@staff_member_required
-def answeradmin_view(request):
-    return render(request, 'admin/cevaplar-admin.html')
 
 
-@staff_member_required
-def confessionsadmin_view(request):
-    return render(request, 'admin/itiraflar-admin.html')
 
-
-@staff_member_required
-def kullanicilaradmin_view(request):
-    return render(request, 'admin/kullanicilar-admin.html')
-
-
-def createquestionadmin_view(request):
-    return render(request, 'admin/soru sayfa admin.html')
-
-
-@staff_member_required
-def questionadmin_view(request):
-    return render(request, 'admin/sorular-admin.html')

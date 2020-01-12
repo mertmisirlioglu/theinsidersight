@@ -22,7 +22,12 @@
         {% for user in point_list  %}
                     <li>
                         <span class="list_num">{{ forloop.counter}}</span>
-                        <img src="https://lh6.googleusercontent.com/-566ZpvrYxRo/AAAAAAAAAAI/AAAAAAAAAAA/kZk-O1q__A0/s128-c-k/photo.jpg"/>
+                        {% ifequal user.gender "E"  %}
+              <img src="{% static 'media/erkek.png' %}" alt="profil resmi">
+          {% endifequal %}
+      {% ifequal user.gender  "K" %}
+              <img src="{% static 'media/kadın.jpg' %}" alt="profil resmi">
+          {% endifequal %}
                         <h2>{{user.user.username}}<span class="number">{{ user.point }}</span></h2>
                     </li>
                 {% endfor %}
@@ -30,7 +35,12 @@
                     <p class="tex">Senin Sıralaman</p>
                  <li>
                         <span class="list_num">{{ index}}</span>
-                        <img src="https://lh6.googleusercontent.com/-566ZpvrYxRo/AAAAAAAAAAI/AAAAAAAAAAA/kZk-O1q__A0/s128-c-k/photo.jpg"/>
+                         {% ifequal user_info.gender "E"  %}
+              <img src="{% static 'media/erkek.png' %}" alt="profil resmi">
+          {% endifequal %}
+      {% ifequal user_info.gender  "K" %}
+              <img src="{% static 'media/kadın.jpg' %}" alt="profil resmi">
+          {% endifequal %}
                         <h2>{{user_info.user.username}}<span class="number">{{ user_info.point }}</span></h2>
                     </li>
                 </div>

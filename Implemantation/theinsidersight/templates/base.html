@@ -97,12 +97,23 @@
                                     <span>Keşfet</span>
                                 </a>
                             </li>
+
+                         {% if request.user.is_superuser %}
+                                <li>
+                                 <a href="{%  url 'adminkullanicilar' %}"  id="admin-kullanicilar">
+                                    <i class="fas fa-users"></i>
+                                    <span>Kullanıcılar</span>
+                                </a>
+                            </li>
+                            {% endif %}
                              <li>
                                  <a href="{%  url 'make_confession' %}"  id="make-confession">
                                     <i class="fab fa-angellist"></i>
                                     <span>İtiraf Et</span>
                                 </a>
                             </li>
+
+
 
                             {% block question %}
                             {% endblock %}
@@ -123,6 +134,9 @@
                         <a href="{%  url 'logout' %}"><i class="fas fa-eye-slash"></i> </a>
                     </nav>
                 </div>
+
+            <!-- this format is not compulsory, you can have HTML that suits your project -->
+
                 {% block admin %}
                 {% endblock %}
             </div>

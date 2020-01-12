@@ -65,6 +65,8 @@ class Post(models.Model):
     def get_like_api_url(self):
         return f"/begen/api/{self.pk}/"
 
+    def get_delete_post_url(self):
+        return f"/post/sil/{self.pk}/"
 
 class reply_Post(models.Model):
     Reply_Post_Type = (
