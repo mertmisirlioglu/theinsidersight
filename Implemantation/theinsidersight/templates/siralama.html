@@ -28,7 +28,8 @@
       {% ifequal user.gender  "K" %}
               <img src="{% static 'media/kadın.jpg' %}" alt="profil resmi">
           {% endifequal %}
-                        <h2>{{user.user.username}}<span class="number">{{ user.point }}</span></h2>
+                      <a style="color:lightslategrey" href="{{ user.get_profile_url }}">  <h2>{{user.user.username}}<span class="number">{{ user.point }}</span></h2>
+                          </a>
                     </li>
                 {% endfor %}
                 <div class="your_index">
@@ -41,7 +42,8 @@
       {% ifequal user_info.gender  "K" %}
               <img src="{% static 'media/kadın.jpg' %}" alt="profil resmi">
           {% endifequal %}
-                        <h2>{{user_info.user.username}}<span class="number">{{ user_info.point }}</span></h2>
+                      <a style="color:lightslategrey" href="{{ user_info.get_profile_url }}">   <h2>{{user_info.user.username}}<span class="number">{{ user_info.point }}</span></h2>
+                         </a>
                     </li>
                 </div>
 

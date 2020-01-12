@@ -18,9 +18,10 @@
       {% ifequal user_profile.gender 'K' %}
               <img src="{% static 'media/kadın.jpg' %}" alt="profil resmi">
           {% endifequal %}
+       <td colspan="4" class="user"><div>@{{ user_profile.user.username }}<br/>{{user_profile.faculty}}</div></td>
 
-      </td>
-      <td colspan="4" class="user"><div>@{{ user_profile.user.username }}<br/>{{user_profile.faculty}}</div></td>
+{% ifequal user_profile own_user %}
+      {% else %}
 <td class="msg">
 
         <div class="msgArea">
@@ -32,12 +33,16 @@
                 {% endif %}
         </div>
       </td>
+      {% endifequal %}
+      </td>
+
     </tr>
 
     <tr>
       <td colspan="2" class="social"><b>{{ post_count}}</b><br/>Posts</td>
-      <td colspan="2"  class="social"><b>{{followers_count}}</b><br/>FOLLOWING</td>
-      <td colspan="2"  class="social"><b>{{ user_profile.following.count }}</b><br/>FOLLOWERS</td>
+      <td colspan="2"  class="social"><b>{{user_profile.following.count}}</b><br/>FOLLOWING</td>
+      <td colspan="2"  class="social"><b>{{ followers_count }}</b>
+             <br/>FOLLOWERS</td>
     </tr>
 
 
@@ -51,10 +56,8 @@
 <div id="post-content">
         {% for post in post_list  %}
 
-
-    {% if post.post_type == 'Post' %}
         {% include "classic-post.html" with post=post%}
-    {% endif %}
+
            {% endfor %}
     </div>
 
@@ -81,9 +84,42 @@
             success: function(data) {
                 console.log(data)
                 if(data.followed){
-                this_.find('button').text("takibi bırak")
+                    this_.find('button').text("takibi bırak")
                 }else{
                      this_.find('button').text("takip et")
+                }
+
+            },error: function(error) {
+                console.log(error)
+                console.log("error")
+            }
+        })
+    })
+
+        function updateText(btn,newCount){
+                btn.text(newCount)
+              }
+    $(".like_button").click(function (e) {
+       e.preventDefault()
+        var this_ = $(this)
+        var likeUrl = this_.attr("data-href")
+        var likeCount = parseInt(this_.attr("data-likes"))
+        var addLike = likeCount + 1
+        var dislike = addLike - 1
+        $.ajax({
+            url: likeUrl,
+            method: "GET",
+            data:{},
+            success: function(data) {
+                console.log(data)
+                if(data.liked){
+                this_.find('span').removeClass("no-like")
+                    this_.find('span').addClass("like-red")
+                    updateText(this_.find('.like-count'),addLike)
+                }else{
+                    this_.find('span').addClass("no-like")
+                    this_.find('span').removeClass("like-red")
+                    updateText(this_.find('.like-count'),dislike)
                 }
 
             },error: function(error) {

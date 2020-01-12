@@ -1,11 +1,11 @@
 {% load static %}
 <div class="post">
                     <div class="user">
-                        <div class="user-img"> {% ifequal answer.replied_post.publish_by.gender 'E' %}
+                       <div class="user-img"> {% ifequal answer.replied_post.publish_by.gender 'E' %}
               <img src="{% static 'media/erkek.png' %}" alt="profil resmi">
           {% endifequal %}
-      {% ifequal answer.replied_post.publish_by.gender 'K' %}</div>
-                    <img src="{% static 'media/kadın.jpg' %}" alt="profil resmi">
+      {% ifequal answer.replied_post.publish_by.gender 'K' %}
+              <img src="{% static 'media/kadın.jpg' %}" alt="profil resmi">
           {% endifequal %}</div>
                         <div class="user-info">
                             <a href="{{ answer.replied_post.publish_by.get_profile_url }}"><div class="user-name">{{ answer.replied_post.publish_by.user.username }}</div></a>

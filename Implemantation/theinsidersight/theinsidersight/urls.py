@@ -23,7 +23,6 @@ urlpatterns = [
     path('', views.home_view, name='home'),
     path('itiraflar/', views.confessions_view, name='confessions'),
     path('cevaplar/', views.answer_page, name='answers'),
-    path('notifications/', include('notify.urls', 'notifications')),
     path('sıralama/', views.leader_board_view, name='leader_board'),
     path('kesfet/', views.discover_view, name='discover'),
     path('giris/', views.login_view, name='login'),
@@ -46,4 +45,6 @@ urlpatterns = [
     path('avci-itiraf/', views.avci_confessions_view, name='avci_itiraf'),
     path('diger-itiraf/', views.diger_confessions_view, name='diger_itiraf'),
     path('prof-itiraf/', views.prof_confessions_view, name='prof_itiraf'),
+    path('user_followers/', views.user_followers, name='user_followers'),
+    path('user-following/', views.user_following, name='user_following'),
 ]

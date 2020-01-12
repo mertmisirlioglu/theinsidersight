@@ -1,8 +1,6 @@
 import datetime
 
-import notify
 from django.contrib import messages
-from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
@@ -84,6 +82,9 @@ def category_post_getter(request, category):
 @my_login_required
 def leader_board_view(request):
     point_list = UserProfile.objects.all().order_by("-point")
+    user_profile = UserProfile.objects.get(user=request.user)
+    index_list = (*point_list,)
+    index = index_list.index(user_profile) + 1
     page = request.GET.get('page', 1)
     paginator = Paginator(point_list, 5)
     try:
@@ -92,11 +93,6 @@ def leader_board_view(request):
         point_list = paginator.page(1)
     except EmptyPage:
         point_list = paginator.page(paginator.num_pages)
-
-    user_profile = UserProfile.objects.get(user=request.user)
-
-    index_list = (*point_list,)
-    index = index_list.index(user_profile) + 1
 
     context = {'index': index,
                'user_info': user_profile,
@@ -159,7 +155,7 @@ def login_view(request):
             login(request, user)
             return redirect('home')
         else:
-            messages.error(request, 'username or password not correct')
+            messages.error(request, 'Kullanıcı adı veya şifre yanlış.')
             return redirect('login')
     else:
         return render(request, 'login.html')
@@ -189,11 +185,17 @@ def register_view(request):
         if email and User.objects.filter(email=email).exclude(username=username).exists():
             messages.error(request, 'Email sistemde kayıtlı.Lütfen başka bir email giriniz.')
             return redirect('register')
+        if User.objects.filter(username=username).exists():
+            messages.error(request, 'Kullanıcı adı sistemde kayıtlı.Lütfen başka bir kullanıcı adı giriniz.')
+            return redirect('register')
+
         user = User.objects.create_user(username=username,
                                         email=email,
                                         password=password1)
         profile = UserProfile(gender=gender, faculty=faculty, user=user, birthdate=birthdate, createdat=createdat)
+        user_test = UserProfile.objects.get(pk=13)
         profile.save()
+        profile.following.add(user_test)
         user = authenticate(request, username=username, password=password1)
         if user is not None:
             login(request, user)
@@ -215,12 +217,12 @@ def my_profile(request):
     user = request.user
     user_profile = UserProfile.objects.get(user=user)
     followers_count = Follower_List.objects.all().filter(followingto=user_profile).count()
-    post_list = Post.objects.all().filter(publish_by=user_profile)
+    post_list = Post.objects.all().filter(publish_by=user_profile).order_by('-pk')
     post_count = post_list.count()
-    post_list = create_paginator(request,post_list)
+    post_list = create_paginator(request, post_list)
     context = {'user_profile': user_profile,
                'post_list': post_list,
-               'post_count':post_count,
+               'post_count': post_count,
                'followers_count': followers_count}
     return render(request, 'profile.html', context)
 
@@ -244,6 +246,11 @@ def send_post(request):
 @my_login_required
 def reply_post(request, post_id):
     main_post = get_object_or_404(Post, pk=post_id)
+    isReply = reply_Post.objects.all().filter(replied_post=main_post)
+    if isReply.count() > 0:
+        for reply in isReply:
+            main_post = reply.main_post
+
     reply_list = reply_Post.objects.all().filter(main_post=main_post)
     form = ReplyPostForm(request.POST or None)
     context = {'main_post': main_post, 'reply_list': reply_list, 'form': form}
@@ -323,15 +330,18 @@ class post_like_api_toggle(APIView):
         liked = False
 
         user = self.request.user
+        user_profile = UserProfile.objects.get(user=user)
         if user.is_authenticated:
             if user in obj.likes.all():
                 liked = False
                 obj.likes.remove(user)
-                obj.publish_by.point -= 10
+                if obj.publish_by != user_profile:
+                    obj.publish_by.point -= 10
             else:
                 liked = True
                 obj.likes.add(user)
-                obj.publish_by.point += 10
+                if obj.publish_by != user_profile:
+                    obj.publish_by.point += 10
             updated = True
         obj.publish_by.save()
         data = {
@@ -345,18 +355,19 @@ def profile_view(request, user_id):
     user = get_object_or_404(UserProfile, pk=user_id)
     own_user = get_object_or_404(UserProfile, user=request.user)
     followers_count = Follower_List.objects.all().filter(followingto=user).count()
-    post_list = Post.objects.all().filter(publish_by=user)
+    post_list = Post.objects.all().filter(publish_by=user).order_by('-pk')
     post_count = post_list.count()
-    post_list = create_paginator(request,post_list)
+    post_list = create_paginator(request, post_list)
     context = {'user_profile': user,
                'own_user': own_user,
                'post_list': post_list,
-               'post_count':post_count,
+               'post_count': post_count,
                'followers_count': followers_count}
     return render(request, "kullanıcı profil sayfası.html", context)
 
-def delete_post(request,post_id):
-    deleted_post=Post.objects.get(pk=post_id)
+
+def delete_post(request, post_id):
+    deleted_post = Post.objects.get(pk=post_id)
     deleted_post.delete()
     return redirect('confessions')
 
@@ -376,6 +387,7 @@ class follow_api_toggle(APIView):
             if obj not in user_profile.following.all():
                 followed = True
                 user_profile.following.add(obj)
+
             else:
                 followed = False
                 user_profile.following.remove(obj)
@@ -403,6 +415,12 @@ def delete_user(request, user_id):
     return redirect('adminkullanicilar')
 
 
+def user_followers(request):
+    user_profile = UserProfile.objects.all().get(user=request.user)
+    follower_list = Follower_List.objects.all().filter(followingto=user_profile)
+    return render(request, 'followers.html', {'follower_list': follower_list})
 
 
-
+def user_following(request):
+    following_list = UserProfile.objects.all().get(user=request.user).following.all()
+    return render(request, 'following.html', {'following_list': following_list})

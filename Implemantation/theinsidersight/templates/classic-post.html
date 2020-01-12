@@ -10,7 +10,9 @@
           {% endifequal %}</div>
                         <div class="user-info">
                             <a href="{{ post.publish_by.get_profile_url }}"><div class="user-name">{{ post.publish_by.user.username }}</div></a>
-                            <span class="post-date">{{post.publish_date}}</span>
+                             <span class="post-date">{{post.publish_date}}</span><br>
+                            <span class="post-date"> {{ post.publish_time }}</span>
+
                         </div>
                         <div class="actions">
                           {% if request.user.is_superuser %}

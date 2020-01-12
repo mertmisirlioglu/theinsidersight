@@ -17,20 +17,11 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="{% static 'js/respond.js' %}"></script>
     <script src="{% static 'js/html5shiv.js' %}"></script>
-    <script src="{% static 'js/infinite.min.js' %}"></script>
-   <script src="{% static 'js/jquery.waypoints.min.js' %}"></script>
+
 </head>
 
 <body>
-    <script>
-        function goto() {
-            alert("bildirimler");
-        }
 
-        function goo() {
-            window.open("user cevap verme.html");
-        }
-    </script>
     <div class="container-fluid container-background ">
 
         <div class="row row-wider ">
@@ -130,9 +121,9 @@
                     <nav>
 
                         <a href="{%  url 'my_profile' %}"><i class="far fa-user"></i> </a>
-                        <a href="#" onclick="goto();"><i class="far fa-bell"></i></a>
                         <a href="{%  url 'logout' %}"><i class="fas fa-eye-slash"></i> </a>
                     </nav>
+
                 </div>
 
             <!-- this format is not compulsory, you can have HTML that suits your project -->
