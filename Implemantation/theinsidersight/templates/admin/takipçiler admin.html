@@ -2,7 +2,7 @@
 {% block head %}
 <title>Anasayfa - The Insider Sight</title>
     {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+
 {% endblock %}
 {% block content %}
 <div id="main-window">
@@ -16,10 +16,10 @@
               <img src="{% static 'media/kadın.jpg' %}" alt="profil resmi">
           {% endifequal %}</div>
                         <div class="user-info">
-                            <div class="user-name">{{ user.user.username }} </div>
+                            <div class="user-name" style="color: black">{{ user.user.username }} </div>
                             <div class="user-menu">
-                           <a href="{{ user.get_profile_url }}"><i>Görüntüle</i></a>
-                           <a href="{{user.get_delete_user_url}}" ><i>Sil</i></a>
+                           <a href="{{ user.get_profile_url }}" style="color: black"><i>Görüntüle</i></a>
+                           <a href="{{user.get_delete_user_url}}" style="color: black" ><i>Sil</i></a>
 
                            </div> 
                         </div>
