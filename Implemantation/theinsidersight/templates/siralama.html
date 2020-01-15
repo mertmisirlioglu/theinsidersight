@@ -3,43 +3,54 @@
     <title>Sıralama - The Insider Sight</title>
     {% load static %}
     <script src="{% static 'js/sıralama.js' %}"></script>
+    <script>
+    function increment(count) {
+        count++;
+        return count;
+    }
+    </script>
     <link rel="stylesheet" type="text/css" href="{% static 'css/sıralama.css' %}">
 
 
 {% endblock %}
 {% block content %}
 
-        <div class="table">
-            <div class="table-cell">
-                <ul class="leader">
+     <div id="table">
 
+                <ul class="leader">
+                 <p class="tex">Genel Sıralama</p>
+        {% for user in point_list  %}
                     <li>
-                        <span class="list_num">1</span>
-                        <img src="https://lh6.googleusercontent.com/-566ZpvrYxRo/AAAAAAAAAAI/AAAAAAAAAAA/kZk-O1q__A0/s128-c-k/photo.jpg"/>
-                        <h2>Drew Vosburg<span class="number">9,735</span></h2>
+                        <span class="list_num">{{ forloop.counter}}</span>
+                        {% ifequal user.gender "E"  %}
+              <img src="{% static 'media/erkek.png' %}" alt="profil resmi">
+          {% endifequal %}
+      {% ifequal user.gender  "K" %}
+              <img src="{% static 'media/kadın.jpg' %}" alt="profil resmi">
+          {% endifequal %}
+                      <a style="color:lightslategrey" href="{{ user.get_profile_url }}">  <h2>{{user.user.username}}<span class="number">{{ user.point }}</span></h2>
+                          </a>
                     </li>
-                    <li>
-                        <span class="list_num">2</span>
-                        <img src="https://lh6.googleusercontent.com/-566ZpvrYxRo/AAAAAAAAAAI/AAAAAAAAAAA/kZk-O1q__A0/s128-c-k/photo.jpg"/>
-                        <h2>Jesse Nelson<span class="number">8,364</span></h2>
+                {% endfor %}
+                <div class="your_index">
+                    <p class="tex">Senin Sıralaman</p>
+                 <li>
+                        <span class="list_num">{{ index}}</span>
+                         {% ifequal user_info.gender "E"  %}
+              <img src="{% static 'media/erkek.png' %}" alt="profil resmi">
+          {% endifequal %}
+      {% ifequal user_info.gender  "K" %}
+              <img src="{% static 'media/kadın.jpg' %}" alt="profil resmi">
+          {% endifequal %}
+                      <a style="color:lightslategrey" href="{{ user_info.get_profile_url }}">   <h2>{{user_info.user.username}}<span class="number">{{ user_info.point }}</span></h2>
+                         </a>
                     </li>
-                    <li>
-                        <span class="list_num">3</span>
-                        <img src="https://s3.amazonaws.com/uifaces/faces/twitter/jsa/128.jpg"/>
-                        <h2>Joel Bullis<span class="number">7,621</span></h2>
-                    </li>
-                    <li>
-                        <span class="list_num">4</span>
-                        <img src="https://s3.amazonaws.com/uifaces/faces/twitter/uxceo/128.jpg"/>
-                        <h2>Carmen SanDiego<span class="number">4,582</span></h2>
-                    </li>
-                    <li>
-                        <span class="list_num">5</span>
-                        <img src="https://lh6.googleusercontent.com/-566ZpvrYxRo/AAAAAAAAAAI/AAAAAAAAAAA/kZk-O1q__A0/s128-c-k/photo.jpg"/>
-                        <h2>Charles Barkley<span class="number">2,651</span></h2>
-                    </li>
+                </div>
+
+
                 </ul>
-            </div>
-        </div>
+
+</div>
+
 
 {% endblock %}

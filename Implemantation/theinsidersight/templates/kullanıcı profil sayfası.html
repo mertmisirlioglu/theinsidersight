@@ -2,46 +2,69 @@
 {% block head %}
     <title>Profil - The Insider Sight</title>
     {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/profile2.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/profile3.css' %}">
 
 
 {% endblock %}
 {% block content %}
+<div id="profile">
+       <table class="profile-container">
+  <tbody>
+    <tr>
+      <td class="user">
+          {% ifequal user_profile.gender 'E' %}
+              <img src="{% static 'media/erkek.png' %}" alt="profil resmi">
+          {% endifequal %}
+      {% ifequal user_profile.gender 'K' %}
+              <img src="{% static 'media/kadın.jpg' %}" alt="profil resmi">
+          {% endifequal %}
+       <td colspan="4" class="user"><div>@{{ user_profile.user.username }}<br/>{{user_profile.faculty}}</div></td>
 
-           <div class="içindekiler">
-            <div class="pbar">
-                <img src="https://us.123rf.com/450wm/2nix/2nix1408/2nix140800099/30818272-anoniem-avatar-profiel-icoon-vector-.jpg?ver=6" alt="Profil Fotoğrafı" id="fotoğraf" >
-                
-               <div  class="bilgiler" >
-            <p>{{user_profile.user.username}} <br> {{ user_profile.faculty }}</p>
-            </div>
-            <div class="thebar">
-             <a style="color: white;" href="takip.html"><i style="color: white;">Takip Ettikleri: {{ user_profile.following.count }}</i></a>
-             <br>
-             <br>
-             <a style="color: white;"href="takip.html"><i style="color: white;">Takipçileri:{{followers_count}}</i></a>
-			{% if user_profile in own_user.following.all %}
+{% ifequal user_profile own_user %}
+      {% else %}
+<td class="msg">
+
+        <div class="msgArea">
+          {% if user_profile in own_user.following.all %}
                     <a  id="follow-btn" data-href="{{ user_profile.get_follow_api_url }}"  data-likes={{ user_profile.followers.count }}><button type="button" class="btn btn-info" >Takibi Bırak</button></a>
 
                     {% else %}
                    <a id="follow-btn" data-href="{{ user_profile.get_follow_api_url }}"  data-likes={{ user_profile.followers.count }}><button type="button" class="btn btn-info" >Takip Et</button></a>
                 {% endif %}
+        </div>
+      </td>
+      {% endifequal %}
+      </td>
 
-            </div>
-            </div>
+    </tr>
+
+    <tr>
+      <td colspan="2" class="social"><b>{{ post_count}}</b><br/>Posts</td>
+      <td colspan="2"  class="social"><b>{{user_profile.following.count}}</b><br/>FOLLOWING</td>
+      <td colspan="2"  class="social"><b>{{ followers_count }}</b>
+             <br/>FOLLOWERS</td>
+    </tr>
 
 
 
-                </div>
+
+  </tbody>
+</table>
+ </div>
+
+
 <div id="post-content">
-        {% for post in post_list reversed %}
+        {% for post in post_list  %}
 
-
-    {% if post.post_type == 'Post' %}
         {% include "classic-post.html" with post=post%}
-    {% endif %}
+
            {% endfor %}
     </div>
+
+ {% if post_list.has_next %}
+               <div id="more-div">
+   <button id="more-button" class="btn btn-warning"><a class="infinite-more-link " href="?page={{ post_list.next_page_number }}" style="color: #660000">Daha fazla..</a></button> </div>
+  {% endif %}
 {% endblock %}
 
 
@@ -61,7 +84,7 @@
             success: function(data) {
                 console.log(data)
                 if(data.followed){
-                this_.find('button').text("takibi bırak")
+                    this_.find('button').text("takibi bırak")
                 }else{
                      this_.find('button').text("takip et")
                 }
@@ -73,5 +96,39 @@
         })
     })
 
+        function updateText(btn,newCount){
+                btn.text(newCount)
+              }
+    $(".like_button").click(function (e) {
+       e.preventDefault()
+        var this_ = $(this)
+        var likeUrl = this_.attr("data-href")
+        var likeCount = parseInt(this_.attr("data-likes"))
+        var addLike = likeCount + 1
+        var dislike = addLike - 1
+        $.ajax({
+            url: likeUrl,
+            method: "GET",
+            data:{},
+            success: function(data) {
+                console.log(data)
+                if(data.liked){
+                this_.find('span').removeClass("no-like")
+                    this_.find('span').addClass("like-red")
+                    updateText(this_.find('.like-count'),addLike)
+                }else{
+                    this_.find('span').addClass("no-like")
+                    this_.find('span').removeClass("like-red")
+                    updateText(this_.find('.like-count'),dislike)
+                }
+
+            },error: function(error) {
+                console.log(error)
+                console.log("error")
+            }
+        })
+    })
+
 {% endblock %}
 </script>
+

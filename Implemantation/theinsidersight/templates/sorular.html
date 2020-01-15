@@ -19,11 +19,15 @@
 {% endblock %}
 {% block content %}
             <div id="main-window">
-                {% for post in post_list reversed %}
+                {% for post in post_list  %}
                 {% include "classic-post.html" with post=post%}
 
 
                 {% endfor %}
+                {% if answer_list.has_next %}
+               <div id="more-div">
+   <button id="more-button" class="btn btn-warning"><a class="infinite-more-link " href="?page={{ answer_list.next_page_number }}" style="color: #660000">Daha fazla..</a></button></div>
+  {% endif %}
         </div>
 
 {% endblock %}

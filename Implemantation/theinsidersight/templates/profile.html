@@ -2,39 +2,125 @@
 {% block head %}
 <title>Profilim - The Insider Sight</title>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
-
+    <link rel="stylesheet" type="text/css" href="{% static 'css/profile3.css' %}">
 {% endblock %}
 {% block content %}
 
 
-        <div class="content-side">
-          <div class="categories">
-            <ul>
-                <li><a href="#about">Postlarım</a></li>
-            <li><a class="active" href="#home">Takip Ettiklerim</a></li>
-            <li><a href="#news">Takipçiler</a></li>
-            <li><a href="#about">Bilgilerim</a></li>
+            <div id="profile">
+       <table class="profile-container">
+  <tbody>
+    <tr>
+      <td class="user">
+          {% ifequal user_profile.gender 'E' %}
+              <img src="{% static 'media/erkek.png' %}" alt="profil resmi">
+          {% endifequal %}
+      {% ifequal user_profile.gender 'K' %}
+              <img src="{% static 'media/kadın.jpg' %}" alt="profil resmi">
+          {% endifequal %}
 
-            </ul>
+      </td>
+      <td colspan="4" class="user"><div>@{{ user_profile.user.username }}<br/>{{user_profile.faculty}}</div></td>
 
-          </div>
-           <div class="içindekiler">
-            
-                <img src="https://us.123rf.com/450wm/2nix/2nix1408/2nix140800099/30818272-anoniem-avatar-profiel-icoon-vector-.jpg?ver=6" alt="Profil Fotoğrafı" id="fotoğraf" >
-                
-               <div class="bilgiler">
-            <p>Kullanıcı Adı: {{ user.username }}</p>
-            <hr>
-      <p>Email:{{ user.email }}</p>
-      <hr>
-      <p>Yaş:{{ age }}</p>
-      <hr>
 
-        <p>Bölüm: {{ profile.faculty }}</p>
 
-</div>
+    </tr>
 
-        </div>
+
+    <tr>
+      <td colspan="2" class="social"><b>{{ post_count}}</b><br/>Posts</td>
+      <td colspan="2"  class="social"><a href="{% url 'user_following' %}"><b>{{user_profile.following.count}}</b></a><br/>FOLLOWING</td>
+      <td colspan="2"  class="social"><a href="{% url 'user_followers' %}"><b>{{ followers_count }}</b>
+             </a><br/>FOLLOWERS</td>
+    </tr>
+
+
+
+
+
+  </tbody>
+</table>
+ </div>
+
+
+<div id="post-content">
+        {% for post in post_list  %}
+
+
+
+        {% include "classic-post.html" with post=post%}
+
+           {% endfor %}
     </div>
+{% if post_list.has_next %}
+               <div id="more-div">
+   <button id="more-button" class="btn btn-warning"><a class="infinite-more-link " href="?page={{ post_list.next_page_number }}" style="color: #660000">Daha fazla..</a></button> </div>
+  {% endif %}
+
+
 {% endblock %}
+
+<script>
+{% block jquery %}
+
+    $("#follow-btn").click(function (e) {
+       e.preventDefault()
+        var this_ = $(this)
+        var likeUrl = this_.attr("data-href")
+
+
+        $.ajax({
+            url: likeUrl,
+            method: "GET",
+            data:{},
+            success: function(data) {
+                console.log(data)
+                if(data.followed){
+                    this_.find('button').text("takibi bırak")
+                }else{
+                     this_.find('button').text("takip et")
+                }
+
+            },error: function(error) {
+                console.log(error)
+                console.log("error")
+            }
+        })
+    })
+
+
+        function updateText(btn,newCount){
+                btn.text(newCount)
+              }
+    $(".like_button").click(function (e) {
+       e.preventDefault()
+        var this_ = $(this)
+        var likeUrl = this_.attr("data-href")
+        var likeCount = parseInt(this_.attr("data-likes"))
+        var addLike = likeCount + 1
+        var dislike = addLike - 1
+        $.ajax({
+            url: likeUrl,
+            method: "GET",
+            data:{},
+            success: function(data) {
+                console.log(data)
+                if(data.liked){
+                this_.find('span').removeClass("no-like")
+                    this_.find('span').addClass("like-red")
+                    updateText(this_.find('.like-count'),addLike)
+                }else{
+                    this_.find('span').addClass("no-like")
+                    this_.find('span').removeClass("like-red")
+                    updateText(this_.find('.like-count'),dislike)
+                }
+
+            },error: function(error) {
+                console.log(error)
+                console.log("error")
+            }
+        })
+    })
+{% endblock %}
+</script>
+

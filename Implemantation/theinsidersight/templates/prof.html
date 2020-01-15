@@ -6,7 +6,7 @@
 
             <div id="content-side">
             <div class="categories">
-            <ul>
+                    <ul>
             <li><a class="active" href="{% url 'ask_itiraf' %}">Aşk</a></li>
             <li><a href="{% url 'dost_itiraf' %}">Dost Kazığı</a></li>
             <li><a href="{% url 'avci_itiraf' %}">Avcılar</a></li>
@@ -16,7 +16,7 @@
             </ul>
           </div>
 
-                {% for confession in confession_list %}
+                {% for confession in confession_list reversed %}
                {% include "classic-post.html" with post=confession%}
 
 

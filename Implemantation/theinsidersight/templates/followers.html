@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block head %}
+<title>Takipçilerin - The Insider Sight</title>
+    {% load static %}
+
+{% endblock %}
+{% block content %}
+<div id="main-window">
+        {% for user in follower_list %}
+                <div class="post">
+                    <div class="user">
+                        <div class="user-img">{% ifequal user.followedby.gender 'E' %}
+              <img src="{% static 'media/erkek.png' %}" alt="profil resmi">
+          {% endifequal %}
+      {% ifequal user.followedby.gender 'K' %}
+              <img src="{% static 'media/kadın.jpg' %}" alt="profil resmi">
+          {% endifequal %}</div>
+                        <div class="user-info">
+                            <div class="user-name" style="color: black">{{ user.followedby.user.username }} </div>
+                            <div class="user-menu">
+                                <div class="buttons">
+                                    <i class="far fa-user" style="color: black">  <a href="{{ user.followedby.get_profile_url }}"> <i style="color: black">Görüntüle</i></a></i>
+
+
+                             </div>
+                           </div> 
+                        </div>
+                       
+                    </div>
+
+        </div>
+      {% endfor %}
+
+    </div>
+{% endblock %}

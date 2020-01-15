@@ -21,9 +21,15 @@
 
     <div id="main-window">
 
-    {% for answer in answer_list reversed %}
+    {% for answer in answer_list %}
  {% include "classic-question.html" with answer=answer%}
     {% endfor %}
+
+        {% if answer_list.has_next %}
+               <div id="more-div">
+   <button id="more-button" class="btn btn-warning"><a class="infinite-more-link " href="?page={{ answer_list.next_page_number }}" style="color: #660000">Daha fazla..</a></button></div>
+  {% endif %}
+
 </div>
 
 {% endblock %}

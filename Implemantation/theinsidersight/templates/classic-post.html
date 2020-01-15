@@ -1,17 +1,32 @@
+{% load static %}
  <div class="post">
                     <div class="user">
-                        <div class="user-img"></div>
+
+                        <div class="user-img"> {% ifequal post.publish_by.gender 'E' %}
+              <img src="{% static 'media/erkek.png' %}" alt="profil resmi">
+          {% endifequal %}
+      {% ifequal post.publish_by.gender 'K' %}
+              <img src="{% static 'media/kadın.jpg' %}" alt="profil resmi">
+          {% endifequal %}</div>
                         <div class="user-info">
                             <a href="{{ post.publish_by.get_profile_url }}"><div class="user-name">{{ post.publish_by.user.username }}</div></a>
-                            <span class="post-date">{{post.publish_date}}</span>
+                             <span class="post-date">{{post.publish_date}}</span><br>
+                            <span class="post-date"> {{ post.publish_time }}</span>
+
                         </div>
                         <div class="actions">
-                            {% if request.user in post.likes.all %}
-                                <a  data-href="{{ post.get_like_api_url }}"  data-likes={{ post.likes.count }} class="like_button"><span class="like-red like-ch" ></span> <div id="like-count">{{ post.likes.count }}</div></a>
-                            {% else %}
-                                <a  data-href="{{ post.get_like_api_url }}"  data-likes={{ post.likes.count }} class="like_button"><span class="no-like like-ch" id="like"></span><div id="like-count">{{ post.likes.count }}</div></a>
+                          {% if request.user.is_superuser %}
+                                 <div class="actions">
+                                     <a href="{{ post.get_delete_post_url }}"><i class="fas fa-trash-alt fa-lg" style="position: relative; top:15px; left:8px;"></i></a>
+                        </div>
                             {% endif %}
-                            <a href="{{ post.get_reply_url }}"><span class="comment"></span></a>
+
+                            {% if request.user in post.likes.all %}
+                               <span> <a  data-href="{{ post.get_like_api_url }}"  data-likes={{ post.likes.count }} class="like_button">  <span class="like-red like-ch" > <div class="like-count">{{ post.likes.count }}</div></span> </a></span>
+                            {% else %}
+                              <span><a  data-href="{{ post.get_like_api_url }}"  data-likes={{ post.likes.count }} class="like_button"> <span class="no-like like-ch" id="like"><div class="like-count">{{ post.likes.count }}</div></span></a></span>
+                            {% endif %}
+                           <span id="comment-span"> <a href="{{ post.get_reply_url }}"><span class="comment" ><div id="comment-count"> {{ post.replycount }}</div> </span></a></span>
                         </div>
                     </div>
                     <div class="content">

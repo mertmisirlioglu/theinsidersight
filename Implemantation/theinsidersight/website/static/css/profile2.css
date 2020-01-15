@@ -1,28 +1,39 @@
+
+
+
 .bilgiler{
 
-	
-   width:380px;
+	float: left;
+   /*width:380px;*/
    position: relative;
-   right:-200px;
-   top: 30px;
+   /*right:-200px;*/
+   /*top: 30px;*/
 
-   left: -10px;
+   padding-left: 50px;
    font-size:18px;
    color: white;
    padding:3px;
    padding-left:9px;
    margin:0;
+    height: 250px;
 
 }
+
+.clear {
+  clear: left;
+}
 .thebar{
+
   position:relative;
 font-weight: bold;
 
-bottom:160px;
+float: right;
+
+/*bottom:160px;*/
 font-size:23px;
-left: 220px;
-padding-right:20px;
-width:400px;
+/*padding-left: 520px;*/
+padding-right:100px;
+/*width:400px;*/
 }
 .post{
   top: 100px;
@@ -34,17 +45,28 @@ width:25%;
   position:relative;
  top:25px;
   border-radius: 70px;
+    float: left;
   
 
 }
 #logo{
 
-	margin-top:-25px;
+	margin-top:-15px;
+}
+.follow-btn{
+    position: relative;
+    padding-left: 70px;
 }
 .pbar{
+    padding-top: 35px;
   padding-left:10px;
   position: relative;
   top:70px;
   border:solid 2px white;
   padding-bottom:0px;
+}
+
+.post-content{
+    position: relative;
+    padding-top: 200px;
 }

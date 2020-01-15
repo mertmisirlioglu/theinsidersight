@@ -1,5 +1,5 @@
-from django.db import models
 from django.contrib.auth.models import User
+from django.db import models
 
 
 # Create your models here.
@@ -34,6 +34,10 @@ class UserProfile(models.Model):
     def __str__(self):
         return self.user.username
 
+    def get_delete_user_url(self):
+        return f"/sil/{self.pk}/"
+
+
 class Post(models.Model):
     Post_Type = (
         ('Post', 'Post'),
@@ -53,6 +57,7 @@ class Post(models.Model):
     post_type = models.CharField(max_length=20, choices=Post_Type)
     category = models.CharField(max_length=50, choices=Category)
     publish_date = models.DateField()
+    publish_time = models.TimeField(auto_now_add=True)
     content = models.TextField(max_length=2000)
     likes = models.ManyToManyField(User, blank=True, related_name='post_likes')
     replycount = models.IntegerField(default=0)
@@ -62,6 +67,9 @@ class Post(models.Model):
 
     def get_like_api_url(self):
         return f"/begen/api/{self.pk}/"
+
+    def get_delete_post_url(self):
+        return f"/post/sil/{self.pk}/"
 
 
 class reply_Post(models.Model):

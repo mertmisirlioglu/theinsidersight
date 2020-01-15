@@ -19,7 +19,13 @@
 
      <form method="POST" class="form">
 {% csrf_token %}
-
+{% if messages %}
+                            <ul class="messages">
+                                {% for message in messages %}
+                                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
         <div class="formgroup">
             <input type="text" placeholder="Kullanıcı Adı" class="form__input" name="username"/>
         </div>

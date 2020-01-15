@@ -17,20 +17,11 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="{% static 'js/respond.js' %}"></script>
     <script src="{% static 'js/html5shiv.js' %}"></script>
-    <script src="{% static 'js/infinite.min.js' %}"></script>
-   <script src="{% static 'js/jquery.waypoints.min.js' %}"></script>
+
 </head>
 
 <body>
-    <script>
-        function goto() {
-            alert("bildirimler");
-        }
 
-        function goo() {
-            window.open("user cevap verme.html");
-        }
-    </script>
     <div class="container-fluid container-background ">
 
         <div class="row row-wider ">
@@ -97,12 +88,23 @@
                                     <span>Keşfet</span>
                                 </a>
                             </li>
+
+                         {% if request.user.is_superuser %}
+                                <li>
+                                 <a href="{%  url 'adminkullanicilar' %}"  id="admin-kullanicilar">
+                                    <i class="fas fa-users"></i>
+                                    <span>Kullanıcılar</span>
+                                </a>
+                            </li>
+                            {% endif %}
                              <li>
                                  <a href="{%  url 'make_confession' %}"  id="make-confession">
                                     <i class="fab fa-angellist"></i>
                                     <span>İtiraf Et</span>
                                 </a>
                             </li>
+
+
 
                             {% block question %}
                             {% endblock %}
@@ -119,10 +121,13 @@
                     <nav>
 
                         <a href="{%  url 'my_profile' %}"><i class="far fa-user"></i> </a>
-                        <a href="#" onclick="goto();"><i class="far fa-bell"></i></a>
                         <a href="{%  url 'logout' %}"><i class="fas fa-eye-slash"></i> </a>
                     </nav>
+
                 </div>
+
+            <!-- this format is not compulsory, you can have HTML that suits your project -->
+
                 {% block admin %}
                 {% endblock %}
             </div>
@@ -153,11 +158,11 @@
                 if(data.liked){
                 this_.find('span').removeClass("no-like")
                     this_.find('span').addClass("like-red")
-                    updateText(this_.find('div'),addLike)
+                    updateText(this_.find('.like-count'),addLike)
                 }else{
                     this_.find('span').addClass("no-like")
                     this_.find('span').removeClass("like-red")
-                    updateText(this_.find('div'),dislike)
+                    updateText(this_.find('.like-count'),dislike)
                 }
 
             },error: function(error) {

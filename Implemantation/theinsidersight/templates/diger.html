@@ -6,7 +6,7 @@
 
             <div id="content-side">
             <div class="categories">
-            <ul>
+                   <ul>
             <li><a class="active" href="{% url 'ask_itiraf' %}">Aşk</a></li>
             <li><a href="{% url 'dost_itiraf' %}">Dost Kazığı</a></li>
             <li><a href="{% url 'avci_itiraf' %}">Avcılar</a></li>
@@ -22,11 +22,11 @@
 
                 {% endfor %}
 
-           {% if confession_list.has_next %}
+             {% if confession_list.has_next %}
                <div id="more-div">
-   <button id="more-button" class="btn btn-warning"><a class="infinite-more-link " href="?page={{ confession_list.next_page_number }}" style="color: #660000">Daha fazla..</a></button> </div>
+   <button id="more-button" class="btn btn-warning"><a class="infinite-more-link " href="?page={{ post_list.next_page_number }}" style="color: #660000">Daha fazla..</a></button>
   {% endif %}
-
+        </div>
         </div>
 
 {% endblock %}

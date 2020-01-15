@@ -1,7 +1,8 @@
 from django import forms
-from .models import UserProfile, Post, reply_Post
-from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+
+from .models import UserProfile, Post
 
 
 class ExtendedUserCreationForm(UserCreationForm):
@@ -47,7 +48,7 @@ class ProfileForm(forms.ModelForm):
             'gender',
             'faculty',
             'birthdate',
-
+            'user'
         )
 
 
@@ -66,4 +67,3 @@ class ReplyPostForm(forms.ModelForm):
         fields = {
             'content',
         }
-

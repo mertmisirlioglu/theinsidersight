@@ -1,0 +1,77 @@
+#profile{
+    padding-top: 40px;
+}
+.profile-container
+{
+width: 100%;
+  height:180px;
+  background-color:#fff;
+  /*margin:40px auto;*/
+  color:#fff;
+  -moz-box-shadow: 5px 5px 5px rgba(218,224,228,0.8);
+-webkit-box-shadow: 5px 5px 5px rgba(218,224,228,0.8);
+box-shadow: 5px 5px 5px rgba(218,224,228,0.8);
+}
+.profile-container td
+{
+  height:75px;
+  padding:5px;
+}
+.profile-container .user
+{
+  background-color:#4CB9E0;
+}
+.profile-container .user div
+{
+    font-size:14px;
+  line-height:20px;
+  padding:5px;
+}
+.profile-container .user img
+{
+  width:60px;
+  height:60px;
+  border-radius:50%;
+  margin-left:10px;
+}
+.profile-container .msg
+{
+  background-color:#5E7275;
+  text-align:center;
+    width: 170px;
+}
+
+.profile-container .msg:hover
+{
+  background-color:rgba(76, 185, 224, 0.4);
+     -webkit-transition: all 2s;
+    -moz-transition: all 2s;
+    transition: all 2s;
+  cursor:pointer;
+}
+.profile-container .social
+{
+  color:#556B6E;
+  text-align:center;
+  line-height:30px;
+  font-size:14px;
+  border:1px solid #E3E9EA;
+}
+.profile-container .social b
+{
+  font-size:18px;
+}
+
+
+.profile-container .show
+{
+       -webkit-transition: all 1.5s;
+    -moz-transition: all 1.5s;
+    transition: all 1.5s;
+}
+
+
+
+#follow-div{
+    padding-top: 50px;
+}
