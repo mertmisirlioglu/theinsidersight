@@ -268,7 +268,8 @@
     /*position: fixed;*/
     top: 40px;
     display: inline-block;
-    border: 2px solid red;
+    border: 2px solid coral;
+    border-radius: 25px;
     padding: 1vh;
     z-index: 1
 }
@@ -311,6 +312,7 @@
 .categories li a:hover {
     background-color: #111;
 }
+
 
 #top-navbar i {
     color: chocolate;

@@ -1,0 +1,24 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/notification.css' %}">
+    <!-- Single button -->
+    <div class="btn-group pull-right top-head-dropdown">
+      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <i class="far fa-bell fa-2x"  style="color: white"></i>
+          <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu dropdown-menu-right">
+
+        {% for notification in notification_list %}
+          <li>
+
+
+          <a href="{{ notification.description }}" class="top-text-block">
+            <div class="top-text-heading">{{ notification }}</div>
+
+          </a>
+        </li>
+{% endfor %}
+
+      </ul>
+    </div>
+

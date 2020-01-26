@@ -13,6 +13,8 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+import notifications
+from django.conf.urls import url
 from django.contrib import admin
 from django.urls import path, include
 from website import views
@@ -26,6 +28,7 @@ urlpatterns = [
     path('sıralama/', views.leader_board_view, name='leader_board'),
     path('kesfet/', views.discover_view, name='discover'),
     path('giris/', views.login_view, name='login'),
+    url('^inbox/notifications/', include('notifications.urls', namespace='notifications')),
     path('cikis/', views.logout_view, name='logout'),
     path('kayit/', views.register_view, name='register'),
     path('profilim/', views.my_profile, name='my_profile'),

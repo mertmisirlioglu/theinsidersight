@@ -6,13 +6,14 @@ from django.contrib.auth.models import User
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import redirect
 from django.shortcuts import render, get_object_or_404
+from notifications.models import Notification
 from rest_framework import authentication, permissions
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from website.forms import PostForm, ReplyPostForm
 from website.models import UserProfile, Post, reply_Post, Follower_List
-
+from notifications.signals import notify
 
 def my_login_required(function):
     def wrapper(request, *args, **kw):
@@ -31,9 +32,24 @@ def home_view(request):
     post_list = Post.objects.none()
     for user in user_profile.following.all():
         post_list = post_list | Post.objects.all().filter(post_type='Post', publish_by=user).all()
+    # print(getNotifications(request))
 
     post_list = create_paginator(request, post_list)
     return render(request, 'anasayfa.html', {'post_list': post_list})
+
+
+def getNotifications(request):
+    if request.user.is_anonymous:
+        return {}
+
+    n = Notification.objects.all().filter(recipient=request.user)
+    for notif in n:
+        print(notif)
+    return {
+        'notification_list': n,
+        'count': n.count(),
+    }
+
 
 
 @my_login_required
@@ -340,6 +356,8 @@ class post_like_api_toggle(APIView):
             else:
                 liked = True
                 obj.likes.add(user)
+                target_url = obj.get_reply_url()
+                notify.send(user,recipient=obj.publish_by.user, verb='postunu beğendi.',description=target_url)
                 if obj.publish_by != user_profile:
                     obj.publish_by.point += 10
             updated = True
@@ -387,6 +405,8 @@ class follow_api_toggle(APIView):
             if obj not in user_profile.following.all():
                 followed = True
                 user_profile.following.add(obj)
+                target_url = user_profile.get_profile_url()
+                notify.send(user, recipient=obj.user, verb='seni takip etti.',description=target_url)
 
             else:
                 followed = False
