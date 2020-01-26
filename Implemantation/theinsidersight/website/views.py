@@ -289,6 +289,8 @@ def reply_post(request, post_id):
         else:
             new_reply.reply_post_type = 'Yorum'
         new_reply.save()
+        target_url = main_post.get_reply_url()
+        notify.send(request.user, recipient=main_post.publish_by.user, verb='postuna yorum yaptı.', description=target_url)
         return redirect('home')
     else:
         return render(request, 'reply_post.html', context)
