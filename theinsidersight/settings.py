@@ -25,7 +25,7 @@ SECRET_KEY = 'pg@g^(kea%kqcem+8j80=52=ny+-big9(-3f^+*t9los_*w53q'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['178.62.71.114']
 
 
 # Application definition
