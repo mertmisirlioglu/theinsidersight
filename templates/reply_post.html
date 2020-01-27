@@ -41,7 +41,13 @@
                     <div class="yorum">
                         <form method="POST" class="form">
                         {% csrf_token %}
-
+{% if messages %}
+                            <ul class="messages">
+                                {% for message in messages %}
+                                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
                           <p>
     <textarea name="post-content" id="post-content2" required rows="4" cols="150"></textarea></p>
 

@@ -10,7 +10,7 @@ from notifications.models import Notification
 from rest_framework import authentication, permissions
 from rest_framework.response import Response
 from rest_framework.views import APIView
-
+from django.contrib.admin.views.decorators import staff_member_required
 from website.forms import PostForm, ReplyPostForm
 from website.models import UserProfile, Post, reply_Post, Follower_List
 from notifications.signals import notify
@@ -44,8 +44,7 @@ def getNotifications(request):
         return {}
 
     n = Notification.objects.all().filter(recipient=request.user)
-    for notif in n:
-        print(notif)
+
     return {
         'notification_list': n,
         'count': n.count(),
@@ -130,7 +129,7 @@ def discover_view(request):
         diger = 0
 
         for post in user_likes:
-            print(post.category)
+
             if post.category == 'Aşk':
                 ask += 1
             elif post.category == 'Dost Kazığı':
@@ -145,10 +144,10 @@ def discover_view(request):
                 diger += 1
         category = {"Aşk": ask, "Dost Kazığı": dost, "Avcılar": avcılar, "Civcivler": civciv,
                     "Profesyonellik içerenler": prof, "Diğer": diger}
-        print(category)
+
         category = sorted(category, key=category.get)
 
-        print(category)
+
         post_list = Post.objects.all().filter(category=category[len(category) - 1]).exclude(
             publish_by=user_profile).order_by('-pk')
         post_list = post_list | Post.objects.all().filter(category=category[len(category) - 2]).exclude(
@@ -161,6 +160,18 @@ def discover_view(request):
     post_list = create_paginator(request, post_list)
     return render(request, 'kesfet.html', {'post_list': post_list})
 
+
+@my_login_required
+def user_search_view(request):
+    if request.method == "POST":
+        search_input = request.POST['search-input']
+        results = UserProfile.objects.filter(user__username__icontains=search_input)
+        empty = False
+        if len(results) == 0:
+            empty = True
+        return render(request,'kullaniciara.html',{'user_list':results,'empty':empty})
+    else:
+        return render(request,'kullaniciara.html')
 
 def login_view(request):
     if request.method == "POST":
@@ -249,6 +260,9 @@ def send_post(request):
     user_profile = UserProfile.objects.get(user=request.user)
     if request.method == "POST":
         post_content = request.POST.get('post-content', 'hey')
+        if (len(post_content) > 255):
+            messages.error(request, 'Post 255 karekteri geçemez.')
+            return render(request, 'post.html', {'user_profile': user_profile})
         post_type = 'Post'
         category = request.POST.get('category')
         publish_date = datetime.datetime.now()
@@ -277,6 +291,9 @@ def reply_post(request, post_id):
     context = {'main_post': main_post, 'reply_list': reply_list, 'form': form, 'user_profile': user_profile}
     if request.method == "POST":
         post_content = request.POST.get('post-content', 'hey')
+        if (len(post_content) > 255):
+            messages.error(request, 'Post 255 karekteri geçemez.')
+            return render(request, 'reply_post.html', context)
         post_type = 'Yorum'
         category = 'Diğer'
         publish_date = datetime.datetime.now()
@@ -342,6 +359,9 @@ def send_question(request):
     user_profile = UserProfile.objects.get(user=request.user)
     if request.method == "POST":
         post_content = request.POST.get('post-content', 'hey')
+        if(len(post_content)>255):
+            messages.error(request, 'Post 255 karekteri geçemez.')
+            return render(request, 'post.html', {'user_profile': user_profile})
         post_type = 'Soru'
         category = request.POST.get('category')
         publish_date = datetime.datetime.now()
@@ -389,6 +409,7 @@ class post_like_api_toggle(APIView):
         return Response(data)
 
 
+@my_login_required
 def profile_view(request, user_id):
     user = get_object_or_404(UserProfile, pk=user_id)
     own_user = get_object_or_404(UserProfile, user=request.user)
@@ -403,7 +424,7 @@ def profile_view(request, user_id):
                'followers_count': followers_count}
     return render(request, "kullanıcı profil sayfası.html", context)
 
-
+@staff_member_required
 def delete_post(request, post_id):
     deleted_post = Post.objects.get(pk=post_id)
     deleted_post.delete()
@@ -440,6 +461,7 @@ class follow_api_toggle(APIView):
         return Response(data)
 
 
+@staff_member_required
 def admin_user(request):
     user_list = UserProfile.objects.all()
     context = {'user_list': user_list
@@ -447,20 +469,20 @@ def admin_user(request):
 
     return render(request, 'admin/takipçiler admin.html', context)
 
-
+@staff_member_required
 def delete_user(request, user_id):
     user = UserProfile.objects.all().get(pk=user_id)
     user.user.delete()
     user.delete()
     return redirect('adminkullanicilar')
 
-
+@my_login_required
 def user_followers(request):
     user_profile = UserProfile.objects.all().get(user=request.user)
     follower_list = Follower_List.objects.all().filter(followingto=user_profile)
     return render(request, 'followers.html', {'follower_list': follower_list})
 
-
+@my_login_required
 def user_following(request):
     following_list = UserProfile.objects.all().get(user=request.user).following.all()
     return render(request, 'following.html', {'following_list': following_list})

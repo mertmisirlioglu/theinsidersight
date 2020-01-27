@@ -51,4 +51,5 @@ urlpatterns = [
     path('user_followers/', views.user_followers, name='user_followers'),
     path('user-following/', views.user_following, name='user_following'),
     path('bildirimler/',views.notifications_mobile_view, name='not_mobile'),
+    path('kullanici-ara',views.user_search_view,name='user_search')
 ]

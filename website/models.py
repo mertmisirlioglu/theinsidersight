@@ -58,7 +58,7 @@ class Post(models.Model):
     category = models.CharField(max_length=50, choices=Category)
     publish_date = models.DateField()
     publish_time = models.TimeField(auto_now_add=True)
-    content = models.TextField(max_length=2000)
+    content = models.TextField(max_length=255)
     likes = models.ManyToManyField(User, blank=True, related_name='post_likes')
     replycount = models.IntegerField(default=0)
 

@@ -110,7 +110,12 @@
                                     <span>Keşfet</span>
                                 </a>
                             </li>
+                        <li>
+                          <a href="{%  url 'user_search' %}">
+                                <i class="fas fa-search "></i><span> Kullanıcı Ara</span>
 
+                            </a>
+                        </li>
                          {% if request.user.is_superuser %}
                                 <li>
                                  <a href="{%  url 'adminkullanicilar' %}"  id="admin-kullanicilar">
@@ -134,9 +139,11 @@
                     </nav>
                 </div>
             </div>
-            <div class="col-lg-6 wider">
+            <div class="col-lg-6 wider mobile-up">
             {% block content %}
+
                {% endblock %}
+             <div class="margin-bottom"></div>
             </div>
             <div class="col-sm hidden">
                 <div class="top-side fixed">

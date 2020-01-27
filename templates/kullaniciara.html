@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block head %}
+    <title>Anasayfa - The Insider Sight</title>
+    {% load static %}
+{% endblock %}
+{% block content %}
+    <div id="main-window">
+        <form method="POST" class="form">
+            {% csrf_token %}
+            <div id="user-search-bar">
+                <div id="search-input-cyan">
+                    <div class="active-cyan-3 active-cyan-4 mb-4">
+                        <input class="form-control" type="text" placeholder="Search" aria-label="Search"
+                               name="search-input" required>
+                    </div>
+                </div>
+                <div id="search-button-cyan">
+                    <button type="submit" class="btn btn-dark">Ara</button>
+                </div>
+            </div>
+        </form>
+
+
+        {% for user in user_list reversed %}
+            <div class="post">
+                <div class="user">
+                    <div class="user-img">{% ifequal user.gender 'E' %}
+                        <img src="{% static 'media/erkek.png' %}" alt="profil resmi">
+                    {% endifequal %}
+                        {% ifequal user.gender 'K' %}
+                            <img src="{% static 'media/kadın.jpg' %}" alt="profil resmi">
+                        {% endifequal %}</div>
+                    <div class="user-info">
+                        <div class="user-name" style="color: black">{{ user.user.username }} </div>
+                        <div class="user-menu">
+                            <a href="{{ user.get_profile_url }}" style="color: black"><i>Görüntüle</i></a>
+
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        {% endfor %}
+        {% if empty %}
+            <div id="search-no-found">
+            Aradığınız kullanıcı bulunmamaktadir.
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
