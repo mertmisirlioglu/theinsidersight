@@ -52,3 +52,24 @@
     transform: rotate(360deg);
   }
 }
+
+.mobil-li{
+  background-color: #cce3ff;
+  border: 1px solid black;
+  display: inline-block;
+  box-shadow: #cce3ff;
+  border-radius: 3px;
+  margin-bottom: 15px;
+  padding: 10px;
+  border-bottom: 1px solid #f4f4f4;
+  /*margin: auto;*/
+  /*margin-bottom: 5px;*/
+}
+
+.mobil-li a{
+  text-decoration: none;
+}
+.mobile-notifications ul{
+  position: relative;
+  margin-left: -40px;
+}

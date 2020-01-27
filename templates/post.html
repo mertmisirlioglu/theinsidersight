@@ -3,14 +3,23 @@
 <title>İtiraf Et - The Insider Sight</title>
 {% endblock %}
 {% block content %}
+     {% load static %}
             <div id="main-window">
-                <div class="post">
-                
+
+
                  <div class="content">
                       
                         <div class="post" >
                     <div class="user" >
-                        <div class="user-img"></div>
+                        <div class="user-img">
+                             {% ifequal user_profile.gender 'E' %}
+              <img src="{% static 'media/erkek.png' %}" alt="profil resmi">
+          {% endifequal %}
+      {% ifequal user_profile.gender 'K' %}
+              <img src="{% static 'media/kadın.jpg' %}" alt="profil resmi">
+          {% endifequal %}
+
+                        </div>
                         <div class="user-info">
                             <div class="user-name">{{ request.user }}</div>
                         
@@ -21,11 +30,23 @@
                     </div>
 
                     <div class="yorum" >
-                          <form method="POST">
-                              {% csrf_token %}
-                            {{ form.as_p }}
+                           <form method="POST" class="form">
+                        {% csrf_token %}
 
-                            <input type="submit" name="submit" value="Paylaş" id="bid">
+                          <p>
+    <textarea name="post-content" id="post-content2" required rows="4" cols="200"></textarea></p>
+<div id="handle-right">
+                            <label id="category-select">
+                                <select required name="category">
+        <option value="Aşk">Aşk</option>
+        <option value="Dost Kazığı">Dost Kazığı</option>
+        <option value="Avcılar">Avcılar</option>
+        <option value="Civcivler">Civcivler</option>
+        <option value="Profesyonellik içerenler">Profesyonellik İçeren</option>
+        <option value="Diğer">Diğer</option>
+      </select>
+                            </label>
+                             <div id="submit-post-button"> <input type="submit" name="submit" value="Paylaş" id="bid"></div></div>
                         </form>
 
                     
@@ -37,5 +58,5 @@
                 </div>
                 
         </div>
-    </div>
+
 {% endblock %}

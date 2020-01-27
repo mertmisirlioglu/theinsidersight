@@ -25,7 +25,7 @@ SECRET_KEY = 'pg@g^(kea%kqcem+8j80=52=ny+-big9(-3f^+*t9los_*w53q'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['178.62.71.114']
+ALLOWED_HOSTS = ['178.62.71.114','127.0.0.1']
 
 
 # Application definition
@@ -82,12 +82,8 @@ WSGI_APPLICATION = 'theinsidersight.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'insider_sight',
-        'USER': 'insider',
-        'PASSWORD':'mert4199',
-        'HOST':'localhost',
-        'PORT':'',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'mydatabase',
     }
 }
 
