@@ -15,6 +15,7 @@ from website.forms import PostForm, ReplyPostForm
 from website.models import UserProfile, Post, reply_Post, Follower_List
 from notifications.signals import notify
 
+
 def my_login_required(function):
     def wrapper(request, *args, **kw):
         user = request.user
@@ -49,7 +50,6 @@ def getNotifications(request):
         'notification_list': n,
         'count': n.count(),
     }
-
 
 
 @my_login_required
@@ -209,9 +209,9 @@ def register_view(request):
                                         email=email,
                                         password=password1)
         profile = UserProfile(gender=gender, faculty=faculty, user=user, birthdate=birthdate, createdat=createdat)
-        user_test = UserProfile.objects.get(pk=13)
+        # user_test = UserProfile.objects.get(pk=13)
         profile.save()
-        profile.following.add(user_test)
+        # profile.following.add(user_test)
         user = authenticate(request, username=username, password=password1)
         if user is not None:
             login(request, user)
@@ -246,38 +246,45 @@ def my_profile(request):
 @my_login_required
 def send_post(request):
     form = PostForm(request.POST or None)
-    if form.is_valid():
-        post = form.save(commit=False)
-        post.post_type = 'Post'
-        post.publish_date = datetime.datetime.now()
-        post.publish_by = UserProfile.objects.get(user=request.user)
-        post.likecount = 0
-        post.replycount = 0
+    user_profile = UserProfile.objects.get(user=request.user)
+    if request.method == "POST":
+        post_content = request.POST.get('post-content', 'hey')
+        post_type = 'Post'
+        category = request.POST.get('category')
+        publish_date = datetime.datetime.now()
+        publish_by = UserProfile.objects.get(user=request.user)
+        likecount = 0
+        replycount = 0
+        post = Post(post_type=post_type, category=category, publish_date=publish_date, publish_by=publish_by,
+                    content=post_content, replycount=replycount)
         post.save()
         return redirect('home')
     else:
-        return render(request, 'post.html', {'form': form})
+        return render(request, 'post.html', {'user_profile': user_profile})
 
 
 @my_login_required
 def reply_post(request, post_id):
     main_post = get_object_or_404(Post, pk=post_id)
     isReply = reply_Post.objects.all().filter(replied_post=main_post)
+    user_profile = UserProfile.objects.get(user=request.user)
     if isReply.count() > 0:
         for reply in isReply:
             main_post = reply.main_post
 
     reply_list = reply_Post.objects.all().filter(main_post=main_post)
     form = ReplyPostForm(request.POST or None)
-    context = {'main_post': main_post, 'reply_list': reply_list, 'form': form}
-    if form.is_valid():
-        post = form.save(commit=False)
-        post.post_type = 'Yorum'
-        post.category = 'Diğer'
-        post.publish_date = datetime.datetime.now()
-        post.publish_by = UserProfile.objects.get(user=request.user)
-        post.likecount = 0
-        post.replycount = 0
+    context = {'main_post': main_post, 'reply_list': reply_list, 'form': form, 'user_profile': user_profile}
+    if request.method == "POST":
+        post_content = request.POST.get('post-content', 'hey')
+        post_type = 'Yorum'
+        category = 'Diğer'
+        publish_date = datetime.datetime.now()
+        publish_by = UserProfile.objects.get(user=request.user)
+        likecount = 0
+        replycount = 0
+        post = Post(post_type=post_type, category=category, publish_date=publish_date, publish_by=publish_by,
+                    content=post_content, replycount=replycount)
         main_post.replycount += 1
         main_post.save()
         post.save()
@@ -290,7 +297,8 @@ def reply_post(request, post_id):
             new_reply.reply_post_type = 'Yorum'
         new_reply.save()
         target_url = main_post.get_reply_url()
-        notify.send(request.user, recipient=main_post.publish_by.user, verb='postuna yorum yaptı.', description=target_url)
+        notify.send(request.user, recipient=main_post.publish_by.user, verb='postuna yorum yaptı.',
+                    description=target_url)
         return redirect('home')
     else:
         return render(request, 'reply_post.html', context)
@@ -323,19 +331,29 @@ def create_paginator(request, list):
 
 
 @my_login_required
+def notifications_mobile_view(request):
+    context = getNotifications(request)
+    context['notification_list'] = create_paginator(request,context['notification_list'])
+    return render(request, 'mobile-notification.html',context)
+
+
+@my_login_required
 def send_question(request):
-    form = PostForm(request.POST or None)
-    if form.is_valid():
-        post = form.save(commit=False)
-        post.post_type = 'Soru'
-        post.publish_date = datetime.datetime.now()
-        post.publish_by = UserProfile.objects.get(user=request.user)
-        post.likecount = 0
-        post.replycount = 0
+    user_profile = UserProfile.objects.get(user=request.user)
+    if request.method == "POST":
+        post_content = request.POST.get('post-content', 'hey')
+        post_type = 'Soru'
+        category = request.POST.get('category')
+        publish_date = datetime.datetime.now()
+        publish_by = UserProfile.objects.get(user=request.user)
+        likecount = 0
+        replycount = 0
+        post = Post(post_type=post_type, category=category, publish_date=publish_date, publish_by=publish_by,
+                    content=post_content, replycount=replycount)
         post.save()
         return redirect('home')
     else:
-        return render(request, 'post-question.html', {'form': form})
+        return render(request, 'post.html', {'user_profile': user_profile})
 
 
 class post_like_api_toggle(APIView):
@@ -359,7 +377,7 @@ class post_like_api_toggle(APIView):
                 liked = True
                 obj.likes.add(user)
                 target_url = obj.get_reply_url()
-                notify.send(user,recipient=obj.publish_by.user, verb='postunu beğendi.',description=target_url)
+                notify.send(user, recipient=obj.publish_by.user, verb='postunu beğendi.', description=target_url)
                 if obj.publish_by != user_profile:
                     obj.publish_by.point += 10
             updated = True
@@ -408,7 +426,7 @@ class follow_api_toggle(APIView):
                 followed = True
                 user_profile.following.add(obj)
                 target_url = user_profile.get_profile_url()
-                notify.send(user, recipient=obj.user, verb='seni takip etti.',description=target_url)
+                notify.send(user, recipient=obj.user, verb='seni takip etti.', description=target_url)
 
             else:
                 followed = False

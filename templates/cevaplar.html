@@ -20,6 +20,8 @@
 {% block content %}
 
     <div id="main-window">
+        <a href="{%  url 'questions' %}">
+<button type="button" class="btn btn-secondary" id="question-button">Sorular</button></a>
 
     {% for answer in answer_list %}
  {% include "classic-question.html" with answer=answer%}

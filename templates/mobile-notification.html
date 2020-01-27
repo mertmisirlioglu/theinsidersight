@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block head %}
+<title>Bildirimler - The Insider Sight</title>
+    {% load static %}
+<link rel="stylesheet" href="{% static 'css/notification.css' %}">
+{% endblock %}
+{% block content %}
+    <div class="mobile-notifications">
+<ul>
+
+        {% for notification in notification_list %}
+          <li class="mobil-li">
+
+
+          <a href="{{ notification.description }}" class="top-text-block">
+            <div class="top-text-heading">{{ notification }}</div>
+
+          </a>
+        </li>
+{% endfor %}
+{% if notification_list.has_next %}
+               <div id="more-div">
+   <button id="more-button" class="btn btn-warning"><a class="infinite-more-link " href="?page={{ notification_list.next_page_number }}" style="color: #660000">Daha fazla..</a></button> </div>
+  {% endif %}
+      </ul>
+</div>
+{% endblock %}

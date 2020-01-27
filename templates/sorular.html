@@ -19,6 +19,9 @@
 {% endblock %}
 {% block content %}
             <div id="main-window">
+
+            <a href="{%  url 'send_question' %}">
+<button type="button" class="btn btn-secondary" id="question-button">Soru Sor</button></a>
                 {% for post in post_list  %}
                 {% include "classic-post.html" with post=post%}
 

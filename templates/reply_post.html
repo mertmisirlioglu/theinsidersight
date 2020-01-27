@@ -4,7 +4,7 @@
 {% endblock %}
 {% block content %}
 
-
+{% load static %}
 
     <div id="main-window">
 
@@ -15,13 +15,20 @@
         {% endfor %}
 
 
-        <div class="post">
 
+        <div id="reply-post-div">
             <div class="content">
 
                 <div class="post">
                     <div class="user">
-                        <div class="user-img"></div>
+                        <div class="user-img">
+                            {% ifequal user_profile.gender 'E' %}
+              <img src="{% static 'media/erkek.png' %}" alt="profil resmi">
+          {% endifequal %}
+      {% ifequal user_profile.gender 'K' %}
+              <img src="{% static 'media/kadın.jpg' %}" alt="profil resmi">
+          {% endifequal %}
+                        </div>
                         <div class="user-info">
                             <div class="user-name">{{ request.user }}</div>
 
@@ -32,11 +39,13 @@
                     </div>
 
                     <div class="yorum">
-                        <form method="POST">
-                            {% csrf_token %}
-                            {{ form.as_p }}
+                        <form method="POST" class="form">
+                        {% csrf_token %}
 
-                            <input type="submit" name="submit" value="Paylaş" id="bid">
+                          <p>
+    <textarea name="post-content" id="post-content2" required rows="4" cols="150"></textarea></p>
+
+                            <div id="submit-post-button2"><input type="submit" name="submit" value="Paylaş" id="bid"></div>
                         </form>
 
 
@@ -45,7 +54,7 @@
 
 
             </div>
-
+</div>
         </div>
-    </div>
+
 {% endblock %}

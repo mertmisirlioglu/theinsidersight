@@ -22,10 +22,14 @@
 
 <body>
 
+
+
+
+
     <div class="container-fluid container-background ">
 
         <div class="row row-wider ">
-            <nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark" id="top-navbar">
+            <nav class="navbar navbar-expand-lg navbar-dark fixed-bottom bg-dark" id="top-navbar">
                 <div class="container">
 
                     <a href="{%  url 'home' %}">
@@ -40,15 +44,33 @@
 
                             </a>
 
+
+                     <a href={%  url 'make_confession' %}>
+                                <i class="fab fa-angellist fa-3x"></i>
+
+                            </a>
+
+                    </a>
                             <a href={%  url 'leader_board' %}>
                                 <i class="fab fa-avianex fa-2x"></i>
 
                             </a>
 
+
+
+
+
                             <a href="{%  url 'discover' %}">
                                 <i class="fas fa-hashtag fa-2x"></i>
 
                             </a>
+
+                    <a href="{%  url 'my_profile' %}">
+                                <i class="far fa-user fa-2x"></i>
+
+                            </a>
+
+
 
                 </div>
             </nav>

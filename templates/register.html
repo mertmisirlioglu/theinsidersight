@@ -4,9 +4,10 @@
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/registercss.css' %}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.0/js/bootstrap.min.js" integrity="sha384-3qaqj0lc6sV/qpzrc1N5DC6i1VRn/HyX4qdPaiEFbn54VjQBEU341pvjz7Dv3n6P" crossorigin="anonymous"></script>
 </head>
 <body>
-
+<div class="container-fluid container-background ">
     <div class="user">
     <header class="user__header">
         <img src="{% static 'media/logo.png' %}" alt="" id="logo"/>
@@ -43,8 +44,7 @@
         </div>
 
 
-         <div class="formgroup">
-
+<div class="formgroup">
               <select required name="Bölüm">
     <option value="Mühendislik">Mühendislik</option>
     <option value="Mimarlık">Mimarlık</option>
@@ -67,6 +67,7 @@
     </form>
 
     <a style="color:black" href="{% url 'login' %}">Zaten kullanıcı mısın?</a>
+</div>
 </div>
 </body>
 
