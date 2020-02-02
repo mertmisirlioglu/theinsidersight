@@ -1,19 +1,26 @@
 import datetime
 
 from django.contrib import messages
+from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
+from django.contrib.sites.shortcuts import get_current_site
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from django.shortcuts import redirect
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import get_object_or_404
+from django.shortcuts import render, redirect
+from django.template.loader import render_to_string
+from django.utils.encoding import force_bytes, force_text
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.views.generic import View
 from notifications.models import Notification
+from notifications.signals import notify
 from rest_framework import authentication, permissions
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from django.contrib.admin.views.decorators import staff_member_required
+
 from website.forms import PostForm, ReplyPostForm
 from website.models import UserProfile, Post, reply_Post, Follower_List
-from notifications.signals import notify
+from website.tokens import account_activation_token
 
 
 def my_login_required(function):
@@ -179,13 +186,20 @@ def login_view(request):
         password = request.POST['password']
         user = authenticate(request, username=username, password=password)
         if user is not None:
-            login(request, user)
-            return redirect('home')
+            user_profile = UserProfile.objects.get(user=user)
+            if user_profile.email_confirmed:
+                login(request, user)
+                return redirect('home')
+            else:
+                messages.error(request, 'Hesabınız onaylanmamış.Lütfen mailinizdeki linke tıklayarak onaylayınız.')
+                return redirect('login')
         else:
             messages.error(request, 'Kullanıcı adı veya şifre yanlış.')
             return redirect('login')
     else:
         return render(request, 'login.html')
+
+
 
 
 def register_view(request):
@@ -200,6 +214,9 @@ def register_view(request):
         faculty = request.POST['Bölüm']
         gender = request.POST['gender']
         converted = datetime.datetime.strptime(birthdate, '%Y-%m-%d')
+        if str(email).split('@')[1] != 'isik.edu.tr':
+            messages.error(request,'Güvenliğiniz için sadece Işık mailiniz ile kayıt olabilirsiniz.')
+            return redirect('register')
         if password1 != password2:
             messages.error(request, 'İki şifre eşleşmiyor.')
             return redirect('register')
@@ -222,17 +239,42 @@ def register_view(request):
         profile = UserProfile(gender=gender, faculty=faculty, user=user, birthdate=birthdate, createdat=createdat)
         # user_test = UserProfile.objects.get(pk=13)
         profile.save()
-        # profile.following.add(user_test)
-        user = authenticate(request, username=username, password=password1)
-        if user is not None:
-            login(request, user)
-            return redirect('home')
-        else:
-            messages.error(request, 'username or password not correct')
-            return redirect('register')
+        subject = 'Aramıza hoşgeldin - The Insider Sight'
+        current_site = get_current_site(request)
+        message = render_to_string('account_activation_email.html', {
+            'user': user,
+            'domain': current_site.domain,
+            'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+            'token': account_activation_token.make_token(user),
+        })
+        user.email_user(subject, message)
+
+        messages.success(request, 'Onay maili belirttiğiniz maile gönderildi.')
+        return redirect('register')
     else:
         return render(request, 'register.html')
 
+
+class ActivateAccount(View):
+
+    def get(self, request, uidb64, token, *args, **kwargs):
+        try:
+            uid = force_text(urlsafe_base64_decode(uidb64))
+            user = User.objects.get(pk=uid)
+        except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+            user = None
+
+        if user is not None and account_activation_token.check_token(user, token):
+            user.is_active = True
+            user_profile = UserProfile.objects.get(user=user)
+            user_profile.email_confirmed = True
+            user_profile.save()
+            user.save()
+            login(request, user)
+            return redirect('home')
+        else:
+            messages.warning(request, ('Onaylama linki yanlış veya kullanılmış.'))
+            return redirect('home')
 
 def logout_view(request):
     logout(request)

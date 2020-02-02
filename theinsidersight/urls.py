@@ -20,9 +20,11 @@ from django.urls import path, include
 from website import views
 
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home_view, name='home'),
+    path('activate/<uidb64>/<token>/', views.ActivateAccount.as_view(), name='activate'),
     path('itiraflar/', views.confessions_view, name='confessions'),
     path('cevaplar/', views.answer_page, name='answers'),
     path('sıralama/', views.leader_board_view, name='leader_board'),

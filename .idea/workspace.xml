@@ -2,18 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1a4c5e3c-1cf3-4481-b234-80ca18c2e8d0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/templates/kullaniciara.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/account_activation_email.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/website/tokens.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mydatabase" beforeDir="false" afterPath="$PROJECT_DIR$/mydatabase" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/classic-post.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/classic-post.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/post.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/post.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/profile.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/reply_post.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/reply_post.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/register.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/theinsidersight/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/theinsidersight/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/theinsidersight/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/theinsidersight/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/website/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/website/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/website/static/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/website/static/css/main.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/website/static/css/sıralama.css" beforeDir="false" afterPath="$PROJECT_DIR$/website/static/css/sıralama.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/website/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/website/views.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -26,6 +23,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="HTML File" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -43,7 +41,12 @@
   <component name="PropertiesComponent">
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../SE301/git/onlineticketsystem/Implemantation/ticketsystem2" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/templates" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/templates" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -96,6 +99,9 @@
       <workItem from="1580069220888" duration="18407000" />
       <workItem from="1580090818883" duration="653000" />
       <workItem from="1580128848033" duration="4389000" />
+      <workItem from="1580363364445" duration="500000" />
+      <workItem from="1580597569232" duration="2814000" />
+      <workItem from="1580653805966" duration="3201000" />
     </task>
     <servers />
   </component>

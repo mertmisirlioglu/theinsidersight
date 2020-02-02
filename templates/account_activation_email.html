@@ -1,0 +1,6 @@
+{% autoescape off %}
+Hoşgeldin {{ user.username }}
+Alttaki linke tıklayarak hesabını aktif hale getirebilirsin.:
+
+http://{{ domain }}{% url 'activate' uidb64=uid token=token %}
+{% endautoescape %}

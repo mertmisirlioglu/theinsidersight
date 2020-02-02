@@ -23,6 +23,7 @@ class UserProfile(models.Model):
     following = models.ManyToManyField('self', symmetrical=False, through='Follower_List')
     postCount = models.IntegerField(blank=True, null=True)
     point = models.IntegerField(default=0)
+    email_confirmed = models.BooleanField(default=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def get_profile_url(self):
