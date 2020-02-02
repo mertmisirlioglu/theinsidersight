@@ -2,16 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1a4c5e3c-1cf3-4481-b234-80ca18c2e8d0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/templates/account_activation_email.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/website/tokens.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mydatabase" beforeDir="false" afterPath="$PROJECT_DIR$/mydatabase" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/register.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/theinsidersight/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/theinsidersight/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/theinsidersight/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/theinsidersight/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/website/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/website/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/website/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/website/views.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -101,7 +92,7 @@
       <workItem from="1580128848033" duration="4389000" />
       <workItem from="1580363364445" duration="500000" />
       <workItem from="1580597569232" duration="2814000" />
-      <workItem from="1580653805966" duration="3201000" />
+      <workItem from="1580653805966" duration="3803000" />
     </task>
     <servers />
   </component>
